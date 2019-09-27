@@ -135,7 +135,50 @@
   <metadata name="Billable.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
+  <metadata name="Hours.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="Start.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="End.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="TaskDetails.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="Billable.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <metadata name="tmrPrompt.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>104, 17</value>
   </metadata>
+  <metadata name="notifyIcon.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>215, 17</value>
+  </metadata>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="notifyIcon.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        AAABAAEAEBAAAAEAIABoBAAAFgAAACgAAAAQAAAAIAAAAAEAIAAAAAAAAAQAABMLAAATCwAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAADQ0yAMjGwgCTkptkmJWY9IF/hP+DgYT7ZWNpoQgIIwcvL0QAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAABESNgBxcYIAZGR8CWppcm9gXmX1Q0NRezY2SBZXVlsACwwwAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAFVUXABXVl4pW1lf3kA/TkBCQU8AAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABtbX4AWFx9AYOCjDmGg4tpd3V9el9eZeA9PU05SEhVAAkJ
+        IwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAYmJ3AGxtgg2joaTEnpyf/5mXm/+UkZL9amhupyor
+        Qww5OE4AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAFNTawBuZnYVgI2b1E1tvP8+X8X/S3Ss/2Bj
+        ecxMR0sPQkJUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABlZXkAcm5+G4mQm9x5ha7/ZoG9/0Ry
+        xv9OWYnGU0Y0DDs7UAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHCC4AeXiGAGtqeziRj5fqmZWa/5iU
+        mf+SkJb/b250wisqQAsxMUkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABwgvAJaTmwBxcH1ucnCM/nBv
+        lf9ycJb/iYeS/3Buc70dHjgJKytFAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABYYOwB/fosAd3aEOpGP
+        lfKTkZX/mJaa/5qXmf9xb3O2CAorBicnQwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAfHuJAHd2
+        hTiYlp3xh4WL/5ORlv+hn6H/c3J5sAAADgQkJUIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAF5e
+        cgBbW3APh4aRcHh2fraNjJPFpqWquH9+il8AAAABHh4/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAABAUQAAAAAABHRlkHSUlfDCYmQQcAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAA/A8AAPwfAAD+PwAA8D8AAPAfAADwHwAA8B8AAPAfAADwHwAA8B8AAPAfAADwHwAA+D8AAP//
+        AAD//wAA//8AAA==
+</value>
+  </data>
 </root>

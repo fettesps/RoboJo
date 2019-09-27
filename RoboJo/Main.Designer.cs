@@ -29,9 +29,15 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMain));
             this.tmrMain = new System.Windows.Forms.Timer(this.components);
             this.panel1 = new System.Windows.Forms.Panel();
             this.dgTimesheet = new System.Windows.Forms.DataGridView();
+            this.Hours = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Start = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.End = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TaskDetails = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Billable = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.cboPromptEveryValue = new System.Windows.Forms.ComboBox();
             this.lblPromptEvery = new System.Windows.Forms.Label();
             this.btnStartOrEnd = new System.Windows.Forms.Button();
@@ -42,11 +48,7 @@
             this.lblNextEntryIn = new System.Windows.Forms.Label();
             this.lblLastEntry = new System.Windows.Forms.Label();
             this.tmrPrompt = new System.Windows.Forms.Timer(this.components);
-            this.Hours = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Start = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.End = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.TaskDetails = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Billable = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.notifyIcon = new System.Windows.Forms.NotifyIcon(this.components);
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgTimesheet)).BeginInit();
             this.SuspendLayout();
@@ -86,6 +88,33 @@
             this.dgTimesheet.Name = "dgTimesheet";
             this.dgTimesheet.Size = new System.Drawing.Size(601, 346);
             this.dgTimesheet.TabIndex = 9;
+            // 
+            // Hours
+            // 
+            this.Hours.HeaderText = "Hours";
+            this.Hours.Name = "Hours";
+            // 
+            // Start
+            // 
+            this.Start.HeaderText = "Start";
+            this.Start.Name = "Start";
+            // 
+            // End
+            // 
+            this.End.HeaderText = "End";
+            this.End.Name = "End";
+            // 
+            // TaskDetails
+            // 
+            this.TaskDetails.HeaderText = "Task Details";
+            this.TaskDetails.Name = "TaskDetails";
+            // 
+            // Billable
+            // 
+            this.Billable.HeaderText = "Billable";
+            this.Billable.Name = "Billable";
+            this.Billable.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.Billable.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             // 
             // cboPromptEveryValue
             // 
@@ -179,32 +208,14 @@
             this.tmrPrompt.Interval = 1000;
             this.tmrPrompt.Tick += new System.EventHandler(this.tmrPrompt_Tick);
             // 
-            // Hours
+            // notifyIcon
             // 
-            this.Hours.HeaderText = "Hours";
-            this.Hours.Name = "Hours";
-            // 
-            // Start
-            // 
-            this.Start.HeaderText = "Start";
-            this.Start.Name = "Start";
-            // 
-            // End
-            // 
-            this.End.HeaderText = "End";
-            this.End.Name = "End";
-            // 
-            // TaskDetails
-            // 
-            this.TaskDetails.HeaderText = "Task Details";
-            this.TaskDetails.Name = "TaskDetails";
-            // 
-            // Billable
-            // 
-            this.Billable.HeaderText = "Billable";
-            this.Billable.Name = "Billable";
-            this.Billable.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.Billable.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.notifyIcon.BalloonTipIcon = System.Windows.Forms.ToolTipIcon.Info;
+            this.notifyIcon.BalloonTipText = "RoboJo is still running!";
+            this.notifyIcon.BalloonTipTitle = "RoboJo";
+            this.notifyIcon.Icon = ((System.Drawing.Icon)(resources.GetObject("notifyIcon.Icon")));
+            this.notifyIcon.Visible = true;
+            this.notifyIcon.DoubleClick += new System.EventHandler(this.notifyIcon_DoubleClick);
             // 
             // frmMain
             // 
@@ -213,7 +224,8 @@
             this.ClientSize = new System.Drawing.Size(635, 444);
             this.Controls.Add(this.panel1);
             this.Name = "frmMain";
-            this.Text = "Timesheet Logger";
+            this.Text = "RoboJo Time Tracker";
+            this.Resize += new System.EventHandler(this.frmMain_Resize);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgTimesheet)).EndInit();
@@ -241,6 +253,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn End;
         private System.Windows.Forms.DataGridViewTextBoxColumn TaskDetails;
         private System.Windows.Forms.DataGridViewCheckBoxColumn Billable;
+        private System.Windows.Forms.NotifyIcon notifyIcon;
     }
 }
 

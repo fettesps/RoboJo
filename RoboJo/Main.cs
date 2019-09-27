@@ -22,6 +22,7 @@ namespace RoboJo
             tmrPrompt.Interval = 1800000; // minutes * 60 (seconds) * 1000 (milliseconds);
         }
 
+        
         private void AddDetails(String strDetails)
         {
             // Calculate hours, to nearest half hour
@@ -117,11 +118,37 @@ namespace RoboJo
             }
         }
 
+
+        private void frmMain_Resize(object sender, EventArgs e)
+        {
+            if (FormWindowState.Minimized == this.WindowState)
+            {
+                notifyIcon.Visible = true;
+                notifyIcon.ShowBalloonTip(500);
+                this.Hide();
+            }
+
+            else if (FormWindowState.Normal == this.WindowState)
+            {
+                notifyIcon.Visible = false;
+            }
+        }
+
+
+        private void notifyIcon_DoubleClick(object sender, EventArgs e)
+        {
+            notifyIcon.Visible = false;
+            this.WindowState = FormWindowState.Minimized;
+            this.Show();
+            this.WindowState = FormWindowState.Normal;
+        }
+
         #endregion
 
         #region Helpers
 
 
         #endregion
+
     }
 }
