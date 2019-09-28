@@ -19,7 +19,11 @@ namespace RoboJo
             InitializeComponent();
             cboPromptEveryValue.SelectedIndex = 0; // todo : store default in config setting
             tmrMain.Interval = 1000; // this timer controls when the GUI is refreshed
-            tmrPrompt.Interval = 1800000; // minutes * 60 (seconds) * 1000 (milliseconds);
+
+            //tmrPrompt.Interval = 1800000; // minutes * 60 (seconds) * 1000 (milliseconds);
+            cboPromptEveryValue_SelectedIndexChanged(this, null);
+
+            this.Text = Application.ProductName + " - v" + Application.ProductVersion;
         }
 
         
@@ -27,57 +31,56 @@ namespace RoboJo
         {
             // Calculate hours, to nearest half hour
             TimeSpan ts = _dtStart != null ? DateTime.Now - _dtStart.Value : new TimeSpan(0);
-            //double dblMinutesElapsed = ts.TotalHours; 
-            //double dblHours = Math.Round(dblMinutesElapsed * 4, MidpointRounding.ToEven) / 4;
-            var test = ts.RoundToNearestMinutes(15);
+            TimeSpan tsHours = ts.RoundToNearestMinutes(15);
 
             // Add to grid
             dgTimesheet.Rows.Add(
                 new object[]
                 {
-                    test,
-                    _dtStart.Value.ToShortTimeString(),
+                    tsHours,
+                    _dtStart != null ? _dtStart.Value.ToShortTimeString() : DateTime.Now.ToShortTimeString(),
                     DateTime.Now.ToShortTimeString(),
                     strDetails
                 }
             );
 
-            //timetrackerDataSet. = dgTimesheet;
-
+            lblLastEntryValue.Text = lblCurrentEntryValue.Text;
+            lblCurrentEntryValue.Text = strDetails;
         }
 
         #region Events
 
         private void btnStartOrEnd_Click(object sender, EventArgs e)
         {
-            switch(btnStartOrEnd.Text)
-            {
-                case "Start":
-                    {
-                        btnStartOrEnd.Text = "End";
-                        tmrMain.Enabled = true;
-                        tmrPrompt.Enabled = true;
-                        _dtStart = DateTime.Now;
-                    }
-                    break;
-                case "End":
-                default:
-                    {
-                        btnStartOrEnd.Text = "Start";
-                        tmrMain.Enabled = false;
-                        tmrPrompt_Tick(this, new EventArgs()); // make a final log entry
-                        tmrPrompt.Enabled = false;
-                        _dtStart = null;
-                    } break;
-            }
-            
+
+            tmrMain.Enabled = true;
+            tmrPrompt.Enabled = true;
+            _dtStart = DateTime.Now;
+            btnStartOrEnd.Enabled = false;
+            btnStop.Enabled = true;
+        }
+
+
+        private void btnLogNow_Click(object sender, EventArgs e)
+        {
+            tmrPrompt_Tick(this, new EventArgs()); // make a final log entry
+        }
+
+        private void btnStop_Click(object sender, EventArgs e)
+        {
+            tmrMain.Enabled = false;
+            tmrPrompt_Tick(this, new EventArgs()); // make a final log entry
+            tmrPrompt.Enabled = false;
+            _dtStart = null;
+            btnStartOrEnd.Enabled = true;
+            btnStop.Enabled = false;
         }
 
         private void tmrMain_Tick(object sender, EventArgs e)
         {
-            TimeSpan ts = _dtStart != null ? DateTime.Now - _dtStart.Value : new TimeSpan(0);
+            TimeSpan ts = _dtStart != null ? (DateTime.Now - _dtStart.Value) : new TimeSpan(0);
             int intSecondsElapsed = (int)ts.TotalSeconds; // todo: fix this lazy cast
-            int intSecondsLeft = (tmrPrompt.Interval / 10000) - intSecondsElapsed;
+            int intSecondsLeft = (tmrPrompt.Interval / 1000) - intSecondsElapsed;
             lblNextEntryInValue.Text = String.Concat(intSecondsLeft.ToString(), " seconds");
         }
 
@@ -89,10 +92,8 @@ namespace RoboJo
             if (!String.IsNullOrWhiteSpace(strInput))
             {
                 AddDetails(strInput);
+                _dtStart = DateTime.Now;
             }
-
-            // Debug
-            //Microsoft.VisualBasic.Interaction.MsgBox("You entered: " + strInput, Microsoft.VisualBasic.MsgBoxStyle.OkOnly, "Result");
         }
 
         private void cboPromptEveryValue_SelectedIndexChanged(object sender, EventArgs e)
@@ -142,11 +143,6 @@ namespace RoboJo
             this.Show();
             this.WindowState = FormWindowState.Normal;
         }
-
-        #endregion
-
-        #region Helpers
-
 
         #endregion
 

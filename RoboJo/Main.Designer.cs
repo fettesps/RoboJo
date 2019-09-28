@@ -49,6 +49,8 @@
             this.lblLastEntry = new System.Windows.Forms.Label();
             this.tmrPrompt = new System.Windows.Forms.Timer(this.components);
             this.notifyIcon = new System.Windows.Forms.NotifyIcon(this.components);
+            this.btnLogNow = new System.Windows.Forms.Button();
+            this.btnStop = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgTimesheet)).BeginInit();
             this.SuspendLayout();
@@ -60,6 +62,8 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.btnStop);
+            this.panel1.Controls.Add(this.btnLogNow);
             this.panel1.Controls.Add(this.dgTimesheet);
             this.panel1.Controls.Add(this.cboPromptEveryValue);
             this.panel1.Controls.Add(this.lblPromptEvery);
@@ -217,6 +221,27 @@
             this.notifyIcon.Visible = true;
             this.notifyIcon.DoubleClick += new System.EventHandler(this.notifyIcon_DoubleClick);
             // 
+            // btnLogNow
+            // 
+            this.btnLogNow.Location = new System.Drawing.Point(418, 42);
+            this.btnLogNow.Name = "btnLogNow";
+            this.btnLogNow.Size = new System.Drawing.Size(75, 23);
+            this.btnLogNow.TabIndex = 10;
+            this.btnLogNow.Text = "Log Now";
+            this.btnLogNow.UseVisualStyleBackColor = true;
+            this.btnLogNow.Click += new System.EventHandler(this.btnLogNow_Click);
+            // 
+            // btnStop
+            // 
+            this.btnStop.Enabled = false;
+            this.btnStop.Location = new System.Drawing.Point(499, 42);
+            this.btnStop.Name = "btnStop";
+            this.btnStop.Size = new System.Drawing.Size(75, 23);
+            this.btnStop.TabIndex = 11;
+            this.btnStop.Text = "Stop";
+            this.btnStop.UseVisualStyleBackColor = true;
+            this.btnStop.Click += new System.EventHandler(this.btnStop_Click);
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -254,6 +279,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn TaskDetails;
         private System.Windows.Forms.DataGridViewCheckBoxColumn Billable;
         private System.Windows.Forms.NotifyIcon notifyIcon;
+        private System.Windows.Forms.Button btnStop;
+        private System.Windows.Forms.Button btnLogNow;
     }
 }
 
