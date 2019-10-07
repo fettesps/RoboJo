@@ -3,3 +3,7 @@
 ################################################################################
 
 /RoboJo/obj/Debug
+/RoboJo/obj/Release
+/RoboJo/bin/Debug
+/RoboJo/bin/Release
+/.vs/RoboJo/v15
