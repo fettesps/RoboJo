@@ -19,14 +19,12 @@ namespace RoboJo
             InitializeComponent();
             cboPromptEveryValue.SelectedIndex = 0; // todo : store default in config setting
             tmrMain.Interval = 1000; // this timer controls when the GUI is refreshed
-
-            //tmrPrompt.Interval = 1800000; // minutes * 60 (seconds) * 1000 (milliseconds);
             cboPromptEveryValue_SelectedIndexChanged(this, null);
 
             this.Text = Application.ProductName + " - v" + Application.ProductVersion;
         }
 
-        
+
         private void AddDetails(String strDetails)
         {
             // Calculate hours, to nearest half hour
@@ -34,32 +32,40 @@ namespace RoboJo
             TimeSpan tsHours = ts.RoundToNearestMinutes(15);
 
             // Add to grid
-            dgTimesheet.Rows.Add(
-                new object[]
-                {
-                    tsHours,
-                    _dtStart != null ? _dtStart.Value.ToShortTimeString() : DateTime.Now.ToShortTimeString(),
-                    DateTime.Now.ToShortTimeString(),
-                    strDetails
-                }
-            );
 
+            //timetrackerDataSet.timesheet.AddtimesheetRow(x);
+            timetrackerDataSet.AcceptChanges();
+
+            DataRow dr = timetrackerDataSet.Tables[0].NewRow();
+            dr["start_time"] = _dtStart != null ? _dtStart.Value.ToShortTimeString() : DateTime.Now.ToShortTimeString();
+            dr["end_time"] = DateTime.Now.ToShortTimeString();
+            dr["description"] = strDetails;
+            dr["hours"] = tsHours.ToString();
+            dr["billable"] = 0;
+            //timetrackerDataSet.Tables[0].Rows.Add(dr);
+            //timetrackerDataSet.Tables[0].AcceptChanges();
+            //timetrackerDataSet.AcceptChanges();
+            //timesheetBindingSource.;
+
+            timetrackerDataSet.timesheet.AddtimesheetRow((timetrackerDataSet.timesheetRow)dr);
+            timetrackerDataSet.AcceptChanges();
+
+            // Update Trackers
             lblLastEntryValue.Text = lblCurrentEntryValue.Text;
             lblCurrentEntryValue.Text = strDetails;
+            tsslCurrentEntryVal.Text = strDetails;
         }
 
         #region Events
 
-        private void btnStartOrEnd_Click(object sender, EventArgs e)
+        private void btnStart_Click(object sender, EventArgs e)
         {
-
             tmrMain.Enabled = true;
             tmrPrompt.Enabled = true;
             _dtStart = DateTime.Now;
-            btnStartOrEnd.Enabled = false;
+            btnStart.Enabled = false;
             btnStop.Enabled = true;
         }
-
 
         private void btnLogNow_Click(object sender, EventArgs e)
         {
@@ -72,8 +78,9 @@ namespace RoboJo
             tmrPrompt_Tick(this, new EventArgs()); // make a final log entry
             tmrPrompt.Enabled = false;
             _dtStart = null;
-            btnStartOrEnd.Enabled = true;
+            btnStart.Enabled = true;
             btnStop.Enabled = false;
+            tsProgressBar.Value = 0;
         }
 
         private void tmrMain_Tick(object sender, EventArgs e)
@@ -81,7 +88,12 @@ namespace RoboJo
             TimeSpan ts = _dtStart != null ? (DateTime.Now - _dtStart.Value) : new TimeSpan(0);
             int intSecondsElapsed = (int)ts.TotalSeconds; // todo: fix this lazy cast
             int intSecondsLeft = (tmrPrompt.Interval / 1000) - intSecondsElapsed;
+
             lblNextEntryInValue.Text = String.Concat(intSecondsLeft.ToString(), " seconds");
+
+            tsProgressBar.Minimum = 0;
+            tsProgressBar.Maximum = (tmrPrompt.Interval / 1000);
+            tsProgressBar.Value = intSecondsElapsed < tsProgressBar.Maximum ? intSecondsElapsed : tsProgressBar.Maximum;
         }
 
 
@@ -119,16 +131,14 @@ namespace RoboJo
             }
         }
 
-
         private void frmMain_Resize(object sender, EventArgs e)
         {
             if (FormWindowState.Minimized == this.WindowState)
             {
                 notifyIcon.Visible = true;
-                notifyIcon.ShowBalloonTip(500);
+                //notifyIcon.ShowBalloonTip(500);
                 this.Hide();
             }
-
             else if (FormWindowState.Normal == this.WindowState)
             {
                 notifyIcon.Visible = false;

@@ -409,10 +409,10 @@ namespace RoboJo {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public timesheetRow AddtimesheetRow(string id, string start_time, string end_time, string description, string billable, string hours) {
+            public timesheetRow AddtimesheetRow(string start_time, string end_time, string description, bool billable, string hours) {
                 timesheetRow rowtimesheetRow = ((timesheetRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
-                        id,
+                        null,
                         start_time,
                         end_time,
                         description,
@@ -425,7 +425,7 @@ namespace RoboJo {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public timesheetRow FindByid(string id) {
+            public timesheetRow FindByid(int id) {
                 return ((timesheetRow)(this.Rows.Find(new object[] {
                             id})));
             }
@@ -458,7 +458,7 @@ namespace RoboJo {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             private void InitClass() {
-                this.columnid = new global::System.Data.DataColumn("id", typeof(string), null, global::System.Data.MappingType.Element);
+                this.columnid = new global::System.Data.DataColumn("id", typeof(int), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnid);
                 this.columnstart_time = new global::System.Data.DataColumn("start_time", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnstart_time);
@@ -466,12 +466,15 @@ namespace RoboJo {
                 base.Columns.Add(this.columnend_time);
                 this.columndescription = new global::System.Data.DataColumn("description", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columndescription);
-                this.columnbillable = new global::System.Data.DataColumn("billable", typeof(string), null, global::System.Data.MappingType.Element);
+                this.columnbillable = new global::System.Data.DataColumn("billable", typeof(bool), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnbillable);
                 this.columnhours = new global::System.Data.DataColumn("hours", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnhours);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columnid}, true));
+                this.columnid.AutoIncrement = true;
+                this.columnid.AutoIncrementSeed = -1;
+                this.columnid.AutoIncrementStep = -1;
                 this.columnid.AllowDBNull = false;
                 this.columnid.Unique = true;
             }
@@ -616,9 +619,9 @@ namespace RoboJo {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public string id {
+            public int id {
                 get {
-                    return ((string)(this[this.tabletimesheet.idColumn]));
+                    return ((int)(this[this.tabletimesheet.idColumn]));
                 }
                 set {
                     this[this.tabletimesheet.idColumn] = value;
@@ -675,10 +678,10 @@ namespace RoboJo {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public string billable {
+            public bool billable {
                 get {
                     try {
-                        return ((string)(this[this.tabletimesheet.billableColumn]));
+                        return ((bool)(this[this.tabletimesheet.billableColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
                         throw new global::System.Data.StrongTypingException("The value for column \'billable\' in table \'timesheet\' is DBNull.", e);

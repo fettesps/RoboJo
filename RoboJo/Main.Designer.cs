@@ -30,187 +30,39 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMain));
-            this.tmrMain = new System.Windows.Forms.Timer(this.components);
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.dgTimesheet = new System.Windows.Forms.DataGridView();
-            this.Hours = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Start = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.End = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.TaskDetails = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Billable = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.notifyIcon = new System.Windows.Forms.NotifyIcon(this.components);
             this.cboPromptEveryValue = new System.Windows.Forms.ComboBox();
             this.lblPromptEvery = new System.Windows.Forms.Label();
-            this.btnStartOrEnd = new System.Windows.Forms.Button();
+            this.btnStart = new System.Windows.Forms.Button();
             this.lblNextEntryInValue = new System.Windows.Forms.Label();
             this.lblCurrentEntryValue = new System.Windows.Forms.Label();
             this.lblLastEntryValue = new System.Windows.Forms.Label();
-            this.lblCurrentEntry = new System.Windows.Forms.Label();
             this.lblNextEntryIn = new System.Windows.Forms.Label();
             this.lblLastEntry = new System.Windows.Forms.Label();
+            this.timetrackerDataSet = new RoboJo.timetrackerDataSet();
             this.tmrPrompt = new System.Windows.Forms.Timer(this.components);
-            this.notifyIcon = new System.Windows.Forms.NotifyIcon(this.components);
-            this.btnLogNow = new System.Windows.Forms.Button();
+            this.timesheetBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.billableDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.descriptionDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.endtimeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.starttimeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.idDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btnStop = new System.Windows.Forms.Button();
-            this.panel1.SuspendLayout();
+            this.btnLogNow = new System.Windows.Forms.Button();
+            this.dgTimesheet = new System.Windows.Forms.DataGridView();
+            this.hoursDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tmrMain = new System.Windows.Forms.Timer(this.components);
+            this.lblCurrentEntry = new System.Windows.Forms.Label();
+            this.statusStrip = new System.Windows.Forms.StatusStrip();
+            this.tsProgressBar = new System.Windows.Forms.ToolStripProgressBar();
+            this.toolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
+            this.tsslCurrentEntry = new System.Windows.Forms.ToolStripStatusLabel();
+            this.tsslCurrentEntryVal = new System.Windows.Forms.ToolStripStatusLabel();
+            ((System.ComponentModel.ISupportInitialize)(this.timetrackerDataSet)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.timesheetBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgTimesheet)).BeginInit();
+            this.statusStrip.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // tmrMain
-            // 
-            this.tmrMain.Interval = 1000;
-            this.tmrMain.Tick += new System.EventHandler(this.tmrMain_Tick);
-            // 
-            // panel1
-            // 
-            this.panel1.Controls.Add(this.btnStop);
-            this.panel1.Controls.Add(this.btnLogNow);
-            this.panel1.Controls.Add(this.dgTimesheet);
-            this.panel1.Controls.Add(this.cboPromptEveryValue);
-            this.panel1.Controls.Add(this.lblPromptEvery);
-            this.panel1.Controls.Add(this.btnStartOrEnd);
-            this.panel1.Controls.Add(this.lblNextEntryInValue);
-            this.panel1.Controls.Add(this.lblCurrentEntryValue);
-            this.panel1.Controls.Add(this.lblLastEntryValue);
-            this.panel1.Controls.Add(this.lblCurrentEntry);
-            this.panel1.Controls.Add(this.lblNextEntryIn);
-            this.panel1.Controls.Add(this.lblLastEntry);
-            this.panel1.Location = new System.Drawing.Point(12, 12);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(611, 420);
-            this.panel1.TabIndex = 0;
-            // 
-            // dgTimesheet
-            // 
-            this.dgTimesheet.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgTimesheet.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.Hours,
-            this.Start,
-            this.End,
-            this.TaskDetails,
-            this.Billable});
-            this.dgTimesheet.Location = new System.Drawing.Point(7, 71);
-            this.dgTimesheet.Name = "dgTimesheet";
-            this.dgTimesheet.Size = new System.Drawing.Size(601, 346);
-            this.dgTimesheet.TabIndex = 9;
-            // 
-            // Hours
-            // 
-            this.Hours.HeaderText = "Hours";
-            this.Hours.Name = "Hours";
-            // 
-            // Start
-            // 
-            this.Start.HeaderText = "Start";
-            this.Start.Name = "Start";
-            // 
-            // End
-            // 
-            this.End.HeaderText = "End";
-            this.End.Name = "End";
-            // 
-            // TaskDetails
-            // 
-            this.TaskDetails.HeaderText = "Task Details";
-            this.TaskDetails.Name = "TaskDetails";
-            // 
-            // Billable
-            // 
-            this.Billable.HeaderText = "Billable";
-            this.Billable.Name = "Billable";
-            this.Billable.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.Billable.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            // 
-            // cboPromptEveryValue
-            // 
-            this.cboPromptEveryValue.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cboPromptEveryValue.FormattingEnabled = true;
-            this.cboPromptEveryValue.Items.AddRange(new object[] {
-            "15 minutes",
-            "30 minutes",
-            "60 minutes"});
-            this.cboPromptEveryValue.Location = new System.Drawing.Point(337, 4);
-            this.cboPromptEveryValue.Name = "cboPromptEveryValue";
-            this.cboPromptEveryValue.Size = new System.Drawing.Size(121, 21);
-            this.cboPromptEveryValue.TabIndex = 8;
-            this.cboPromptEveryValue.SelectedIndexChanged += new System.EventHandler(this.cboPromptEveryValue_SelectedIndexChanged);
-            // 
-            // lblPromptEvery
-            // 
-            this.lblPromptEvery.AutoSize = true;
-            this.lblPromptEvery.Location = new System.Drawing.Point(259, 8);
-            this.lblPromptEvery.Name = "lblPromptEvery";
-            this.lblPromptEvery.Size = new System.Drawing.Size(73, 13);
-            this.lblPromptEvery.TabIndex = 7;
-            this.lblPromptEvery.Text = "Prompt Every:";
-            // 
-            // btnStartOrEnd
-            // 
-            this.btnStartOrEnd.Location = new System.Drawing.Point(337, 42);
-            this.btnStartOrEnd.Name = "btnStartOrEnd";
-            this.btnStartOrEnd.Size = new System.Drawing.Size(75, 23);
-            this.btnStartOrEnd.TabIndex = 6;
-            this.btnStartOrEnd.Text = "Start";
-            this.btnStartOrEnd.UseVisualStyleBackColor = true;
-            this.btnStartOrEnd.Click += new System.EventHandler(this.btnStartOrEnd_Click);
-            // 
-            // lblNextEntryInValue
-            // 
-            this.lblNextEntryInValue.AutoSize = true;
-            this.lblNextEntryInValue.Location = new System.Drawing.Point(81, 42);
-            this.lblNextEntryInValue.Name = "lblNextEntryInValue";
-            this.lblNextEntryInValue.Size = new System.Drawing.Size(45, 13);
-            this.lblNextEntryInValue.TabIndex = 5;
-            this.lblNextEntryInValue.Text = "<blank>";
-            // 
-            // lblCurrentEntryValue
-            // 
-            this.lblCurrentEntryValue.AutoSize = true;
-            this.lblCurrentEntryValue.Location = new System.Drawing.Point(81, 22);
-            this.lblCurrentEntryValue.Name = "lblCurrentEntryValue";
-            this.lblCurrentEntryValue.Size = new System.Drawing.Size(45, 13);
-            this.lblCurrentEntryValue.TabIndex = 4;
-            this.lblCurrentEntryValue.Text = "<blank>";
-            // 
-            // lblLastEntryValue
-            // 
-            this.lblLastEntryValue.AutoSize = true;
-            this.lblLastEntryValue.Location = new System.Drawing.Point(81, 4);
-            this.lblLastEntryValue.Name = "lblLastEntryValue";
-            this.lblLastEntryValue.Size = new System.Drawing.Size(45, 13);
-            this.lblLastEntryValue.TabIndex = 3;
-            this.lblLastEntryValue.Text = "<blank>";
-            // 
-            // lblCurrentEntry
-            // 
-            this.lblCurrentEntry.AutoSize = true;
-            this.lblCurrentEntry.Location = new System.Drawing.Point(4, 22);
-            this.lblCurrentEntry.Name = "lblCurrentEntry";
-            this.lblCurrentEntry.Size = new System.Drawing.Size(71, 13);
-            this.lblCurrentEntry.TabIndex = 2;
-            this.lblCurrentEntry.Text = "Current Entry:";
-            // 
-            // lblNextEntryIn
-            // 
-            this.lblNextEntryIn.AutoSize = true;
-            this.lblNextEntryIn.Location = new System.Drawing.Point(4, 42);
-            this.lblNextEntryIn.Name = "lblNextEntryIn";
-            this.lblNextEntryIn.Size = new System.Drawing.Size(71, 13);
-            this.lblNextEntryIn.TabIndex = 1;
-            this.lblNextEntryIn.Text = "Next Entry In:";
-            // 
-            // lblLastEntry
-            // 
-            this.lblLastEntry.AutoSize = true;
-            this.lblLastEntry.Location = new System.Drawing.Point(4, 4);
-            this.lblLastEntry.Name = "lblLastEntry";
-            this.lblLastEntry.Size = new System.Drawing.Size(57, 13);
-            this.lblLastEntry.TabIndex = 0;
-            this.lblLastEntry.Text = "Last Entry:";
-            // 
-            // tmrPrompt
-            // 
-            this.tmrPrompt.Interval = 1000;
-            this.tmrPrompt.Tick += new System.EventHandler(this.tmrPrompt_Tick);
             // 
             // notifyIcon
             // 
@@ -221,66 +73,289 @@
             this.notifyIcon.Visible = true;
             this.notifyIcon.DoubleClick += new System.EventHandler(this.notifyIcon_DoubleClick);
             // 
-            // btnLogNow
+            // cboPromptEveryValue
             // 
-            this.btnLogNow.Location = new System.Drawing.Point(418, 42);
-            this.btnLogNow.Name = "btnLogNow";
-            this.btnLogNow.Size = new System.Drawing.Size(75, 23);
-            this.btnLogNow.TabIndex = 10;
-            this.btnLogNow.Text = "Log Now";
-            this.btnLogNow.UseVisualStyleBackColor = true;
-            this.btnLogNow.Click += new System.EventHandler(this.btnLogNow_Click);
+            this.cboPromptEveryValue.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboPromptEveryValue.FormattingEnabled = true;
+            this.cboPromptEveryValue.Items.AddRange(new object[] {
+            "15 minutes",
+            "30 minutes",
+            "60 minutes"});
+            this.cboPromptEveryValue.Location = new System.Drawing.Point(348, 16);
+            this.cboPromptEveryValue.Name = "cboPromptEveryValue";
+            this.cboPromptEveryValue.Size = new System.Drawing.Size(121, 21);
+            this.cboPromptEveryValue.TabIndex = 20;
+            this.cboPromptEveryValue.SelectedIndexChanged += new System.EventHandler(this.cboPromptEveryValue_SelectedIndexChanged);
+            // 
+            // lblPromptEvery
+            // 
+            this.lblPromptEvery.AutoSize = true;
+            this.lblPromptEvery.Location = new System.Drawing.Point(270, 20);
+            this.lblPromptEvery.Name = "lblPromptEvery";
+            this.lblPromptEvery.Size = new System.Drawing.Size(73, 13);
+            this.lblPromptEvery.TabIndex = 19;
+            this.lblPromptEvery.Text = "Prompt Every:";
+            // 
+            // btnStart
+            // 
+            this.btnStart.Location = new System.Drawing.Point(348, 54);
+            this.btnStart.Name = "btnStart";
+            this.btnStart.Size = new System.Drawing.Size(75, 23);
+            this.btnStart.TabIndex = 18;
+            this.btnStart.Text = "Start";
+            this.btnStart.UseVisualStyleBackColor = true;
+            this.btnStart.Click += new System.EventHandler(this.btnStart_Click);
+            // 
+            // lblNextEntryInValue
+            // 
+            this.lblNextEntryInValue.AutoSize = true;
+            this.lblNextEntryInValue.Location = new System.Drawing.Point(92, 54);
+            this.lblNextEntryInValue.Name = "lblNextEntryInValue";
+            this.lblNextEntryInValue.Size = new System.Drawing.Size(45, 13);
+            this.lblNextEntryInValue.TabIndex = 17;
+            this.lblNextEntryInValue.Text = "<blank>";
+            // 
+            // lblCurrentEntryValue
+            // 
+            this.lblCurrentEntryValue.AutoSize = true;
+            this.lblCurrentEntryValue.Location = new System.Drawing.Point(92, 34);
+            this.lblCurrentEntryValue.Name = "lblCurrentEntryValue";
+            this.lblCurrentEntryValue.Size = new System.Drawing.Size(45, 13);
+            this.lblCurrentEntryValue.TabIndex = 16;
+            this.lblCurrentEntryValue.Text = "<blank>";
+            // 
+            // lblLastEntryValue
+            // 
+            this.lblLastEntryValue.AutoSize = true;
+            this.lblLastEntryValue.Location = new System.Drawing.Point(92, 16);
+            this.lblLastEntryValue.Name = "lblLastEntryValue";
+            this.lblLastEntryValue.Size = new System.Drawing.Size(45, 13);
+            this.lblLastEntryValue.TabIndex = 15;
+            this.lblLastEntryValue.Text = "<blank>";
+            // 
+            // lblNextEntryIn
+            // 
+            this.lblNextEntryIn.AutoSize = true;
+            this.lblNextEntryIn.Location = new System.Drawing.Point(15, 54);
+            this.lblNextEntryIn.Name = "lblNextEntryIn";
+            this.lblNextEntryIn.Size = new System.Drawing.Size(71, 13);
+            this.lblNextEntryIn.TabIndex = 13;
+            this.lblNextEntryIn.Text = "Next Entry In:";
+            // 
+            // lblLastEntry
+            // 
+            this.lblLastEntry.AutoSize = true;
+            this.lblLastEntry.Location = new System.Drawing.Point(15, 16);
+            this.lblLastEntry.Name = "lblLastEntry";
+            this.lblLastEntry.Size = new System.Drawing.Size(57, 13);
+            this.lblLastEntry.TabIndex = 12;
+            this.lblLastEntry.Text = "Last Entry:";
+            // 
+            // timetrackerDataSet
+            // 
+            this.timetrackerDataSet.DataSetName = "timetrackerDataSet";
+            this.timetrackerDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            // 
+            // tmrPrompt
+            // 
+            this.tmrPrompt.Interval = 1000;
+            this.tmrPrompt.Tick += new System.EventHandler(this.tmrPrompt_Tick);
+            // 
+            // timesheetBindingSource
+            // 
+            this.timesheetBindingSource.DataMember = "timesheet";
+            this.timesheetBindingSource.DataSource = this.timetrackerDataSet;
+            // 
+            // billableDataGridViewTextBoxColumn
+            // 
+            this.billableDataGridViewTextBoxColumn.DataPropertyName = "billable";
+            this.billableDataGridViewTextBoxColumn.HeaderText = "Billable";
+            this.billableDataGridViewTextBoxColumn.Name = "billableDataGridViewTextBoxColumn";
+            this.billableDataGridViewTextBoxColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.billableDataGridViewTextBoxColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            // 
+            // descriptionDataGridViewTextBoxColumn
+            // 
+            this.descriptionDataGridViewTextBoxColumn.DataPropertyName = "description";
+            this.descriptionDataGridViewTextBoxColumn.HeaderText = "Description";
+            this.descriptionDataGridViewTextBoxColumn.Name = "descriptionDataGridViewTextBoxColumn";
+            // 
+            // endtimeDataGridViewTextBoxColumn
+            // 
+            this.endtimeDataGridViewTextBoxColumn.DataPropertyName = "end_time";
+            this.endtimeDataGridViewTextBoxColumn.HeaderText = "End Time";
+            this.endtimeDataGridViewTextBoxColumn.Name = "endtimeDataGridViewTextBoxColumn";
+            // 
+            // starttimeDataGridViewTextBoxColumn
+            // 
+            this.starttimeDataGridViewTextBoxColumn.DataPropertyName = "start_time";
+            this.starttimeDataGridViewTextBoxColumn.HeaderText = "Start Time";
+            this.starttimeDataGridViewTextBoxColumn.Name = "starttimeDataGridViewTextBoxColumn";
+            // 
+            // idDataGridViewTextBoxColumn
+            // 
+            this.idDataGridViewTextBoxColumn.DataPropertyName = "id";
+            this.idDataGridViewTextBoxColumn.HeaderText = "id";
+            this.idDataGridViewTextBoxColumn.Name = "idDataGridViewTextBoxColumn";
+            this.idDataGridViewTextBoxColumn.Visible = false;
             // 
             // btnStop
             // 
             this.btnStop.Enabled = false;
-            this.btnStop.Location = new System.Drawing.Point(499, 42);
+            this.btnStop.Location = new System.Drawing.Point(510, 54);
             this.btnStop.Name = "btnStop";
             this.btnStop.Size = new System.Drawing.Size(75, 23);
-            this.btnStop.TabIndex = 11;
+            this.btnStop.TabIndex = 23;
             this.btnStop.Text = "Stop";
             this.btnStop.UseVisualStyleBackColor = true;
             this.btnStop.Click += new System.EventHandler(this.btnStop_Click);
+            // 
+            // btnLogNow
+            // 
+            this.btnLogNow.Location = new System.Drawing.Point(429, 54);
+            this.btnLogNow.Name = "btnLogNow";
+            this.btnLogNow.Size = new System.Drawing.Size(75, 23);
+            this.btnLogNow.TabIndex = 22;
+            this.btnLogNow.Text = "Log Now";
+            this.btnLogNow.UseVisualStyleBackColor = true;
+            this.btnLogNow.Click += new System.EventHandler(this.btnLogNow_Click);
+            // 
+            // dgTimesheet
+            // 
+            this.dgTimesheet.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dgTimesheet.AutoGenerateColumns = false;
+            this.dgTimesheet.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgTimesheet.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.idDataGridViewTextBoxColumn,
+            this.starttimeDataGridViewTextBoxColumn,
+            this.endtimeDataGridViewTextBoxColumn,
+            this.descriptionDataGridViewTextBoxColumn,
+            this.billableDataGridViewTextBoxColumn,
+            this.hoursDataGridViewTextBoxColumn});
+            this.dgTimesheet.DataSource = this.timesheetBindingSource;
+            this.dgTimesheet.Location = new System.Drawing.Point(18, 83);
+            this.dgTimesheet.Name = "dgTimesheet";
+            this.dgTimesheet.Size = new System.Drawing.Size(797, 435);
+            this.dgTimesheet.TabIndex = 21;
+            // 
+            // hoursDataGridViewTextBoxColumn
+            // 
+            this.hoursDataGridViewTextBoxColumn.DataPropertyName = "hours";
+            this.hoursDataGridViewTextBoxColumn.HeaderText = "Hours";
+            this.hoursDataGridViewTextBoxColumn.Name = "hoursDataGridViewTextBoxColumn";
+            // 
+            // tmrMain
+            // 
+            this.tmrMain.Interval = 1000;
+            this.tmrMain.Tick += new System.EventHandler(this.tmrMain_Tick);
+            // 
+            // lblCurrentEntry
+            // 
+            this.lblCurrentEntry.AutoSize = true;
+            this.lblCurrentEntry.Location = new System.Drawing.Point(15, 34);
+            this.lblCurrentEntry.Name = "lblCurrentEntry";
+            this.lblCurrentEntry.Size = new System.Drawing.Size(71, 13);
+            this.lblCurrentEntry.TabIndex = 14;
+            this.lblCurrentEntry.Text = "Current Entry:";
+            // 
+            // statusStrip
+            // 
+            this.statusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripStatusLabel,
+            this.tsProgressBar,
+            this.tsslCurrentEntry,
+            this.tsslCurrentEntryVal});
+            this.statusStrip.Location = new System.Drawing.Point(0, 531);
+            this.statusStrip.Name = "statusStrip";
+            this.statusStrip.Size = new System.Drawing.Size(831, 22);
+            this.statusStrip.TabIndex = 24;
+            this.statusStrip.Text = "statusStrip1";
+            // 
+            // tsProgressBar
+            // 
+            this.tsProgressBar.Name = "tsProgressBar";
+            this.tsProgressBar.Size = new System.Drawing.Size(100, 16);
+            // 
+            // toolStripStatusLabel
+            // 
+            this.toolStripStatusLabel.Name = "toolStripStatusLabel";
+            this.toolStripStatusLabel.Size = new System.Drawing.Size(64, 17);
+            this.toolStripStatusLabel.Text = "Next Event";
+            // 
+            // tsslCurrentEntry
+            // 
+            this.tsslCurrentEntry.Name = "tsslCurrentEntry";
+            this.tsslCurrentEntry.Size = new System.Drawing.Size(80, 17);
+            this.tsslCurrentEntry.Text = "Current Entry:";
+            // 
+            // tsslCurrentEntryVal
+            // 
+            this.tsslCurrentEntryVal.Name = "tsslCurrentEntryVal";
+            this.tsslCurrentEntryVal.Size = new System.Drawing.Size(0, 17);
             // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(635, 444);
-            this.Controls.Add(this.panel1);
+            this.ClientSize = new System.Drawing.Size(831, 553);
+            this.Controls.Add(this.statusStrip);
+            this.Controls.Add(this.cboPromptEveryValue);
+            this.Controls.Add(this.lblPromptEvery);
+            this.Controls.Add(this.btnStart);
+            this.Controls.Add(this.lblNextEntryInValue);
+            this.Controls.Add(this.lblCurrentEntryValue);
+            this.Controls.Add(this.lblLastEntryValue);
+            this.Controls.Add(this.lblNextEntryIn);
+            this.Controls.Add(this.lblLastEntry);
+            this.Controls.Add(this.btnStop);
+            this.Controls.Add(this.btnLogNow);
+            this.Controls.Add(this.dgTimesheet);
+            this.Controls.Add(this.lblCurrentEntry);
             this.Name = "frmMain";
             this.Text = "RoboJo Time Tracker";
             this.Resize += new System.EventHandler(this.frmMain_Resize);
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.timetrackerDataSet)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.timesheetBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgTimesheet)).EndInit();
+            this.statusStrip.ResumeLayout(false);
+            this.statusStrip.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
 
-        private System.Windows.Forms.Timer tmrMain;
-        private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Button btnStartOrEnd;
+        private System.Windows.Forms.NotifyIcon notifyIcon;
+        private System.Windows.Forms.ComboBox cboPromptEveryValue;
+        private System.Windows.Forms.Label lblPromptEvery;
+        private System.Windows.Forms.Button btnStart;
         private System.Windows.Forms.Label lblNextEntryInValue;
         private System.Windows.Forms.Label lblCurrentEntryValue;
         private System.Windows.Forms.Label lblLastEntryValue;
-        private System.Windows.Forms.Label lblCurrentEntry;
         private System.Windows.Forms.Label lblNextEntryIn;
         private System.Windows.Forms.Label lblLastEntry;
-        private System.Windows.Forms.ComboBox cboPromptEveryValue;
-        private System.Windows.Forms.Label lblPromptEvery;
+        private timetrackerDataSet timetrackerDataSet;
         private System.Windows.Forms.Timer tmrPrompt;
-        private System.Windows.Forms.DataGridView dgTimesheet;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Hours;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Start;
-        private System.Windows.Forms.DataGridViewTextBoxColumn End;
-        private System.Windows.Forms.DataGridViewTextBoxColumn TaskDetails;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn Billable;
-        private System.Windows.Forms.NotifyIcon notifyIcon;
+        private System.Windows.Forms.BindingSource timesheetBindingSource;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn billableDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn descriptionDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn endtimeDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn starttimeDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn idDataGridViewTextBoxColumn;
         private System.Windows.Forms.Button btnStop;
         private System.Windows.Forms.Button btnLogNow;
+        private System.Windows.Forms.DataGridView dgTimesheet;
+        private System.Windows.Forms.DataGridViewTextBoxColumn hoursDataGridViewTextBoxColumn;
+        private System.Windows.Forms.Timer tmrMain;
+        private System.Windows.Forms.Label lblCurrentEntry;
+        private System.Windows.Forms.StatusStrip statusStrip;
+        private System.Windows.Forms.ToolStripProgressBar tsProgressBar;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel;
+        private System.Windows.Forms.ToolStripStatusLabel tsslCurrentEntry;
+        private System.Windows.Forms.ToolStripStatusLabel tsslCurrentEntryVal;
     }
 }
 
