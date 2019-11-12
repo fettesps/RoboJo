@@ -14,6 +14,8 @@ namespace RoboJo
     {
         private DateTime? _dtStart;
 
+        #region Functions
+
         public frmMain()
         {
             InitializeComponent();
@@ -24,7 +26,6 @@ namespace RoboJo
             this.Text = Application.ProductName + " - v" + Application.ProductVersion;
         }
 
-
         private void AddDetails(String strDetails)
         {
             // Calculate hours, to nearest half hour
@@ -32,7 +33,6 @@ namespace RoboJo
             TimeSpan tsHours = ts.RoundToNearestMinutes(15);
 
             // Add to grid
-
             //timetrackerDataSet.timesheet.AddtimesheetRow(x);
             timetrackerDataSet.AcceptChanges();
 
@@ -41,7 +41,8 @@ namespace RoboJo
             dr["end_time"] = DateTime.Now.ToShortTimeString();
             dr["description"] = strDetails;
             dr["hours"] = tsHours.ToString();
-            dr["billable"] = 0;
+            dr["billable"] = 1;
+
             //timetrackerDataSet.Tables[0].Rows.Add(dr);
             //timetrackerDataSet.Tables[0].AcceptChanges();
             //timetrackerDataSet.AcceptChanges();
@@ -56,6 +57,19 @@ namespace RoboJo
             tsslCurrentEntryVal.Text = strDetails;
         }
 
+        private void Record(String strMessage = "What have you been working on?")
+        {
+            String strInput = Microsoft.VisualBasic.Interaction.InputBox(strMessage, "Time Entry", "Default", 0, 0);
+
+            if (!String.IsNullOrWhiteSpace(strInput))
+            {
+                AddDetails(strInput);
+                _dtStart = DateTime.Now;
+            }
+        }
+
+        #endregion
+
         #region Events
 
         private void btnStart_Click(object sender, EventArgs e)
@@ -65,6 +79,8 @@ namespace RoboJo
             _dtStart = DateTime.Now;
             btnStart.Enabled = false;
             btnStop.Enabled = true;
+
+            Record("What will you be working on?");
         }
 
         private void btnLogNow_Click(object sender, EventArgs e)
@@ -96,22 +112,20 @@ namespace RoboJo
             tsProgressBar.Value = intSecondsElapsed < tsProgressBar.Maximum ? intSecondsElapsed : tsProgressBar.Maximum;
         }
 
-
         private void tmrPrompt_Tick(object sender, EventArgs e)
         {
-            String strInput = Microsoft.VisualBasic.Interaction.InputBox("What have you been working on?", "Time Entry", "Default", 0, 0);
-
-            if (!String.IsNullOrWhiteSpace(strInput))
-            {
-                AddDetails(strInput);
-                _dtStart = DateTime.Now;
-            }
+            Record();
         }
 
         private void cboPromptEveryValue_SelectedIndexChanged(object sender, EventArgs e)
         {
             switch(cboPromptEveryValue.Text)
             {
+                case "5 minutes":
+                    {
+                        tmrPrompt.Interval = 300000;
+                    }
+                    break;
                 case "15 minutes":
                     {
                         tmrPrompt.Interval = 900000;
@@ -136,7 +150,6 @@ namespace RoboJo
             if (FormWindowState.Minimized == this.WindowState)
             {
                 notifyIcon.Visible = true;
-                //notifyIcon.ShowBalloonTip(500);
                 this.Hide();
             }
             else if (FormWindowState.Normal == this.WindowState)
@@ -155,6 +168,5 @@ namespace RoboJo
         }
 
         #endregion
-
     }
 }

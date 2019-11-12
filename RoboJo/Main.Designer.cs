@@ -42,22 +42,22 @@
             this.timetrackerDataSet = new RoboJo.timetrackerDataSet();
             this.tmrPrompt = new System.Windows.Forms.Timer(this.components);
             this.timesheetBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.billableDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.descriptionDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.endtimeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.starttimeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.idDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btnStop = new System.Windows.Forms.Button();
             this.btnLogNow = new System.Windows.Forms.Button();
             this.dgTimesheet = new System.Windows.Forms.DataGridView();
-            this.hoursDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tmrMain = new System.Windows.Forms.Timer(this.components);
             this.lblCurrentEntry = new System.Windows.Forms.Label();
             this.statusStrip = new System.Windows.Forms.StatusStrip();
-            this.tsProgressBar = new System.Windows.Forms.ToolStripProgressBar();
             this.toolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
+            this.tsProgressBar = new System.Windows.Forms.ToolStripProgressBar();
             this.tsslCurrentEntry = new System.Windows.Forms.ToolStripStatusLabel();
             this.tsslCurrentEntryVal = new System.Windows.Forms.ToolStripStatusLabel();
+            this.idDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.starttimeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.endtimeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.descriptionDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.billableDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.hoursDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.timetrackerDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.timesheetBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgTimesheet)).BeginInit();
@@ -78,6 +78,7 @@
             this.cboPromptEveryValue.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboPromptEveryValue.FormattingEnabled = true;
             this.cboPromptEveryValue.Items.AddRange(new object[] {
+            "5 minutes",
             "15 minutes",
             "30 minutes",
             "60 minutes"});
@@ -166,39 +167,6 @@
             this.timesheetBindingSource.DataMember = "timesheet";
             this.timesheetBindingSource.DataSource = this.timetrackerDataSet;
             // 
-            // billableDataGridViewTextBoxColumn
-            // 
-            this.billableDataGridViewTextBoxColumn.DataPropertyName = "billable";
-            this.billableDataGridViewTextBoxColumn.HeaderText = "Billable";
-            this.billableDataGridViewTextBoxColumn.Name = "billableDataGridViewTextBoxColumn";
-            this.billableDataGridViewTextBoxColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.billableDataGridViewTextBoxColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            // 
-            // descriptionDataGridViewTextBoxColumn
-            // 
-            this.descriptionDataGridViewTextBoxColumn.DataPropertyName = "description";
-            this.descriptionDataGridViewTextBoxColumn.HeaderText = "Description";
-            this.descriptionDataGridViewTextBoxColumn.Name = "descriptionDataGridViewTextBoxColumn";
-            // 
-            // endtimeDataGridViewTextBoxColumn
-            // 
-            this.endtimeDataGridViewTextBoxColumn.DataPropertyName = "end_time";
-            this.endtimeDataGridViewTextBoxColumn.HeaderText = "End Time";
-            this.endtimeDataGridViewTextBoxColumn.Name = "endtimeDataGridViewTextBoxColumn";
-            // 
-            // starttimeDataGridViewTextBoxColumn
-            // 
-            this.starttimeDataGridViewTextBoxColumn.DataPropertyName = "start_time";
-            this.starttimeDataGridViewTextBoxColumn.HeaderText = "Start Time";
-            this.starttimeDataGridViewTextBoxColumn.Name = "starttimeDataGridViewTextBoxColumn";
-            // 
-            // idDataGridViewTextBoxColumn
-            // 
-            this.idDataGridViewTextBoxColumn.DataPropertyName = "id";
-            this.idDataGridViewTextBoxColumn.HeaderText = "id";
-            this.idDataGridViewTextBoxColumn.Name = "idDataGridViewTextBoxColumn";
-            this.idDataGridViewTextBoxColumn.Visible = false;
-            // 
             // btnStop
             // 
             this.btnStop.Enabled = false;
@@ -240,12 +208,6 @@
             this.dgTimesheet.Size = new System.Drawing.Size(797, 435);
             this.dgTimesheet.TabIndex = 21;
             // 
-            // hoursDataGridViewTextBoxColumn
-            // 
-            this.hoursDataGridViewTextBoxColumn.DataPropertyName = "hours";
-            this.hoursDataGridViewTextBoxColumn.HeaderText = "Hours";
-            this.hoursDataGridViewTextBoxColumn.Name = "hoursDataGridViewTextBoxColumn";
-            // 
             // tmrMain
             // 
             this.tmrMain.Interval = 1000;
@@ -273,16 +235,16 @@
             this.statusStrip.TabIndex = 24;
             this.statusStrip.Text = "statusStrip1";
             // 
-            // tsProgressBar
-            // 
-            this.tsProgressBar.Name = "tsProgressBar";
-            this.tsProgressBar.Size = new System.Drawing.Size(100, 16);
-            // 
             // toolStripStatusLabel
             // 
             this.toolStripStatusLabel.Name = "toolStripStatusLabel";
             this.toolStripStatusLabel.Size = new System.Drawing.Size(64, 17);
             this.toolStripStatusLabel.Text = "Next Event";
+            // 
+            // tsProgressBar
+            // 
+            this.tsProgressBar.Name = "tsProgressBar";
+            this.tsProgressBar.Size = new System.Drawing.Size(100, 16);
             // 
             // tsslCurrentEntry
             // 
@@ -294,6 +256,46 @@
             // 
             this.tsslCurrentEntryVal.Name = "tsslCurrentEntryVal";
             this.tsslCurrentEntryVal.Size = new System.Drawing.Size(0, 17);
+            // 
+            // idDataGridViewTextBoxColumn
+            // 
+            this.idDataGridViewTextBoxColumn.DataPropertyName = "id";
+            this.idDataGridViewTextBoxColumn.HeaderText = "id";
+            this.idDataGridViewTextBoxColumn.Name = "idDataGridViewTextBoxColumn";
+            this.idDataGridViewTextBoxColumn.Visible = false;
+            // 
+            // starttimeDataGridViewTextBoxColumn
+            // 
+            this.starttimeDataGridViewTextBoxColumn.DataPropertyName = "start_time";
+            this.starttimeDataGridViewTextBoxColumn.HeaderText = "Start Time";
+            this.starttimeDataGridViewTextBoxColumn.Name = "starttimeDataGridViewTextBoxColumn";
+            // 
+            // endtimeDataGridViewTextBoxColumn
+            // 
+            this.endtimeDataGridViewTextBoxColumn.DataPropertyName = "end_time";
+            this.endtimeDataGridViewTextBoxColumn.HeaderText = "End Time";
+            this.endtimeDataGridViewTextBoxColumn.Name = "endtimeDataGridViewTextBoxColumn";
+            // 
+            // descriptionDataGridViewTextBoxColumn
+            // 
+            this.descriptionDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.descriptionDataGridViewTextBoxColumn.DataPropertyName = "description";
+            this.descriptionDataGridViewTextBoxColumn.HeaderText = "Description";
+            this.descriptionDataGridViewTextBoxColumn.Name = "descriptionDataGridViewTextBoxColumn";
+            // 
+            // billableDataGridViewTextBoxColumn
+            // 
+            this.billableDataGridViewTextBoxColumn.DataPropertyName = "billable";
+            this.billableDataGridViewTextBoxColumn.HeaderText = "Billable";
+            this.billableDataGridViewTextBoxColumn.Name = "billableDataGridViewTextBoxColumn";
+            this.billableDataGridViewTextBoxColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.billableDataGridViewTextBoxColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            // 
+            // hoursDataGridViewTextBoxColumn
+            // 
+            this.hoursDataGridViewTextBoxColumn.DataPropertyName = "hours";
+            this.hoursDataGridViewTextBoxColumn.HeaderText = "Hours";
+            this.hoursDataGridViewTextBoxColumn.Name = "hoursDataGridViewTextBoxColumn";
             // 
             // frmMain
             // 
@@ -340,15 +342,9 @@
         private timetrackerDataSet timetrackerDataSet;
         private System.Windows.Forms.Timer tmrPrompt;
         private System.Windows.Forms.BindingSource timesheetBindingSource;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn billableDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn descriptionDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn endtimeDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn starttimeDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn idDataGridViewTextBoxColumn;
         private System.Windows.Forms.Button btnStop;
         private System.Windows.Forms.Button btnLogNow;
         private System.Windows.Forms.DataGridView dgTimesheet;
-        private System.Windows.Forms.DataGridViewTextBoxColumn hoursDataGridViewTextBoxColumn;
         private System.Windows.Forms.Timer tmrMain;
         private System.Windows.Forms.Label lblCurrentEntry;
         private System.Windows.Forms.StatusStrip statusStrip;
@@ -356,6 +352,12 @@
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel;
         private System.Windows.Forms.ToolStripStatusLabel tsslCurrentEntry;
         private System.Windows.Forms.ToolStripStatusLabel tsslCurrentEntryVal;
+        private System.Windows.Forms.DataGridViewTextBoxColumn idDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn starttimeDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn endtimeDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn descriptionDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn billableDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn hoursDataGridViewTextBoxColumn;
     }
 }
 
