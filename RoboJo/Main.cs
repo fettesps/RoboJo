@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -13,6 +14,7 @@ namespace RoboJo
     public partial class frmMain : Form
     {
         private DateTime? _dtStart;
+        private DateTime? _dtStartAbsolute;
 
         #region Functions
 
@@ -23,38 +25,118 @@ namespace RoboJo
             tmrMain.Interval = 1000; // this timer controls when the GUI is refreshed
             cboPromptEveryValue_SelectedIndexChanged(this, null);
 
+            readFromDb();
+
             this.Text = Application.ProductName + " - v" + Application.ProductVersion;
         }
 
         private void AddDetails(String strDetails)
         {
             // Calculate hours, to nearest half hour
+            DateTime dtStart = _dtStart != null ? _dtStart.Value : DateTime.Now;
             TimeSpan ts = _dtStart != null ? DateTime.Now - _dtStart.Value : new TimeSpan(0);
             TimeSpan tsHours = ts.RoundToNearestMinutes(15);
 
             // Add to grid
-            //timetrackerDataSet.timesheet.AddtimesheetRow(x);
             timetrackerDataSet.AcceptChanges();
 
             DataRow dr = timetrackerDataSet.Tables[0].NewRow();
-            dr["start_time"] = _dtStart != null ? _dtStart.Value.ToShortTimeString() : DateTime.Now.ToShortTimeString();
+            dr["start_time"] = dtStart.ToShortTimeString();
             dr["end_time"] = DateTime.Now.ToShortTimeString();
             dr["description"] = strDetails;
             dr["hours"] = tsHours.ToString();
             dr["billable"] = 1;
 
-            //timetrackerDataSet.Tables[0].Rows.Add(dr);
-            //timetrackerDataSet.Tables[0].AcceptChanges();
-            //timetrackerDataSet.AcceptChanges();
-            //timesheetBindingSource.;
-
             timetrackerDataSet.timesheet.AddtimesheetRow((timetrackerDataSet.timesheetRow)dr);
             timetrackerDataSet.AcceptChanges();
+
+            // Add to Total 
+            TimeSpan tsAbs = _dtStartAbsolute != null ? DateTime.Now - _dtStartAbsolute.Value : new TimeSpan(0);
+            tsAbs = tsAbs.RoundToNearestMinutes(15);
+            tsslTotal.Text = "Total: " + tsAbs.ToString();
 
             // Update Trackers
             lblLastEntryValue.Text = lblCurrentEntryValue.Text;
             lblCurrentEntryValue.Text = strDetails;
             tsslCurrentEntryVal.Text = strDetails;
+
+            writeToDb(dtStart, DateTime.Now, strDetails, tsHours, true);
+        }
+
+        private void AddDetailsToGridView(String strDetails)
+        {
+            // Calculate hours, to nearest half hour
+            DateTime dtStart = _dtStart != null ? _dtStart.Value : DateTime.Now;
+            TimeSpan ts = _dtStart != null ? DateTime.Now - _dtStart.Value : new TimeSpan(0);
+            TimeSpan tsHours = ts.RoundToNearestMinutes(15);
+
+            // Add to grid
+            timetrackerDataSet.AcceptChanges();
+
+            DataRow dr = timetrackerDataSet.Tables[0].NewRow();
+            dr["start_time"] = dtStart.ToShortTimeString();
+            dr["end_time"] = DateTime.Now.ToShortTimeString();
+            dr["description"] = strDetails;
+            dr["hours"] = tsHours.ToString();
+            dr["billable"] = 1;
+
+            timetrackerDataSet.timesheet.AddtimesheetRow((timetrackerDataSet.timesheetRow)dr);
+            timetrackerDataSet.AcceptChanges();
+        }
+
+        private bool writeToDb(DateTime? dtStart, DateTime? dtEnd, String strDescription, TimeSpan tsHours, bool booBillable)
+        {
+            String strInsertStatement = "INSERT INTO timesheet ([start_time],[end_time],[description],[billable],[hours]) VALUES (@start_time,@end_time,@description,@billable,@hours)";
+
+            using (SqlConnection sqlCon = new SqlConnection(Properties.Settings.Default.timetrackerConnectionString))
+            {
+                sqlCon.Open();
+
+                using (SqlCommand cmd = new SqlCommand(strInsertStatement, sqlCon))
+                {
+                    cmd.Parameters.Add("@start_time", SqlDbType.DateTime).Value = dtStart;
+                    cmd.Parameters.Add("@end_time", SqlDbType.DateTime).Value = dtEnd;
+                    cmd.Parameters.Add("@description", SqlDbType.NVarChar).Value = strDescription;
+                    cmd.Parameters.Add("@billable", SqlDbType.Bit).Value = booBillable;
+                    cmd.Parameters.Add("@hours", SqlDbType.NVarChar).Value = tsHours.ToString();
+
+                    int intRowsInserted = cmd.ExecuteNonQuery();
+                    if (intRowsInserted > 0) return true;
+                }
+            }
+
+            return false;
+        }
+
+        private void readFromDb()
+        {
+            String strReadStatement = "SELECT [start_time],[end_time],[description],[billable],[hours] FROM timesheet";
+
+            using (SqlConnection sqlCon = new SqlConnection(Properties.Settings.Default.timetrackerConnectionString))
+            {
+                sqlCon.Open();
+
+                using (SqlCommand cmd = new SqlCommand(strReadStatement, sqlCon))
+                {
+                    SqlDataReader sqlDr = cmd.ExecuteReader();
+                    while (sqlDr.Read())
+                    {
+                        timetrackerDataSet.AcceptChanges();
+
+                        DataRow dr = timetrackerDataSet.Tables[0].NewRow();
+
+                        dr["start_time"] = sqlDr.GetDateTime(sqlDr.GetOrdinal("start_time")).ToShortTimeString();
+                        dr["end_time"] = sqlDr.GetDateTime(sqlDr.GetOrdinal("end_time")).ToShortTimeString();
+                        dr["description"] = sqlDr["description"].ToString();
+                        dr["hours"] = sqlDr["hours"].ToString();
+                        dr["billable"] = sqlDr["billable"].ToString();
+
+                        timetrackerDataSet.timesheet.AddtimesheetRow((timetrackerDataSet.timesheetRow)dr);
+                        timetrackerDataSet.AcceptChanges();
+                    }
+                }
+            }
+
         }
 
         private void Record(String strMessage = "What have you been working on?")
@@ -76,9 +158,10 @@ namespace RoboJo
         {
             tmrMain.Enabled = true;
             tmrPrompt.Enabled = true;
-            _dtStart = DateTime.Now;
             btnStart.Enabled = false;
             btnStop.Enabled = true;
+            _dtStart = DateTime.Now;
+            _dtStartAbsolute = _dtStartAbsolute == null ? DateTime.Now : _dtStartAbsolute;
 
             Record("What will you be working on?");
         }
@@ -93,10 +176,10 @@ namespace RoboJo
             tmrMain.Enabled = false;
             tmrPrompt_Tick(this, new EventArgs()); // make a final log entry
             tmrPrompt.Enabled = false;
-            _dtStart = null;
             btnStart.Enabled = true;
             btnStop.Enabled = false;
             tsProgressBar.Value = 0;
+            _dtStart = null;
         }
 
         private void tmrMain_Tick(object sender, EventArgs e)
@@ -157,7 +240,6 @@ namespace RoboJo
                 notifyIcon.Visible = false;
             }
         }
-
 
         private void notifyIcon_DoubleClick(object sender, EventArgs e)
         {

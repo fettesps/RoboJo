@@ -45,6 +45,12 @@
             this.btnStop = new System.Windows.Forms.Button();
             this.btnLogNow = new System.Windows.Forms.Button();
             this.dgTimesheet = new System.Windows.Forms.DataGridView();
+            this.idDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.starttimeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.endtimeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.descriptionDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.billableDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.hoursDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tmrMain = new System.Windows.Forms.Timer(this.components);
             this.lblCurrentEntry = new System.Windows.Forms.Label();
             this.statusStrip = new System.Windows.Forms.StatusStrip();
@@ -52,12 +58,7 @@
             this.tsProgressBar = new System.Windows.Forms.ToolStripProgressBar();
             this.tsslCurrentEntry = new System.Windows.Forms.ToolStripStatusLabel();
             this.tsslCurrentEntryVal = new System.Windows.Forms.ToolStripStatusLabel();
-            this.idDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.starttimeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.endtimeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.descriptionDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.billableDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.hoursDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tsslTotal = new System.Windows.Forms.ToolStripStatusLabel();
             ((System.ComponentModel.ISupportInitialize)(this.timetrackerDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.timesheetBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgTimesheet)).BeginInit();
@@ -208,55 +209,6 @@
             this.dgTimesheet.Size = new System.Drawing.Size(797, 435);
             this.dgTimesheet.TabIndex = 21;
             // 
-            // tmrMain
-            // 
-            this.tmrMain.Interval = 1000;
-            this.tmrMain.Tick += new System.EventHandler(this.tmrMain_Tick);
-            // 
-            // lblCurrentEntry
-            // 
-            this.lblCurrentEntry.AutoSize = true;
-            this.lblCurrentEntry.Location = new System.Drawing.Point(15, 34);
-            this.lblCurrentEntry.Name = "lblCurrentEntry";
-            this.lblCurrentEntry.Size = new System.Drawing.Size(71, 13);
-            this.lblCurrentEntry.TabIndex = 14;
-            this.lblCurrentEntry.Text = "Current Entry:";
-            // 
-            // statusStrip
-            // 
-            this.statusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripStatusLabel,
-            this.tsProgressBar,
-            this.tsslCurrentEntry,
-            this.tsslCurrentEntryVal});
-            this.statusStrip.Location = new System.Drawing.Point(0, 531);
-            this.statusStrip.Name = "statusStrip";
-            this.statusStrip.Size = new System.Drawing.Size(831, 22);
-            this.statusStrip.TabIndex = 24;
-            this.statusStrip.Text = "statusStrip1";
-            // 
-            // toolStripStatusLabel
-            // 
-            this.toolStripStatusLabel.Name = "toolStripStatusLabel";
-            this.toolStripStatusLabel.Size = new System.Drawing.Size(64, 17);
-            this.toolStripStatusLabel.Text = "Next Event";
-            // 
-            // tsProgressBar
-            // 
-            this.tsProgressBar.Name = "tsProgressBar";
-            this.tsProgressBar.Size = new System.Drawing.Size(100, 16);
-            // 
-            // tsslCurrentEntry
-            // 
-            this.tsslCurrentEntry.Name = "tsslCurrentEntry";
-            this.tsslCurrentEntry.Size = new System.Drawing.Size(80, 17);
-            this.tsslCurrentEntry.Text = "Current Entry:";
-            // 
-            // tsslCurrentEntryVal
-            // 
-            this.tsslCurrentEntryVal.Name = "tsslCurrentEntryVal";
-            this.tsslCurrentEntryVal.Size = new System.Drawing.Size(0, 17);
-            // 
             // idDataGridViewTextBoxColumn
             // 
             this.idDataGridViewTextBoxColumn.DataPropertyName = "id";
@@ -296,6 +248,62 @@
             this.hoursDataGridViewTextBoxColumn.DataPropertyName = "hours";
             this.hoursDataGridViewTextBoxColumn.HeaderText = "Hours";
             this.hoursDataGridViewTextBoxColumn.Name = "hoursDataGridViewTextBoxColumn";
+            // 
+            // tmrMain
+            // 
+            this.tmrMain.Interval = 1000;
+            this.tmrMain.Tick += new System.EventHandler(this.tmrMain_Tick);
+            // 
+            // lblCurrentEntry
+            // 
+            this.lblCurrentEntry.AutoSize = true;
+            this.lblCurrentEntry.Location = new System.Drawing.Point(15, 34);
+            this.lblCurrentEntry.Name = "lblCurrentEntry";
+            this.lblCurrentEntry.Size = new System.Drawing.Size(71, 13);
+            this.lblCurrentEntry.TabIndex = 14;
+            this.lblCurrentEntry.Text = "Current Entry:";
+            // 
+            // statusStrip
+            // 
+            this.statusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripStatusLabel,
+            this.tsProgressBar,
+            this.tsslCurrentEntry,
+            this.tsslCurrentEntryVal,
+            this.tsslTotal});
+            this.statusStrip.Location = new System.Drawing.Point(0, 531);
+            this.statusStrip.Name = "statusStrip";
+            this.statusStrip.Size = new System.Drawing.Size(831, 22);
+            this.statusStrip.TabIndex = 24;
+            this.statusStrip.Text = "statusStrip1";
+            // 
+            // toolStripStatusLabel
+            // 
+            this.toolStripStatusLabel.Name = "toolStripStatusLabel";
+            this.toolStripStatusLabel.Size = new System.Drawing.Size(64, 17);
+            this.toolStripStatusLabel.Text = "Next Event";
+            // 
+            // tsProgressBar
+            // 
+            this.tsProgressBar.Name = "tsProgressBar";
+            this.tsProgressBar.Size = new System.Drawing.Size(100, 16);
+            // 
+            // tsslCurrentEntry
+            // 
+            this.tsslCurrentEntry.Name = "tsslCurrentEntry";
+            this.tsslCurrentEntry.Size = new System.Drawing.Size(80, 17);
+            this.tsslCurrentEntry.Text = "Current Entry:";
+            // 
+            // tsslCurrentEntryVal
+            // 
+            this.tsslCurrentEntryVal.Name = "tsslCurrentEntryVal";
+            this.tsslCurrentEntryVal.Size = new System.Drawing.Size(0, 17);
+            // 
+            // tsslTotal
+            // 
+            this.tsslTotal.Name = "tsslTotal";
+            this.tsslTotal.Size = new System.Drawing.Size(38, 17);
+            this.tsslTotal.Text = "Total: ";
             // 
             // frmMain
             // 
@@ -358,6 +366,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn descriptionDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewCheckBoxColumn billableDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn hoursDataGridViewTextBoxColumn;
+        private System.Windows.Forms.ToolStripStatusLabel tsslTotal;
     }
 }
 
