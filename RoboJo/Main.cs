@@ -15,6 +15,7 @@ namespace RoboJo
     {
         private DateTime? _dtStart;
         private DateTime? _dtStartAbsolute;
+        private bool _booInputActive = false;
 
         #region Functions
 
@@ -24,7 +25,7 @@ namespace RoboJo
             cboPromptEveryValue.SelectedIndex = 0; // todo : store default in config setting
             tmrMain.Interval = 1000; // this timer controls when the GUI is refreshed
             cboPromptEveryValue_SelectedIndexChanged(this, null);
-
+            
             readFromDb();
 
             this.Text = Application.ProductName + " - v" + Application.ProductVersion;
@@ -139,12 +140,33 @@ namespace RoboJo
 
         }
 
+        private bool clearDb()
+        {
+            String strClearSql = "DELETE FROM timesheet WHERE 1=1";
+
+            using (SqlConnection sqlCon = new SqlConnection(Properties.Settings.Default.timetrackerConnectionString))
+            {
+                sqlCon.Open();
+
+                using (SqlCommand cmd = new SqlCommand(strClearSql, sqlCon))
+                {
+                    int intRowsInserted = cmd.ExecuteNonQuery();
+                    if (intRowsInserted > 0) return true;
+                }
+            }
+
+            return false;
+        }
+
+
         private void Record(String strMessage = "What have you been working on?")
         {
             String strInput = Microsoft.VisualBasic.Interaction.InputBox(strMessage, "Time Entry", "Default", 0, 0);
+            _booInputActive = true;
 
             if (!String.IsNullOrWhiteSpace(strInput))
             {
+                _booInputActive = false;
                 AddDetails(strInput);
                 _dtStart = DateTime.Now;
             }
@@ -180,6 +202,14 @@ namespace RoboJo
             btnStop.Enabled = false;
             tsProgressBar.Value = 0;
             _dtStart = null;
+        }
+
+        private void btnClear_Click(object sender, EventArgs e)
+        {
+            bool cleared = clearDb();
+
+            dgTimesheet.DataSource = dgTimesheet.DataSource;
+            dgTimesheet.Refresh();
         }
 
         private void tmrMain_Tick(object sender, EventArgs e)

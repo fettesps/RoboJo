@@ -59,6 +59,7 @@
             this.tsslCurrentEntry = new System.Windows.Forms.ToolStripStatusLabel();
             this.tsslCurrentEntryVal = new System.Windows.Forms.ToolStripStatusLabel();
             this.tsslTotal = new System.Windows.Forms.ToolStripStatusLabel();
+            this.btnClear = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.timetrackerDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.timesheetBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgTimesheet)).BeginInit();
@@ -305,11 +306,22 @@
             this.tsslTotal.Size = new System.Drawing.Size(38, 17);
             this.tsslTotal.Text = "Total: ";
             // 
+            // btnClear
+            // 
+            this.btnClear.Location = new System.Drawing.Point(592, 54);
+            this.btnClear.Name = "btnClear";
+            this.btnClear.Size = new System.Drawing.Size(75, 23);
+            this.btnClear.TabIndex = 25;
+            this.btnClear.Text = "Clear";
+            this.btnClear.UseVisualStyleBackColor = true;
+            this.btnClear.Click += new System.EventHandler(this.btnClear_Click);
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(831, 553);
+            this.Controls.Add(this.btnClear);
             this.Controls.Add(this.statusStrip);
             this.Controls.Add(this.cboPromptEveryValue);
             this.Controls.Add(this.lblPromptEvery);
@@ -367,6 +379,7 @@
         private System.Windows.Forms.DataGridViewCheckBoxColumn billableDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn hoursDataGridViewTextBoxColumn;
         private System.Windows.Forms.ToolStripStatusLabel tsslTotal;
+        private System.Windows.Forms.Button btnClear;
     }
 }
 
