@@ -117,6 +117,35 @@ namespace RoboJo
             return false;
         }
 
+        private bool ResaveAllToDb()
+        {
+            // Clear it out first
+            ClearDb();
+
+            // Go through all the table rows and save them to the database
+            foreach (DataRow row in timetrackerDataSet.Tables[0].Rows)
+            {
+                // Since the datagrid stores everything as text we need to covert it all back into proper types
+                DateTime dtOut, dtStartTime, dtEndTime;
+
+                // Todo: Add some debugging incase conversions fail
+                DateTime.TryParse(row["start_time"].ToString(), out dtOut);
+                dtStartTime = dtOut;
+
+                DateTime.TryParse(row["end_time"].ToString(), out dtOut);
+                dtEndTime = dtOut;
+
+                TimeSpan tsHours;
+                TimeSpan.TryParse(row["hours"].ToString(), out tsHours);
+
+                var billable = row["billable"];
+
+                WriteToDb(dtStartTime, dtEndTime, row["description"].ToString(), tsHours, (bool)billable);
+            }
+
+            return false;
+        }
+
         private void ReadFromDb()
         {
             String strReadStatement = "SELECT [start_time],[end_time],[description],[billable],[hours] FROM timesheet";
@@ -218,9 +247,6 @@ namespace RoboJo
         {
             bool cleared = ClearDb();
             ClearDetails();
-
-            //dgTimesheet.DataSource = dgTimesheet.DataSource;
-            //dgTimesheet.Refresh();
         }
 
         private void tmrMain_Tick(object sender, EventArgs e)
@@ -290,6 +316,12 @@ namespace RoboJo
             this.WindowState = FormWindowState.Normal;
         }
 
-        #endregion
+        private void btnResave_Click(object sender, EventArgs e)
+        {
+            ResaveAllToDb();
+        }
     }
+
+    #endregion
+
 }

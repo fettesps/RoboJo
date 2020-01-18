@@ -60,6 +60,7 @@
             this.tsslCurrentEntryVal = new System.Windows.Forms.ToolStripStatusLabel();
             this.tsslTotal = new System.Windows.Forms.ToolStripStatusLabel();
             this.btnClear = new System.Windows.Forms.Button();
+            this.btnResave = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.timetrackerDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.timesheetBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgTimesheet)).BeginInit();
@@ -316,11 +317,22 @@
             this.btnClear.UseVisualStyleBackColor = true;
             this.btnClear.Click += new System.EventHandler(this.btnClear_Click);
             // 
+            // btnResave
+            // 
+            this.btnResave.Location = new System.Drawing.Point(673, 54);
+            this.btnResave.Name = "btnResave";
+            this.btnResave.Size = new System.Drawing.Size(75, 23);
+            this.btnResave.TabIndex = 26;
+            this.btnResave.Text = "Resave";
+            this.btnResave.UseVisualStyleBackColor = true;
+            this.btnResave.Click += new System.EventHandler(this.btnResave_Click);
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(831, 553);
+            this.Controls.Add(this.btnResave);
             this.Controls.Add(this.btnClear);
             this.Controls.Add(this.statusStrip);
             this.Controls.Add(this.cboPromptEveryValue);
@@ -380,6 +392,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn hoursDataGridViewTextBoxColumn;
         private System.Windows.Forms.ToolStripStatusLabel tsslTotal;
         private System.Windows.Forms.Button btnClear;
+        private System.Windows.Forms.Button btnResave;
     }
 }
 
