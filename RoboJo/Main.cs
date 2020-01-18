@@ -26,7 +26,7 @@ namespace RoboJo
             tmrMain.Interval = 1000; // this timer controls when the GUI is refreshed
             cboPromptEveryValue_SelectedIndexChanged(this, null);
             
-            readFromDb();
+            ReadFromDb();
 
             this.Text = Application.ProductName + " - v" + Application.ProductVersion;
         }
@@ -61,7 +61,15 @@ namespace RoboJo
             lblCurrentEntryValue.Text = strDetails;
             tsslCurrentEntryVal.Text = strDetails;
 
-            writeToDb(dtStart, DateTime.Now, strDetails, tsHours, true);
+            WriteToDb(dtStart, DateTime.Now, strDetails, tsHours, true);
+        }
+
+        private void ClearDetails()
+        {
+            // Add to grid
+            timetrackerDataSet.AcceptChanges();
+            timetrackerDataSet.Tables[0].Clear();
+            timetrackerDataSet.AcceptChanges();
         }
 
         private void AddDetailsToGridView(String strDetails)
@@ -85,7 +93,7 @@ namespace RoboJo
             timetrackerDataSet.AcceptChanges();
         }
 
-        private bool writeToDb(DateTime? dtStart, DateTime? dtEnd, String strDescription, TimeSpan tsHours, bool booBillable)
+        private bool WriteToDb(DateTime? dtStart, DateTime? dtEnd, String strDescription, TimeSpan tsHours, bool booBillable)
         {
             String strInsertStatement = "INSERT INTO timesheet ([start_time],[end_time],[description],[billable],[hours]) VALUES (@start_time,@end_time,@description,@billable,@hours)";
 
@@ -109,7 +117,7 @@ namespace RoboJo
             return false;
         }
 
-        private void readFromDb()
+        private void ReadFromDb()
         {
             String strReadStatement = "SELECT [start_time],[end_time],[description],[billable],[hours] FROM timesheet";
 
@@ -140,7 +148,7 @@ namespace RoboJo
 
         }
 
-        private bool clearDb()
+        private bool ClearDb()
         {
             String strClearSql = "DELETE FROM timesheet WHERE 1=1";
 
@@ -159,9 +167,11 @@ namespace RoboJo
         }
 
 
-        private void Record(String strMessage = "What have you been working on?")
+        private void RecordEvent(String strMessage = "What have you been working on?")
         {
             String strInput = Microsoft.VisualBasic.Interaction.InputBox(strMessage, "Time Entry", "Default", 0, 0);
+            System.Console.WriteLine("Input is " + (_booInputActive ? "active" : "inactive"));
+
             _booInputActive = true;
 
             if (!String.IsNullOrWhiteSpace(strInput))
@@ -185,7 +195,7 @@ namespace RoboJo
             _dtStart = DateTime.Now;
             _dtStartAbsolute = _dtStartAbsolute == null ? DateTime.Now : _dtStartAbsolute;
 
-            Record("What will you be working on?");
+            RecordEvent("What will you be working on?");
         }
 
         private void btnLogNow_Click(object sender, EventArgs e)
@@ -206,10 +216,11 @@ namespace RoboJo
 
         private void btnClear_Click(object sender, EventArgs e)
         {
-            bool cleared = clearDb();
+            bool cleared = ClearDb();
+            ClearDetails();
 
-            dgTimesheet.DataSource = dgTimesheet.DataSource;
-            dgTimesheet.Refresh();
+            //dgTimesheet.DataSource = dgTimesheet.DataSource;
+            //dgTimesheet.Refresh();
         }
 
         private void tmrMain_Tick(object sender, EventArgs e)
@@ -227,7 +238,7 @@ namespace RoboJo
 
         private void tmrPrompt_Tick(object sender, EventArgs e)
         {
-            Record();
+            RecordEvent();
         }
 
         private void cboPromptEveryValue_SelectedIndexChanged(object sender, EventArgs e)
