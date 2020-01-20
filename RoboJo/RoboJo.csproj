@@ -62,6 +62,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DAL.cs" />
+    <Compile Include="Entities\Project.cs" />
+    <Compile Include="Entities\Record.cs" />
     <Compile Include="TimeSpanExtensions.cs" />
     <Compile Include="Main.cs">
       <SubType>Form</SubType>
