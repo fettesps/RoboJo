@@ -83,15 +83,14 @@ namespace RoboJo
 
                     using (SqlCommand cmd = new SqlCommand(strClearSql, sqlCon))
                     {
-                        int intRowsInserted = cmd.ExecuteNonQuery();
-                        if (intRowsInserted > 0) return true;
+                        cmd.ExecuteNonQuery();
+                        return true;
                     }
                 }
-
-                return false;
             }
             catch (Exception)
             {
+                return false;
                 throw;
             }
         }
