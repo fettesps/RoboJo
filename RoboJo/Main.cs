@@ -23,7 +23,7 @@ namespace RoboJo
             try
             {
                 InitializeComponent();
-                cboPromptEveryValue.SelectedIndex = 0; // todo : store default in config setting
+                cboPromptEveryValue.SelectedIndex = 0; 
                 tmrMain.Interval = 1000; // this timer controls when the GUI is refreshed
                 cboPromptEveryValue_SelectedIndexChanged(this, null);
                 lblDate_Value.Text = System.DateTime.Now.ToShortDateString();
