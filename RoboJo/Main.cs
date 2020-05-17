@@ -14,6 +14,7 @@ namespace RoboJo
         private DateTime? _dtStart;
         private DateTime? _dtStartAbsolute;
         private bool _booInputActive = false;
+        private bool _booBillable = true;
 
         #region Constructor
 
@@ -25,6 +26,7 @@ namespace RoboJo
                 cboPromptEveryValue.SelectedIndex = 0; // todo : store default in config setting
                 tmrMain.Interval = 1000; // this timer controls when the GUI is refreshed
                 cboPromptEveryValue_SelectedIndexChanged(this, null);
+                lblDate_Value.Text = System.DateTime.Now.ToShortDateString();
 
                 LoadRecords();
 
@@ -69,7 +71,7 @@ namespace RoboJo
             }
         }
 
-        private void AddTimeRecord(String strDetails)
+        private void AddTimeRecord(String strDetails, bool booBillable = true)
         {
             try
             {
@@ -86,7 +88,7 @@ namespace RoboJo
                 dr["end_time"] = DateTime.Now.ToShortTimeString();
                 dr["description"] = strDetails;
                 dr["hours"] = tsHours.ToString();
-                dr["billable"] = 1;
+                dr["billable"] = booBillable ? 1 : 0;
 
                 timetrackerDataSet.timesheet.AddtimesheetRow((timetrackerDataSet.timesheetRow)dr);
                 timetrackerDataSet.AcceptChanges();
@@ -170,16 +172,30 @@ namespace RoboJo
         {
             try
             {
-                String strTimeEntry = Microsoft.VisualBasic.Interaction.InputBox(strMessage, "Time Entry", "Default", 0, 0);
-                System.Console.WriteLine("Input is " + (_booInputActive ? "active" : "inactive"));
-
-                _booInputActive = true;
-
-                if (!String.IsNullOrWhiteSpace(strTimeEntry))
+                // Prepare Prompt window
+                Prompt timePrompt = new Prompt
                 {
-                    AddTimeRecord(strTimeEntry);
+                    UserInput = String.Empty,
+                    Billable = _booBillable,
+                    StartTime = _dtStart != null ? _dtStart.Value : DateTime.Now,
+                    EndTime = DateTime.Now,
+                    StartPosition = FormStartPosition.CenterParent
+                };
+
+                // Show the Prompt, if it's not already showing
+                if (!_booInputActive)
+                {
+                    _booInputActive = true;
+                    timePrompt.ShowDialog();
+                }
+
+                // If there was user input, save it
+                if (!String.IsNullOrWhiteSpace(timePrompt.UserInput))
+                {
+                    AddTimeRecord(timePrompt.UserInput, timePrompt.Billable);
                     _booInputActive = false;
                     _dtStart = DateTime.Now;
+                    _booBillable = timePrompt.Billable;
                 }
             }
             catch (Exception)
@@ -252,7 +268,9 @@ namespace RoboJo
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error clearing the grid." + System.Environment.NewLine + ex.ToString(), "Exception", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Error clearing the grid." + System.Environment.NewLine + ex.ToString(), "Exception", 
+                    MessageBoxButtons.OK, 
+                    MessageBoxIcon.Error);
             }
         }
 
@@ -284,7 +302,9 @@ namespace RoboJo
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error saving record." + System.Environment.NewLine + ex.ToString(), "Exception", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Error saving record." + System.Environment.NewLine + ex.ToString(), "Exception", 
+                    MessageBoxButtons.OK, 
+                    MessageBoxIcon.Error);
             }
         }
 
@@ -373,11 +393,17 @@ namespace RoboJo
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Failed to resave records to database." + System.Environment.NewLine + ex.ToString(), "Exception", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(
+                    "Failed to resave records to database." + System.Environment.NewLine + ex.ToString(), 
+                    "Exception", 
+                    MessageBoxButtons.OK, 
+                    MessageBoxIcon.Error);
             }
         }
 
-        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        #region Strip Menu Events
+
+        private void toolStripMenuItem_Exit_Click(object sender, EventArgs e)
         {
             Application.Exit();
         }
@@ -387,10 +413,47 @@ namespace RoboJo
             btnResave_Click(sender, e);
         }
 
-        private void toolStripMenuItem2_Click(object sender, EventArgs e)
+        private void toolStripMenuItem_Start_Click(object sender, EventArgs e)
         {
-
+            btnStart_Click(sender, e);
         }
+
+        private void toolStripMenuItem_Stop_Click(object sender, EventArgs e)
+        {
+            btnStop_Click(sender, e);
+        }
+
+        private void toolStripMenuItem_Clear_Click(object sender, EventArgs e)
+        {
+            btnClear_Click(sender, e);
+        }
+
+        private void toolStripMenuItem_LogNow_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                btnLogNow_Click(sender, e);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString(), "Exception", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void toolStripMenuItem_About_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                AboutBox ab = new AboutBox();
+                ab.ShowDialog();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        #endregion
     }
 
     #endregion
