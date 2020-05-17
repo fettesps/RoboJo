@@ -462,6 +462,7 @@
             this.btnPageLeft.TabIndex = 30;
             this.btnPageLeft.Text = "<";
             this.btnPageLeft.UseVisualStyleBackColor = true;
+            this.btnPageLeft.Visible = false;
             // 
             // btnPageRight
             // 
@@ -471,6 +472,7 @@
             this.btnPageRight.TabIndex = 31;
             this.btnPageRight.Text = ">";
             this.btnPageRight.UseVisualStyleBackColor = true;
+            this.btnPageRight.Visible = false;
             // 
             // frmMain
             // 

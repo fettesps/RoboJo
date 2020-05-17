@@ -23,6 +23,8 @@ namespace RoboJo
         {
             try
             {
+                txtUserInput.Text = "";
+                txtDuration.Text = "00:00:00";
                 this.Close();
             }
             catch (Exception)
@@ -36,12 +38,10 @@ namespace RoboJo
         {
             try
             {
-
                 this.Close();
             }
             catch (Exception)
             {
-
                 throw;
             }
         }
@@ -59,6 +59,22 @@ namespace RoboJo
             }
             catch (Exception)
             {
+                throw;
+            }
+        }
+
+        private void txtUserInput_KeyDown(object sender, KeyEventArgs e)
+        {
+            try
+            {
+                if (e.KeyCode == Keys.Enter)
+                {
+                    btnOk_Click(sender, e);
+                }
+            }
+            catch (Exception)
+            {
+
                 throw;
             }
         }
@@ -116,21 +132,5 @@ namespace RoboJo
         }
 
         #endregion
-
-        private void txtUserInput_KeyDown(object sender, KeyEventArgs e)
-        {
-            try
-            {
-                if(e.KeyCode == Keys.Enter)
-                {
-                    btnOk_Click(sender, e);
-                }
-            }
-            catch (Exception)
-            {
-
-                throw;
-            }
-        }
     }
 }

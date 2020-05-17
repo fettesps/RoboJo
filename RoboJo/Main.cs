@@ -197,6 +197,11 @@ namespace RoboJo
                     _dtStart = DateTime.Now;
                     _booBillable = timePrompt.Billable;
                 }
+                // User canceled action
+                else
+                {
+                    _booInputActive = false;
+                }
             }
             catch (Exception)
             {
