@@ -188,6 +188,10 @@ namespace RoboJo
                     _booInputActive = true;
                     timePrompt.ShowDialog();
                 }
+                else
+                {
+                    return;
+                }
 
                 // If there was user input, save it
                 if (!String.IsNullOrWhiteSpace(timePrompt.UserInput))
