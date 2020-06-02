@@ -186,6 +186,7 @@ namespace RoboJo
                 if (!_booInputActive)
                 {
                     _booInputActive = true;
+                    PlayChime();
                     timePrompt.ShowDialog();
                 }
                 else
@@ -206,6 +207,23 @@ namespace RoboJo
                 {
                     _booInputActive = false;
                 }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        private void PlayChime()
+        {
+            try
+            {
+                // Beep
+                //System.Media.SystemSounds.Beep.Play();
+
+                // Wave File
+                System.Media.SoundPlayer sound = new System.Media.SoundPlayer(@"c:\Windows\Media\chimes.wav");
+                sound.Play();
             }
             catch (Exception)
             {
