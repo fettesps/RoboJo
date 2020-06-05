@@ -30,6 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.chkRunEndTimer = new System.Windows.Forms.CheckBox();
             this.txtDuration = new System.Windows.Forms.TextBox();
             this.lblDuration = new System.Windows.Forms.Label();
             this.btnCancel = new System.Windows.Forms.Button();
@@ -47,6 +48,7 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.chkRunEndTimer);
             this.panel1.Controls.Add(this.txtDuration);
             this.panel1.Controls.Add(this.lblDuration);
             this.panel1.Controls.Add(this.btnCancel);
@@ -62,6 +64,20 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(495, 146);
             this.panel1.TabIndex = 0;
+            // 
+            // chkRunEndTimer
+            // 
+            this.chkRunEndTimer.AutoSize = true;
+            this.chkRunEndTimer.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.chkRunEndTimer.Checked = true;
+            this.chkRunEndTimer.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkRunEndTimer.Location = new System.Drawing.Point(269, 68);
+            this.chkRunEndTimer.Name = "chkRunEndTimer";
+            this.chkRunEndTimer.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.chkRunEndTimer.Size = new System.Drawing.Size(86, 17);
+            this.chkRunEndTimer.TabIndex = 11;
+            this.chkRunEndTimer.Text = "Auto Update";
+            this.chkRunEndTimer.UseVisualStyleBackColor = true;
             // 
             // txtDuration
             // 
@@ -137,6 +153,8 @@
             // chkBillable
             // 
             this.chkBillable.AutoSize = true;
+            this.chkBillable.Checked = true;
+            this.chkBillable.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkBillable.Location = new System.Drawing.Point(116, 115);
             this.chkBillable.Name = "chkBillable";
             this.chkBillable.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
@@ -197,5 +215,6 @@
         private System.Windows.Forms.TextBox txtDuration;
         private System.Windows.Forms.Label lblDuration;
         private System.Windows.Forms.Timer tmrPromptTicker;
+        private System.Windows.Forms.CheckBox chkRunEndTimer;
     }
 }

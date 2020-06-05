@@ -51,11 +51,11 @@ namespace RoboJo
             try
             {
                 // Calculate hours, to nearest half hour
-                TimeSpan ts = dtpStartTime != null ? DateTime.Now - dtpStartTime.Value : new TimeSpan(0);
+                TimeSpan ts = dtpStartTime != null ? dtpEndTime.Value - dtpStartTime.Value : new TimeSpan(0);
                 TimeSpan tsHours = ts.RoundToNearestMinutes(15);
                 txtDuration.Text = tsHours.ToString();
 
-                dtpEndTime.Value = DateTime.Now;
+                if(chkRunEndTimer.Checked) dtpEndTime.Value = DateTime.Now;
             }
             catch (Exception)
             {
@@ -131,6 +131,19 @@ namespace RoboJo
             }
         }
 
+        public bool RunEndTimer
+        {
+            get
+            {
+                return chkRunEndTimer.Checked;
+            }
+            set
+            {
+                chkRunEndTimer.Checked = value;
+            }
+        }
+
         #endregion
+
     }
 }

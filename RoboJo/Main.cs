@@ -15,6 +15,7 @@ namespace RoboJo
         private DateTime? _dtStartAbsolute;
         private bool _booInputActive = false;
         private bool _booBillable = true;
+        private bool _booRunEndTimer = true;
 
         #region Constructor
 
@@ -71,21 +72,24 @@ namespace RoboJo
             }
         }
 
-        private void AddTimeRecord(String strDetails, bool booBillable = true)
+        private void AddTimeRecord(String strDetails, bool booBillable = true, DateTime? dtStart = null, DateTime? dtEnd = null)
         {
             try
             {
                 // Calculate hours, to nearest half hour
-                DateTime dtStart = _dtStart != null ? _dtStart.Value : DateTime.Now;
-                TimeSpan ts = _dtStart != null ? DateTime.Now - _dtStart.Value : new TimeSpan(0);
+                dtStart = dtStart != null ? dtStart.Value : DateTime.Now;
+                dtEnd = dtEnd != null ? dtEnd.Value : DateTime.Now;
+
+                TimeSpan ts = dtEnd.Value - dtStart.Value;
                 TimeSpan tsHours = ts.RoundToNearestMinutes(15);
 
                 // Add to grid
                 timetrackerDataSet.AcceptChanges();
 
                 DataRow dr = timetrackerDataSet.Tables[0].NewRow();
-                dr["start_time"] = dtStart.ToShortTimeString();
-                dr["end_time"] = DateTime.Now.ToShortTimeString();
+
+                dr["start_time"] = dtStart.Value.ToShortTimeString();
+                dr["end_time"] = dtEnd.Value.ToShortTimeString();
                 dr["description"] = strDetails;
                 dr["hours"] = tsHours.ToString();
                 dr["billable"] = booBillable ? 1 : 0;
@@ -94,7 +98,7 @@ namespace RoboJo
                 timetrackerDataSet.AcceptChanges();
 
                 // Add to Total 
-                TimeSpan tsAbs = _dtStartAbsolute != null ? DateTime.Now - _dtStartAbsolute.Value : new TimeSpan(0);
+                TimeSpan tsAbs = _dtStartAbsolute != null ? dtEnd.Value - _dtStartAbsolute.Value : new TimeSpan(0);
                 tsAbs = tsAbs.RoundToNearestMinutes(15);
                 tsslTotal.Text = "Total: " + tsAbs.ToString();
 
@@ -177,9 +181,10 @@ namespace RoboJo
                 {
                     UserInput = String.Empty,
                     Billable = _booBillable,
+                    RunEndTimer = _booRunEndTimer,
                     StartTime = _dtStart != null ? _dtStart.Value : DateTime.Now,
                     EndTime = DateTime.Now,
-                    StartPosition = FormStartPosition.CenterParent
+                    StartPosition = FormStartPosition.WindowsDefaultLocation
                 };
 
                 // Show the Prompt, if it's not already showing
@@ -197,7 +202,7 @@ namespace RoboJo
                 // If there was user input, save it
                 if (!String.IsNullOrWhiteSpace(timePrompt.UserInput))
                 {
-                    AddTimeRecord(timePrompt.UserInput, timePrompt.Billable);
+                    AddTimeRecord(timePrompt.UserInput, timePrompt.Billable, timePrompt.StartTime, timePrompt.EndTime);
                     _booInputActive = false;
                     _dtStart = DateTime.Now;
                     _booBillable = timePrompt.Billable;
