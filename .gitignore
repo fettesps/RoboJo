@@ -13,3 +13,5 @@
 /.vs/RoboJo/v16/Server/sqlite3/storage.ide
 /.vs/RoboJo/v16/Server/sqlite3/storage.ide-wal
 /.vs/RoboJo/v16/.suo
+/RoboJo/obj
+/packages
