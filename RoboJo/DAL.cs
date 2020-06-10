@@ -16,7 +16,7 @@ namespace RoboJo
             String strReadStatement = "SELECT [start_time],[end_time],[description],[billable],[hours] " +
                                         "FROM timesheet";
 
-            using (SqlConnection sqlCon = new SqlConnection(Properties.Settings.Default.timetrackerConnectionString))
+            using (SqlConnection sqlCon = new SqlConnection(Properties.Settings.Default.connectionString))
             {
                 sqlCon.Open();
 
@@ -46,7 +46,7 @@ namespace RoboJo
                 String strInsertStatement = "INSERT INTO timesheet ([start_time],[end_time],[description],[billable],[hours]) " +
                                            " VALUES (@start_time,@end_time,@description,@billable,@hours)";
 
-                using (SqlConnection sqlCon = new SqlConnection(Properties.Settings.Default.timetrackerConnectionString))
+                using (SqlConnection sqlCon = new SqlConnection(Properties.Settings.Default.connectionString))
                 {
                     sqlCon.Open();
 
@@ -77,7 +77,7 @@ namespace RoboJo
             {
                 String strClearSql = "TRUNCATE TABLE timesheet";
 
-                using (SqlConnection sqlCon = new SqlConnection(Properties.Settings.Default.timetrackerConnectionString))
+                using (SqlConnection sqlCon = new SqlConnection(Properties.Settings.Default.connectionString))
                 {
                     sqlCon.Open();
 
