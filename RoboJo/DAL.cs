@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.Entity;
 using System.Data.SqlClient;
+using System.Data.SQLite;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,27 +13,27 @@ namespace RoboJo
 {
     class DAL
     {
-        public IEnumerable<TimeRecord> ReadFromDb()
+        public IEnumerable<Entry> ReadFromDb()
         {
-            String strReadStatement = "SELECT [start_time],[end_time],[description],[billable],[hours] " +
-                                        "FROM timesheet";
-
-            using (SqlConnection sqlCon = new SqlConnection(Properties.Settings.Default.connectionString))
+            String strReadStatement = "SELECT * " +
+                                      "FROM entries";
+            
+            using (SQLiteConnection sqlCon = new SQLiteConnection(Properties.Settings.Default.connectionString))
             {
                 sqlCon.Open();
 
-                using (SqlCommand cmd = new SqlCommand(strReadStatement, sqlCon))
+                using (SQLiteCommand cmd = new SQLiteCommand(strReadStatement, sqlCon))
                 {
-                    SqlDataReader sqlDr = cmd.ExecuteReader();
+                    SQLiteDataReader sqlDr = cmd.ExecuteReader();
                     while (sqlDr.Read())
                     {
-                        yield return new TimeRecord()
+                        yield return new Entry()
                         {
-                            StartTime = sqlDr.GetDateTime(sqlDr.GetOrdinal("start_time")),
-                            EndTime = sqlDr.GetDateTime(sqlDr.GetOrdinal("end_time")),
+                            StartTime = Convert.ToDateTime(sqlDr["start_time"].ToString()),
+                            EndTime = Convert.ToDateTime(sqlDr["end_time"].ToString()),
                             Description = sqlDr["description"].ToString(),
                             Hours = sqlDr["hours"].ToString(),
-                            Billable = (bool)sqlDr["billable"]
+                            Billable = Convert.ToInt32(sqlDr["billable"].ToString())
                         };
                     }
                     sqlDr.Close();
@@ -43,20 +45,26 @@ namespace RoboJo
         {
             try
             {
-                String strInsertStatement = "INSERT INTO timesheet ([start_time],[end_time],[description],[billable],[hours]) " +
+                String strInsertStatement = "INSERT INTO entries ([start_time],[end_time],[description],[billable],[hours]) " +
                                            " VALUES (@start_time,@end_time,@description,@billable,@hours)";
 
-                using (SqlConnection sqlCon = new SqlConnection(Properties.Settings.Default.connectionString))
+                using (SQLiteConnection sqlCon = new SQLiteConnection(Properties.Settings.Default.connectionString))
                 {
                     sqlCon.Open();
 
-                    using (SqlCommand cmd = new SqlCommand(strInsertStatement, sqlCon))
+                    using (SQLiteCommand cmd = new SQLiteCommand(strInsertStatement, sqlCon))
                     {
-                        cmd.Parameters.Add("@start_time", SqlDbType.DateTime).Value = dtStart;
-                        cmd.Parameters.Add("@end_time", SqlDbType.DateTime).Value = dtEnd;
-                        cmd.Parameters.Add("@description", SqlDbType.NVarChar).Value = strDescription;
-                        cmd.Parameters.Add("@billable", SqlDbType.Bit).Value = booBillable;
-                        cmd.Parameters.Add("@hours", SqlDbType.NVarChar).Value = tsHours.ToString();
+                        cmd.Parameters.AddWithValue("@start_time", dtStart);
+                        cmd.Parameters.AddWithValue("@end_time", dtEnd);
+                        cmd.Parameters.AddWithValue("@description", strDescription);
+                        cmd.Parameters.AddWithValue("@billable", booBillable);
+                        cmd.Parameters.AddWithValue("@hours", tsHours.ToString());
+
+                        //cmd.Parameters.Add("@start_time", SqlDbType.DateTime).Value = dtStart;
+                        //cmd.Parameters.Add("@end_time", SqlDbType.DateTime).Value = dtEnd;
+                        //cmd.Parameters.Add("@description", SqlDbType.NVarChar).Value = strDescription;
+                        //cmd.Parameters.Add("@billable", SqlDbType.Bit).Value = booBillable;
+                        //cmd.Parameters.Add("@hours", SqlDbType.NVarChar).Value = tsHours.ToString();
 
                         int intRowsInserted = cmd.ExecuteNonQuery();
                         if (intRowsInserted > 0) return true;
@@ -75,13 +83,13 @@ namespace RoboJo
         {
             try
             {
-                String strClearSql = "TRUNCATE TABLE timesheet";
+                String strClearSql = "DELETE FROM entries";
 
-                using (SqlConnection sqlCon = new SqlConnection(Properties.Settings.Default.connectionString))
+                using (SQLiteConnection sqlCon = new SQLiteConnection(Properties.Settings.Default.connectionString))
                 {
                     sqlCon.Open();
 
-                    using (SqlCommand cmd = new SqlCommand(strClearSql, sqlCon))
+                    using (SQLiteCommand cmd = new SQLiteCommand(strClearSql, sqlCon))
                     {
                         cmd.ExecuteNonQuery();
                         return true;
@@ -90,7 +98,6 @@ namespace RoboJo
             }
             catch (Exception)
             {
-                return false;
                 throw;
             }
         }

@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace RoboJo.Entities
 {
-    class TimeRecord
+    class Entry
     {
-        public DateTime StartTime { get; set; }
-        public DateTime EndTime { get; set; }
+        public DateTime? StartTime { get; set; }
+        public DateTime? EndTime { get; set; }
         public String Description { get; set; }
         public String Hours { get; set; }
-        public bool Billable { get; set; }
+        public int Billable { get; set; }
     }
 }

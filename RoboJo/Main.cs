@@ -25,7 +25,7 @@ namespace RoboJo
             {
                 InitializeComponent();
                 cboPromptEveryValue.SelectedIndex = 0; 
-                tmrMain.Interval = 1000; // this timer controls when the GUI is refreshed
+                tmrMain.Interval = 1000; 
                 cboPromptEveryValue_SelectedIndexChanged(this, null);
                 lblDate_Value.Text = System.DateTime.Now.ToShortDateString();
 
@@ -48,19 +48,19 @@ namespace RoboJo
             try
             {
                 DAL _dal = new DAL();
-                IEnumerable<TimeRecord> timeRecords =_dal.ReadFromDb();
+                IEnumerable<Entry> entries =_dal.ReadFromDb();
 
-                foreach(TimeRecord record in timeRecords)
+                foreach(Entry entry in entries)
                 {
                     timetrackerDataSet.AcceptChanges();
 
                     DataRow dr = timetrackerDataSet.Tables[0].NewRow();
 
-                    dr["start_time"] = record.StartTime.ToShortTimeString();
-                    dr["end_time"] = record.EndTime.ToShortTimeString();
-                    dr["description"] = record.Description;
-                    dr["hours"] = record.Hours;
-                    dr["billable"] = record.Billable;
+                    dr["start_time"] = entry.StartTime.Value.ToShortTimeString();
+                    dr["end_time"] = entry.EndTime.Value.ToShortTimeString();
+                    dr["description"] = entry.Description;
+                    dr["hours"] = entry.Hours;
+                    dr["billable"] = entry.Billable;
 
                     timetrackerDataSet.timesheet.AddtimesheetRow((timetrackerDataSet.timesheetRow)dr);
                     timetrackerDataSet.AcceptChanges();
@@ -219,16 +219,21 @@ namespace RoboJo
             }
         }
 
-        private void PlayChime()
+        private void PlayChime(bool bBeep = false)
         {
             try
             {
-                // Beep
-                //System.Media.SystemSounds.Beep.Play();
-
-                // Wave File
-                System.Media.SoundPlayer sound = new System.Media.SoundPlayer(@"c:\Windows\Media\chimes.wav");
-                sound.Play();
+                if (bBeep)
+                {
+                    // Beep
+                    System.Media.SystemSounds.Beep.Play();
+                }
+                else
+                {
+                    // Wave File
+                    System.Media.SoundPlayer sound = new System.Media.SoundPlayer(@"c:\Windows\Media\chimes.wav");
+                    sound.Play();
+                }
             }
             catch (Exception)
             {
@@ -311,7 +316,7 @@ namespace RoboJo
             try
             {
                 TimeSpan ts = _dtStart != null ? (DateTime.Now - _dtStart.Value) : new TimeSpan(0);
-                int intSecondsElapsed = (int)ts.TotalSeconds; // todo: fix this lazy cast
+                int intSecondsElapsed = (int)ts.TotalSeconds; 
                 int intSecondsLeft = (tmrPrompt.Interval / 1000) - intSecondsElapsed;
 
                 lblNextEntryInValue.Text = String.Concat(intSecondsLeft.ToString(), " seconds");
@@ -420,7 +425,7 @@ namespace RoboJo
                 }
                 else
                 {
-                    MessageBox.Show("Error while resaving");
+                    MessageBox.Show("Error while resaving", "Exception", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
             catch (Exception ex)
@@ -437,27 +442,62 @@ namespace RoboJo
 
         private void toolStripMenuItem_Exit_Click(object sender, EventArgs e)
         {
-            Application.Exit();
+            try
+            {
+                Application.Exit();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString(), "Exception", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            btnResave_Click(sender, e);
+            try
+            {
+                btnResave_Click(sender, e);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString(), "Exception", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void toolStripMenuItem_Start_Click(object sender, EventArgs e)
         {
-            btnStart_Click(sender, e);
+            try
+            {
+                btnStart_Click(sender, e);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString(), "Exception", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void toolStripMenuItem_Stop_Click(object sender, EventArgs e)
         {
-            btnStop_Click(sender, e);
+            try
+            {
+                btnStop_Click(sender, e);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString(), "Exception", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void toolStripMenuItem_Clear_Click(object sender, EventArgs e)
         {
-            btnClear_Click(sender, e);
+            try
+            {
+                btnClear_Click(sender, e);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString(), "Exception", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void toolStripMenuItem_LogNow_Click(object sender, EventArgs e)
