@@ -79,6 +79,19 @@ namespace RoboJo
             }
         }
 
+
+        private void btnSkip_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                this.Close();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
         #endregion
 
         #region Getter and Setters
@@ -144,6 +157,5 @@ namespace RoboJo
         }
 
         #endregion
-
     }
 }

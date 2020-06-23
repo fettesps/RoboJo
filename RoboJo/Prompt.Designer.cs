@@ -43,11 +43,13 @@
             this.txtUserInput = new System.Windows.Forms.TextBox();
             this.lblUserInput = new System.Windows.Forms.Label();
             this.tmrPromptTicker = new System.Windows.Forms.Timer(this.components);
+            this.btnSkip = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.btnSkip);
             this.panel1.Controls.Add(this.chkRunEndTimer);
             this.panel1.Controls.Add(this.txtDuration);
             this.panel1.Controls.Add(this.lblDuration);
@@ -98,7 +100,7 @@
             // 
             // btnCancel
             // 
-            this.btnCancel.Location = new System.Drawing.Point(311, 116);
+            this.btnCancel.Location = new System.Drawing.Point(231, 116);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
             this.btnCancel.TabIndex = 8;
@@ -155,7 +157,7 @@
             this.chkBillable.AutoSize = true;
             this.chkBillable.Checked = true;
             this.chkBillable.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkBillable.Location = new System.Drawing.Point(116, 115);
+            this.chkBillable.Location = new System.Drawing.Point(116, 118);
             this.chkBillable.Name = "chkBillable";
             this.chkBillable.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.chkBillable.Size = new System.Drawing.Size(59, 17);
@@ -186,12 +188,24 @@
             this.tmrPromptTicker.Interval = 500;
             this.tmrPromptTicker.Tick += new System.EventHandler(this.tmrPromptTicker_Tick);
             // 
+            // btnSkip
+            // 
+            this.btnSkip.Location = new System.Drawing.Point(311, 116);
+            this.btnSkip.Name = "btnSkip";
+            this.btnSkip.Size = new System.Drawing.Size(75, 23);
+            this.btnSkip.TabIndex = 12;
+            this.btnSkip.Text = "Skip";
+            this.btnSkip.UseVisualStyleBackColor = true;
+            this.btnSkip.Click += new System.EventHandler(this.btnSkip_Click);
+            // 
             // Prompt
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(519, 171);
+            this.ControlBox = false;
             this.Controls.Add(this.panel1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Name = "Prompt";
             this.Text = "Time Entry";
             this.panel1.ResumeLayout(false);
@@ -216,5 +230,6 @@
         private System.Windows.Forms.Label lblDuration;
         private System.Windows.Forms.Timer tmrPromptTicker;
         private System.Windows.Forms.CheckBox chkRunEndTimer;
+        private System.Windows.Forms.Button btnSkip;
     }
 }
