@@ -16,6 +16,7 @@ namespace RoboJo
         private bool _booInputActive = false;
         private bool _booBillable = true;
         private bool _booRunEndTimer = true;
+        private IDAL _dal;
 
         #region Constructor
 
@@ -23,6 +24,8 @@ namespace RoboJo
         {
             try
             {
+                _dal = Factory.OpenDB();
+
                 InitializeComponent();
                 cboPromptEveryValue.SelectedIndex = 0; 
                 tmrMain.Interval = 1000; 
@@ -47,7 +50,6 @@ namespace RoboJo
         {
             try
             {
-                DAL _dal = new DAL();
                 IEnumerable<Entry> entries =_dal.ReadFromDb();
 
                 foreach(Entry entry in entries)
@@ -108,7 +110,7 @@ namespace RoboJo
                 tsslCurrentEntryVal.Text = strDetails;
 
                 // Save it to the database
-                new DAL().WriteToDb(dtStart, DateTime.Now, strDetails, tsHours, true);
+                _dal.WriteToDb(dtStart, DateTime.Now, strDetails, tsHours, true);
             }
             catch (Exception)
             {
@@ -138,7 +140,7 @@ namespace RoboJo
                 bool booSuccess = false;
 
                 // Clear it out first
-                new DAL().ClearDb();
+                _dal.ClearDb();
 
                 // Go through all the table rows and save them to the database
                 foreach (DataRow row in timetrackerDataSet.Tables[0].Rows)
@@ -158,7 +160,7 @@ namespace RoboJo
 
                     var billable = row["billable"];
 
-                    if (new DAL().WriteToDb(dtStartTime, dtEndTime, row["description"].ToString(), tsHours, (bool)billable))
+                    if (_dal.WriteToDb(dtStartTime, dtEndTime, row["description"].ToString(), tsHours, (bool)billable))
                     {
                         booSuccess = true;
                     }
@@ -298,7 +300,7 @@ namespace RoboJo
         {
             try
             {
-                if (new DAL().ClearDb())
+                if (_dal.ClearDb())
                 {
                     ClearDataGrid();
                 }

@@ -11,13 +11,13 @@ using RoboJo.Entities;
 
 namespace RoboJo
 {
-    class DAL
+    class DAL : IDAL
     {
         public IEnumerable<Entry> ReadFromDb()
         {
             String strReadStatement = "SELECT * " +
                                       "FROM entries";
-            
+
             using (SQLiteConnection sqlCon = new SQLiteConnection(Properties.Settings.Default.connectionString))
             {
                 sqlCon.Open();
@@ -59,12 +59,6 @@ namespace RoboJo
                         cmd.Parameters.AddWithValue("@description", strDescription);
                         cmd.Parameters.AddWithValue("@billable", booBillable);
                         cmd.Parameters.AddWithValue("@hours", tsHours.ToString());
-
-                        //cmd.Parameters.Add("@start_time", SqlDbType.DateTime).Value = dtStart;
-                        //cmd.Parameters.Add("@end_time", SqlDbType.DateTime).Value = dtEnd;
-                        //cmd.Parameters.Add("@description", SqlDbType.NVarChar).Value = strDescription;
-                        //cmd.Parameters.Add("@billable", SqlDbType.Bit).Value = booBillable;
-                        //cmd.Parameters.Add("@hours", SqlDbType.NVarChar).Value = tsHours.ToString();
 
                         int intRowsInserted = cmd.ExecuteNonQuery();
                         if (intRowsInserted > 0) return true;

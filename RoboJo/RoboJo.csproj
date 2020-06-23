@@ -88,6 +88,8 @@
     </Compile>
     <Compile Include="DAL.cs" />
     <Compile Include="Entities\Entry.cs" />
+    <Compile Include="Factory.cs" />
+    <Compile Include="IDAL.cs" />
     <Compile Include="Prompt.cs">
       <SubType>Form</SubType>
     </Compile>
