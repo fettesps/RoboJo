@@ -18,7 +18,7 @@ namespace RoboJo
             String strReadStatement = "SELECT * " +
                                       "FROM entries";
 
-            using (SQLiteConnection sqlCon = new SQLiteConnection(Properties.Settings.Default.connectionString))
+            using (SQLiteConnection sqlCon = new SQLiteConnection(GetConnectionString()))
             {
                 sqlCon.Open();
 
@@ -48,7 +48,7 @@ namespace RoboJo
                 String strInsertStatement = "INSERT INTO entries ([start_time],[end_time],[description],[billable],[hours]) " +
                                            " VALUES (@start_time,@end_time,@description,@billable,@hours)";
 
-                using (SQLiteConnection sqlCon = new SQLiteConnection(Properties.Settings.Default.connectionString))
+                using (SQLiteConnection sqlCon = new SQLiteConnection(GetConnectionString()))
                 {
                     sqlCon.Open();
 
@@ -79,7 +79,7 @@ namespace RoboJo
             {
                 String strClearSql = "DELETE FROM entries";
 
-                using (SQLiteConnection sqlCon = new SQLiteConnection(Properties.Settings.Default.connectionString))
+                using (SQLiteConnection sqlCon = new SQLiteConnection(GetConnectionString()))
                 {
                     sqlCon.Open();
 
@@ -89,6 +89,22 @@ namespace RoboJo
                         return true;
                     }
                 }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public string GetConnectionString()
+        {
+            try
+            {
+                String relativePath = @"Assets\robojo.db";
+                String currentPath = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().GetName().CodeBase);
+                String absolutePath = System.IO.Path.Combine(currentPath, relativePath).Remove(0, 6);
+
+                return String.Format("Data Source={0}", absolutePath);
             }
             catch (Exception)
             {

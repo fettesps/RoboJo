@@ -22,15 +22,5 @@ namespace RoboJo.Properties {
                 return defaultInstance;
             }
         }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=C:\\Source\\RoboJo\\RoboJo\\Assets\\robojo.db;Version=3")]
-        public string connectionString {
-            get {
-                return ((string)(this["connectionString"]));
-            }
-        }
     }
 }
