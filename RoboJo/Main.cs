@@ -11,8 +11,9 @@ namespace RoboJo
 {
     public partial class frmMain : Form
     {
-        private DateTime? _dtStart;
-        private DateTime? _dtStartAbsolute;
+        private DateTime? _dtStart;             // Stores current start time, is reset when timer is stopped
+        private DateTime? _dtEnd;               // Stores time that last entry was entered
+        private DateTime? _dtStartAbsolute;     // Stores original start time for the application life cycle
         private bool _booInputActive = false;
         private bool _booBillable = true;
         private bool _booRunEndTimer = true;
@@ -66,7 +67,16 @@ namespace RoboJo
 
                     timetrackerDataSet.timesheet.AddtimesheetRow((timetrackerDataSet.timesheetRow)dr);
                     timetrackerDataSet.AcceptChanges();
+
                 }
+
+                // Load last entry
+                lblCurrentEntryValue.Text = entries.LastOrDefault()?.Description;
+                tsslCurrentEntryVal.Text = entries.LastOrDefault()?.Description;
+
+                _dtStart = entries.FirstOrDefault()?.StartTime;
+                _dtEnd = entries.LastOrDefault()?.EndTime;
+                CalculateTotal(_dtStart, _dtEnd);
             }
             catch (Exception)
             {
@@ -100,9 +110,7 @@ namespace RoboJo
                 timetrackerDataSet.AcceptChanges();
 
                 // Add to Total 
-                TimeSpan tsAbs = _dtStartAbsolute != null ? dtEnd.Value - _dtStartAbsolute.Value : new TimeSpan(0);
-                tsAbs = tsAbs.RoundToNearestMinutes(15);
-                tsslTotal.Text = "Total: " + tsAbs.ToString();
+                CalculateTotal(_dtStartAbsolute, dtEnd);
 
                 // Update Trackers
                 lblLastEntryValue.Text = lblCurrentEntryValue.Text;
@@ -111,6 +119,22 @@ namespace RoboJo
 
                 // Save it to the database
                 _dal.WriteToDb(dtStart, DateTime.Now, strDetails, tsHours, true);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        private void CalculateTotal(DateTime? dtStart, DateTime? dtEnd)
+        {
+            try
+            {
+                // Recalculate Total Hours
+                TimeSpan tsAbs = dtStart != null ? dtEnd.Value - dtStart.Value : new TimeSpan(0);
+                tsAbs = tsAbs.RoundToNearestMinutes(15);
+
+                tsslTotal.Text = "Total: " + tsAbs.ToString();
             }
             catch (Exception)
             {

@@ -74,8 +74,6 @@
             this.toolStripMenuItem_About = new System.Windows.Forms.ToolStripMenuItem();
             this.lblDate_Label = new System.Windows.Forms.Label();
             this.lblDate_Value = new System.Windows.Forms.Label();
-            this.btnPageLeft = new System.Windows.Forms.Button();
-            this.btnPageRight = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgTimesheet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.timesheetBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.timetrackerDataSet)).BeginInit();
@@ -129,7 +127,7 @@
             // lblNextEntryInValue
             // 
             this.lblNextEntryInValue.AutoSize = true;
-            this.lblNextEntryInValue.Location = new System.Drawing.Point(267, 51);
+            this.lblNextEntryInValue.Location = new System.Drawing.Point(92, 71);
             this.lblNextEntryInValue.Name = "lblNextEntryInValue";
             this.lblNextEntryInValue.Size = new System.Drawing.Size(45, 13);
             this.lblNextEntryInValue.TabIndex = 17;
@@ -138,7 +136,7 @@
             // lblCurrentEntryValue
             // 
             this.lblCurrentEntryValue.AutoSize = true;
-            this.lblCurrentEntryValue.Location = new System.Drawing.Point(92, 48);
+            this.lblCurrentEntryValue.Location = new System.Drawing.Point(92, 51);
             this.lblCurrentEntryValue.Name = "lblCurrentEntryValue";
             this.lblCurrentEntryValue.Size = new System.Drawing.Size(45, 13);
             this.lblCurrentEntryValue.TabIndex = 16;
@@ -156,7 +154,7 @@
             // lblNextEntryIn
             // 
             this.lblNextEntryIn.AutoSize = true;
-            this.lblNextEntryIn.Location = new System.Drawing.Point(190, 51);
+            this.lblNextEntryIn.Location = new System.Drawing.Point(15, 71);
             this.lblNextEntryIn.Name = "lblNextEntryIn";
             this.lblNextEntryIn.Size = new System.Drawing.Size(71, 13);
             this.lblNextEntryIn.TabIndex = 13;
@@ -275,7 +273,7 @@
             // lblCurrentEntry
             // 
             this.lblCurrentEntry.AutoSize = true;
-            this.lblCurrentEntry.Location = new System.Drawing.Point(15, 48);
+            this.lblCurrentEntry.Location = new System.Drawing.Point(15, 51);
             this.lblCurrentEntry.Name = "lblCurrentEntry";
             this.lblCurrentEntry.Size = new System.Drawing.Size(71, 13);
             this.lblCurrentEntry.TabIndex = 14;
@@ -432,14 +430,14 @@
             // toolStripMenuItem_About
             // 
             this.toolStripMenuItem_About.Name = "toolStripMenuItem_About";
-            this.toolStripMenuItem_About.Size = new System.Drawing.Size(180, 22);
+            this.toolStripMenuItem_About.Size = new System.Drawing.Size(116, 22);
             this.toolStripMenuItem_About.Text = "&About...";
             this.toolStripMenuItem_About.Click += new System.EventHandler(this.toolStripMenuItem_About_Click);
             // 
             // lblDate_Label
             // 
             this.lblDate_Label.AutoSize = true;
-            this.lblDate_Label.Location = new System.Drawing.Point(232, 73);
+            this.lblDate_Label.Location = new System.Drawing.Point(232, 71);
             this.lblDate_Label.Name = "lblDate_Label";
             this.lblDate_Label.Size = new System.Drawing.Size(33, 13);
             this.lblDate_Label.TabIndex = 28;
@@ -448,39 +446,17 @@
             // lblDate_Value
             // 
             this.lblDate_Value.AutoSize = true;
-            this.lblDate_Value.Location = new System.Drawing.Point(267, 73);
+            this.lblDate_Value.Location = new System.Drawing.Point(267, 71);
             this.lblDate_Value.Name = "lblDate_Value";
             this.lblDate_Value.Size = new System.Drawing.Size(64, 13);
             this.lblDate_Value.TabIndex = 29;
             this.lblDate_Value.Text = "<The Date>";
-            // 
-            // btnPageLeft
-            // 
-            this.btnPageLeft.Location = new System.Drawing.Point(18, 70);
-            this.btnPageLeft.Name = "btnPageLeft";
-            this.btnPageLeft.Size = new System.Drawing.Size(20, 23);
-            this.btnPageLeft.TabIndex = 30;
-            this.btnPageLeft.Text = "<";
-            this.btnPageLeft.UseVisualStyleBackColor = true;
-            this.btnPageLeft.Visible = false;
-            // 
-            // btnPageRight
-            // 
-            this.btnPageRight.Location = new System.Drawing.Point(795, 70);
-            this.btnPageRight.Name = "btnPageRight";
-            this.btnPageRight.Size = new System.Drawing.Size(20, 23);
-            this.btnPageRight.TabIndex = 31;
-            this.btnPageRight.Text = ">";
-            this.btnPageRight.UseVisualStyleBackColor = true;
-            this.btnPageRight.Visible = false;
             // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(831, 553);
-            this.Controls.Add(this.btnPageRight);
-            this.Controls.Add(this.btnPageLeft);
             this.Controls.Add(this.lblDate_Value);
             this.Controls.Add(this.lblDate_Label);
             this.Controls.Add(this.btnResave);
@@ -560,8 +536,6 @@
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem_Stop;
         private System.Windows.Forms.Label lblDate_Label;
         private System.Windows.Forms.Label lblDate_Value;
-        private System.Windows.Forms.Button btnPageLeft;
-        private System.Windows.Forms.Button btnPageRight;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem_LogNow;
     }
 }
