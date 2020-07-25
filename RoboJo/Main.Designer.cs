@@ -33,15 +33,12 @@
             this.notifyIcon = new System.Windows.Forms.NotifyIcon(this.components);
             this.cboPromptEveryValue = new System.Windows.Forms.ComboBox();
             this.lblPromptEvery = new System.Windows.Forms.Label();
-            this.btnStart = new System.Windows.Forms.Button();
             this.lblNextEntryInValue = new System.Windows.Forms.Label();
             this.lblCurrentEntryValue = new System.Windows.Forms.Label();
             this.lblLastEntryValue = new System.Windows.Forms.Label();
             this.lblNextEntryIn = new System.Windows.Forms.Label();
             this.lblLastEntry = new System.Windows.Forms.Label();
             this.tmrPrompt = new System.Windows.Forms.Timer(this.components);
-            this.btnStop = new System.Windows.Forms.Button();
-            this.btnLogNow = new System.Windows.Forms.Button();
             this.dgTimesheet = new System.Windows.Forms.DataGridView();
             this.idDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.starttimeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -59,8 +56,6 @@
             this.tsslCurrentEntry = new System.Windows.Forms.ToolStripStatusLabel();
             this.tsslCurrentEntryVal = new System.Windows.Forms.ToolStripStatusLabel();
             this.tsslTotal = new System.Windows.Forms.ToolStripStatusLabel();
-            this.btnClear = new System.Windows.Forms.Button();
-            this.btnResave = new System.Windows.Forms.Button();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem_Start = new System.Windows.Forms.ToolStripMenuItem();
@@ -74,6 +69,7 @@
             this.toolStripMenuItem_About = new System.Windows.Forms.ToolStripMenuItem();
             this.lblDate_Label = new System.Windows.Forms.Label();
             this.lblDate_Value = new System.Windows.Forms.Label();
+            this.btnMultiButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgTimesheet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.timesheetBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.timetrackerDataSet)).BeginInit();
@@ -92,6 +88,7 @@
             // 
             // cboPromptEveryValue
             // 
+            this.cboPromptEveryValue.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cboPromptEveryValue.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboPromptEveryValue.FormattingEnabled = true;
             this.cboPromptEveryValue.Items.AddRange(new object[] {
@@ -99,7 +96,7 @@
             "15 minutes",
             "30 minutes",
             "60 minutes"});
-            this.cboPromptEveryValue.Location = new System.Drawing.Point(270, 27);
+            this.cboPromptEveryValue.Location = new System.Drawing.Point(695, 30);
             this.cboPromptEveryValue.Name = "cboPromptEveryValue";
             this.cboPromptEveryValue.Size = new System.Drawing.Size(121, 21);
             this.cboPromptEveryValue.TabIndex = 20;
@@ -107,22 +104,13 @@
             // 
             // lblPromptEvery
             // 
+            this.lblPromptEvery.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblPromptEvery.AutoSize = true;
-            this.lblPromptEvery.Location = new System.Drawing.Point(192, 31);
+            this.lblPromptEvery.Location = new System.Drawing.Point(616, 33);
             this.lblPromptEvery.Name = "lblPromptEvery";
             this.lblPromptEvery.Size = new System.Drawing.Size(73, 13);
             this.lblPromptEvery.TabIndex = 19;
             this.lblPromptEvery.Text = "Prompt Every:";
-            // 
-            // btnStart
-            // 
-            this.btnStart.Location = new System.Drawing.Point(405, 28);
-            this.btnStart.Name = "btnStart";
-            this.btnStart.Size = new System.Drawing.Size(75, 23);
-            this.btnStart.TabIndex = 18;
-            this.btnStart.Text = "Start";
-            this.btnStart.UseVisualStyleBackColor = true;
-            this.btnStart.Click += new System.EventHandler(this.btnStart_Click);
             // 
             // lblNextEntryInValue
             // 
@@ -173,27 +161,6 @@
             // 
             this.tmrPrompt.Interval = 1000;
             this.tmrPrompt.Tick += new System.EventHandler(this.tmrPrompt_Tick);
-            // 
-            // btnStop
-            // 
-            this.btnStop.Enabled = false;
-            this.btnStop.Location = new System.Drawing.Point(567, 28);
-            this.btnStop.Name = "btnStop";
-            this.btnStop.Size = new System.Drawing.Size(75, 23);
-            this.btnStop.TabIndex = 23;
-            this.btnStop.Text = "Stop";
-            this.btnStop.UseVisualStyleBackColor = true;
-            this.btnStop.Click += new System.EventHandler(this.btnStop_Click);
-            // 
-            // btnLogNow
-            // 
-            this.btnLogNow.Location = new System.Drawing.Point(486, 28);
-            this.btnLogNow.Name = "btnLogNow";
-            this.btnLogNow.Size = new System.Drawing.Size(75, 23);
-            this.btnLogNow.TabIndex = 22;
-            this.btnLogNow.Text = "Log Now";
-            this.btnLogNow.UseVisualStyleBackColor = true;
-            this.btnLogNow.Click += new System.EventHandler(this.btnLogNow_Click);
             // 
             // dgTimesheet
             // 
@@ -321,26 +288,6 @@
             this.tsslTotal.Size = new System.Drawing.Size(38, 17);
             this.tsslTotal.Text = "Total: ";
             // 
-            // btnClear
-            // 
-            this.btnClear.Location = new System.Drawing.Point(648, 28);
-            this.btnClear.Name = "btnClear";
-            this.btnClear.Size = new System.Drawing.Size(75, 23);
-            this.btnClear.TabIndex = 25;
-            this.btnClear.Text = "Clear";
-            this.btnClear.UseVisualStyleBackColor = true;
-            this.btnClear.Click += new System.EventHandler(this.btnClear_Click);
-            // 
-            // btnResave
-            // 
-            this.btnResave.Location = new System.Drawing.Point(729, 28);
-            this.btnResave.Name = "btnResave";
-            this.btnResave.Size = new System.Drawing.Size(75, 23);
-            this.btnResave.TabIndex = 26;
-            this.btnResave.Text = "Resave";
-            this.btnResave.UseVisualStyleBackColor = true;
-            this.btnResave.Click += new System.EventHandler(this.btnResave_Click);
-            // 
             // menuStrip1
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -436,8 +383,9 @@
             // 
             // lblDate_Label
             // 
+            this.lblDate_Label.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblDate_Label.AutoSize = true;
-            this.lblDate_Label.Location = new System.Drawing.Point(232, 71);
+            this.lblDate_Label.Location = new System.Drawing.Point(716, 71);
             this.lblDate_Label.Name = "lblDate_Label";
             this.lblDate_Label.Size = new System.Drawing.Size(33, 13);
             this.lblDate_Label.TabIndex = 28;
@@ -445,34 +393,41 @@
             // 
             // lblDate_Value
             // 
+            this.lblDate_Value.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblDate_Value.AutoSize = true;
-            this.lblDate_Value.Location = new System.Drawing.Point(267, 71);
+            this.lblDate_Value.Location = new System.Drawing.Point(751, 71);
             this.lblDate_Value.Name = "lblDate_Value";
             this.lblDate_Value.Size = new System.Drawing.Size(64, 13);
             this.lblDate_Value.TabIndex = 29;
             this.lblDate_Value.Text = "<The Date>";
+            // 
+            // btnMultiButton
+            // 
+            this.btnMultiButton.Location = new System.Drawing.Point(357, 30);
+            this.btnMultiButton.Name = "btnMultiButton";
+            this.btnMultiButton.Size = new System.Drawing.Size(75, 23);
+            this.btnMultiButton.TabIndex = 30;
+            this.btnMultiButton.Text = "Multi Button";
+            this.btnMultiButton.UseVisualStyleBackColor = true;
+            this.btnMultiButton.Click += new System.EventHandler(this.btnMultiButton_Click);
             // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(831, 553);
+            this.Controls.Add(this.btnMultiButton);
             this.Controls.Add(this.lblDate_Value);
             this.Controls.Add(this.lblDate_Label);
-            this.Controls.Add(this.btnResave);
-            this.Controls.Add(this.btnClear);
             this.Controls.Add(this.statusStrip);
             this.Controls.Add(this.menuStrip1);
             this.Controls.Add(this.cboPromptEveryValue);
             this.Controls.Add(this.lblPromptEvery);
-            this.Controls.Add(this.btnStart);
             this.Controls.Add(this.lblNextEntryInValue);
             this.Controls.Add(this.lblCurrentEntryValue);
             this.Controls.Add(this.lblLastEntryValue);
             this.Controls.Add(this.lblNextEntryIn);
             this.Controls.Add(this.lblLastEntry);
-            this.Controls.Add(this.btnStop);
-            this.Controls.Add(this.btnLogNow);
             this.Controls.Add(this.dgTimesheet);
             this.Controls.Add(this.lblCurrentEntry);
             this.MainMenuStrip = this.menuStrip1;
@@ -496,7 +451,6 @@
         private System.Windows.Forms.NotifyIcon notifyIcon;
         private System.Windows.Forms.ComboBox cboPromptEveryValue;
         private System.Windows.Forms.Label lblPromptEvery;
-        private System.Windows.Forms.Button btnStart;
         private System.Windows.Forms.Label lblNextEntryInValue;
         private System.Windows.Forms.Label lblCurrentEntryValue;
         private System.Windows.Forms.Label lblLastEntryValue;
@@ -505,8 +459,6 @@
         private timetrackerDataSet timetrackerDataSet;
         private System.Windows.Forms.Timer tmrPrompt;
         private System.Windows.Forms.BindingSource timesheetBindingSource;
-        private System.Windows.Forms.Button btnStop;
-        private System.Windows.Forms.Button btnLogNow;
         private System.Windows.Forms.DataGridView dgTimesheet;
         private System.Windows.Forms.Timer tmrMain;
         private System.Windows.Forms.Label lblCurrentEntry;
@@ -522,8 +474,6 @@
         private System.Windows.Forms.DataGridViewCheckBoxColumn billableDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn hoursDataGridViewTextBoxColumn;
         private System.Windows.Forms.ToolStripStatusLabel tsslTotal;
-        private System.Windows.Forms.Button btnClear;
-        private System.Windows.Forms.Button btnResave;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem_Clear;
@@ -537,6 +487,7 @@
         private System.Windows.Forms.Label lblDate_Label;
         private System.Windows.Forms.Label lblDate_Value;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem_LogNow;
+        private System.Windows.Forms.Button btnMultiButton;
     }
 }
 

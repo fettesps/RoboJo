@@ -14,6 +14,7 @@ namespace RoboJo
         private DateTime? _dtStart;             // Stores current start time, is reset when timer is stopped
         private DateTime? _dtEnd;               // Stores time that last entry was entered
         private DateTime? _dtStartAbsolute;     // Stores original start time for the application life cycle
+        private DateTime? _dtStartProgress;     // Stores start time for the progress bar
         private bool _booInputActive = false;
         private bool _booBillable = true;
         private bool _booRunEndTimer = true;
@@ -32,6 +33,7 @@ namespace RoboJo
                 tmrMain.Interval = 1000; 
                 cboPromptEveryValue_SelectedIndexChanged(this, null);
                 lblDate_Value.Text = System.DateTime.Now.ToShortDateString();
+                btnMultiButton.Text = "Start";
 
                 LoadRecords();
 
@@ -230,12 +232,13 @@ namespace RoboJo
                 {
                     AddTimeRecord(timePrompt.UserInput, timePrompt.Billable, timePrompt.StartTime, timePrompt.EndTime);
                     _booInputActive = false;
-                    _dtStart = DateTime.Now;
+                    _dtStart = _dtStartProgress = DateTime.Now;
                     _booBillable = timePrompt.Billable;
                 }
                 // User canceled action
                 else
                 {
+                    _dtStartProgress = DateTime.Now;
                     _booInputActive = false;
                 }
             }
@@ -267,20 +270,15 @@ namespace RoboJo
             }
         }
 
-        #endregion
-
-        #region Events
-
-        private void btnStart_Click(object sender, EventArgs e)
+        private void Start()
         {
             try
             {
                 tmrMain.Enabled = true;
                 tmrPrompt.Enabled = true;
-                btnStart.Enabled = false;
-                btnStop.Enabled = true;
-                _dtStart = DateTime.Now;
+                _dtStart = _dtStartProgress = DateTime.Now;
                 _dtStartAbsolute = _dtStartAbsolute == null ? DateTime.Now : _dtStartAbsolute;
+                btnMultiButton.Text = "Stop";
 
                 PromptUser("What will you be working on?");
             }
@@ -290,29 +288,40 @@ namespace RoboJo
             }
         }
 
-        private void btnLogNow_Click(object sender, EventArgs e)
+        private void Resave()
         {
             try
             {
-                tmrPrompt_Tick(this, new EventArgs());
+                if (ResaveAllToDb())
+                {
+                    MessageBox.Show("Datagrid successfully resaved to database!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+                    MessageBox.Show("Error while resaving", "Exception", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString(), "Exception", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(
+                    "Failed to resave records to database." + System.Environment.NewLine + ex.ToString(),
+                    "Exception",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
             }
         }
 
-        private void btnStop_Click(object sender, EventArgs e)
+        private void Stop()
         {
             try
             {
                 tmrMain.Enabled = false;
                 tmrPrompt_Tick(this, new EventArgs()); // make a final log entry
                 tmrPrompt.Enabled = false;
-                btnStart.Enabled = true;
-                btnStop.Enabled = false;
                 tsProgressBar.Value = 0;
                 _dtStart = null;
+                _dtStartProgress = null;
+                btnMultiButton.Text = "Start";
             }
             catch (Exception ex)
             {
@@ -320,7 +329,7 @@ namespace RoboJo
             }
         }
 
-        private void btnClear_Click(object sender, EventArgs e)
+        private void Clear()
         {
             try
             {
@@ -331,17 +340,21 @@ namespace RoboJo
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error clearing the grid." + System.Environment.NewLine + ex.ToString(), "Exception", 
-                    MessageBoxButtons.OK, 
+                MessageBox.Show("Error clearing the grid." + System.Environment.NewLine + ex.ToString(), "Exception",
+                    MessageBoxButtons.OK,
                     MessageBoxIcon.Error);
             }
         }
+
+        #endregion
+
+        #region Events
 
         private void tmrMain_Tick(object sender, EventArgs e)
         {
             try
             {
-                TimeSpan ts = _dtStart != null ? (DateTime.Now - _dtStart.Value) : new TimeSpan(0);
+                TimeSpan ts = _dtStartProgress != null ? (DateTime.Now - _dtStartProgress.Value) : new TimeSpan(0);
                 int intSecondsElapsed = (int)ts.TotalSeconds; 
                 int intSecondsLeft = (tmrPrompt.Interval / 1000) - intSecondsElapsed;
 
@@ -441,29 +454,6 @@ namespace RoboJo
             }
         }
 
-        private void btnResave_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                if (ResaveAllToDb())
-                {
-                    MessageBox.Show("Datagrid successfully resaved to database!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-                else
-                {
-                    MessageBox.Show("Error while resaving", "Exception", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(
-                    "Failed to resave records to database." + System.Environment.NewLine + ex.ToString(), 
-                    "Exception", 
-                    MessageBoxButtons.OK, 
-                    MessageBoxIcon.Error);
-            }
-        }
-
         #region Strip Menu Events
 
         private void toolStripMenuItem_Exit_Click(object sender, EventArgs e)
@@ -480,62 +470,27 @@ namespace RoboJo
 
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            try
-            {
-                btnResave_Click(sender, e);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.ToString(), "Exception", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            Resave();
         }
 
         private void toolStripMenuItem_Start_Click(object sender, EventArgs e)
         {
-            try
-            {
-                btnStart_Click(sender, e);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.ToString(), "Exception", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            Start();
         }
 
         private void toolStripMenuItem_Stop_Click(object sender, EventArgs e)
         {
-            try
-            {
-                btnStop_Click(sender, e);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.ToString(), "Exception", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            Stop();
         }
 
         private void toolStripMenuItem_Clear_Click(object sender, EventArgs e)
         {
-            try
-            {
-                btnClear_Click(sender, e);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.ToString(), "Exception", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            Clear();
         }
 
         private void toolStripMenuItem_LogNow_Click(object sender, EventArgs e)
         {
-            try
-            {
-                btnLogNow_Click(sender, e);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.ToString(), "Exception", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            PromptUser();
         }
 
         private void toolStripMenuItem_About_Click(object sender, EventArgs e)
@@ -545,13 +500,29 @@ namespace RoboJo
                 AboutBox ab = new AboutBox();
                 ab.ShowDialog();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw;
+                MessageBox.Show(ex.ToString(), "Exception", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void btnMultiButton_Click(object sender, EventArgs e)
+        {
+            switch (btnMultiButton.Text)
+            {
+                case "Start":
+                    {
+                        Start();
+                    } break;
+                case "Stop":
+                    {
+                        Stop();
+                    } break;
             }
         }
 
         #endregion
+
     }
 
     #endregion
