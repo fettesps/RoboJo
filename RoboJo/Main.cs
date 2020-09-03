@@ -29,7 +29,7 @@ namespace RoboJo
                 _dal = Factory.OpenDB();
 
                 InitializeComponent();
-                cboPromptEveryValue.SelectedIndex = 0; 
+                cboPromptEveryValue.SelectedIndex = 2; 
                 tmrMain.Interval = 1000; 
                 cboPromptEveryValue_SelectedIndexChanged(this, null);
                 lblDate_Value.Text = System.DateTime.Now.ToShortDateString();
