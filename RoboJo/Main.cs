@@ -15,6 +15,7 @@ namespace RoboJo
         private DateTime? _dtEnd;               // Stores time that last entry was entered
         private DateTime? _dtStartAbsolute;     // Stores original start time for the application life cycle
         private DateTime? _dtStartProgress;     // Stores start time for the progress bar
+        private DateTime? _dtDay;               // Stores the current day
         private bool _booInputActive = false;
         private bool _booBillable = true;
         private bool _booRunEndTimer = true;
@@ -32,7 +33,8 @@ namespace RoboJo
                 cboPromptEveryValue.SelectedIndex = 2; 
                 tmrMain.Interval = 1000; 
                 cboPromptEveryValue_SelectedIndexChanged(this, null);
-                lblDate_Value.Text = System.DateTime.Now.ToShortDateString();
+                lblDate_Value.Text = DateTime.Now.ToShortDateString();
+                _dtDay = DateTime.Now;
                 btnMultiButton.Text = "Start";
 
                 LoadRecords();
@@ -336,6 +338,9 @@ namespace RoboJo
                 if (_dal.ClearDb())
                 {
                     ClearDataGrid();
+                    lblCurrentEntryValue.Text = "";
+                    lblLastEntryValue.Text = "";
+                    lblDate_Value.Text = DateTime.Now.ToShortDateString();
                 }
             }
             catch (Exception ex)
@@ -343,6 +348,24 @@ namespace RoboJo
                 MessageBox.Show("Error clearing the grid." + System.Environment.NewLine + ex.ToString(), "Exception",
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Error);
+            }
+        }
+
+        private void CheckDay()
+        {
+            try
+            {
+                // New Day
+                if (_dtDay != DateTime.Now)
+                {
+                    lblDate_Value.Text = DateTime.Now.ToShortDateString();
+                    _dtDay = DateTime.Now;
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
             }
         }
 
@@ -360,9 +383,12 @@ namespace RoboJo
 
                 lblNextEntryInValue.Text = String.Concat(intSecondsLeft.ToString(), " seconds");
 
+                // Update Progress Bar
                 tsProgressBar.Minimum = 0;
                 tsProgressBar.Maximum = (tmrPrompt.Interval / 1000);
                 tsProgressBar.Value = intSecondsElapsed < tsProgressBar.Maximum ? intSecondsElapsed : tsProgressBar.Maximum;
+
+                CheckDay();
             }
             catch (Exception ex)
             {
