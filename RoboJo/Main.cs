@@ -356,10 +356,13 @@ namespace RoboJo
             try
             {
                 // New Day
-                if (_dtDay != DateTime.Now)
+                if (_dtDay.Value.Date != DateTime.Now.Date)
                 {
                     lblDate_Value.Text = DateTime.Now.ToShortDateString();
                     _dtDay = DateTime.Now;
+
+                    // Reset daily totals
+                    CalculateTotal(DateTime.Now, DateTime.Now);
                 }
             }
             catch (Exception)
