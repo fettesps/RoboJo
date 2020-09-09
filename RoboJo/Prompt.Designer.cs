@@ -30,6 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.btnSkip = new System.Windows.Forms.Button();
             this.chkRunEndTimer = new System.Windows.Forms.CheckBox();
             this.txtDuration = new System.Windows.Forms.TextBox();
             this.lblDuration = new System.Windows.Forms.Label();
@@ -43,7 +44,6 @@
             this.txtUserInput = new System.Windows.Forms.TextBox();
             this.lblUserInput = new System.Windows.Forms.Label();
             this.tmrPromptTicker = new System.Windows.Forms.Timer(this.components);
-            this.btnSkip = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -66,6 +66,16 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(495, 146);
             this.panel1.TabIndex = 0;
+            // 
+            // btnSkip
+            // 
+            this.btnSkip.Location = new System.Drawing.Point(311, 116);
+            this.btnSkip.Name = "btnSkip";
+            this.btnSkip.Size = new System.Drawing.Size(75, 23);
+            this.btnSkip.TabIndex = 12;
+            this.btnSkip.Text = "Skip";
+            this.btnSkip.UseVisualStyleBackColor = true;
+            this.btnSkip.Click += new System.EventHandler(this.btnSkip_Click);
             // 
             // chkRunEndTimer
             // 
@@ -143,6 +153,8 @@
             this.dtpEndTime.Name = "dtpEndTime";
             this.dtpEndTime.Size = new System.Drawing.Size(102, 20);
             this.dtpEndTime.TabIndex = 4;
+            this.dtpEndTime.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dtpEndTime_KeyDown);
+            this.dtpEndTime.MouseDown += new System.Windows.Forms.MouseEventHandler(this.dtpEndTime_MouseDown);
             // 
             // dtpStartTime
             // 
@@ -187,16 +199,6 @@
             this.tmrPromptTicker.Enabled = true;
             this.tmrPromptTicker.Interval = 500;
             this.tmrPromptTicker.Tick += new System.EventHandler(this.tmrPromptTicker_Tick);
-            // 
-            // btnSkip
-            // 
-            this.btnSkip.Location = new System.Drawing.Point(311, 116);
-            this.btnSkip.Name = "btnSkip";
-            this.btnSkip.Size = new System.Drawing.Size(75, 23);
-            this.btnSkip.TabIndex = 12;
-            this.btnSkip.Text = "Skip";
-            this.btnSkip.UseVisualStyleBackColor = true;
-            this.btnSkip.Click += new System.EventHandler(this.btnSkip_Click);
             // 
             // Prompt
             // 

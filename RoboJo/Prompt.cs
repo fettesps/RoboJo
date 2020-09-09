@@ -79,12 +79,35 @@ namespace RoboJo
             }
         }
 
-
         private void btnSkip_Click(object sender, EventArgs e)
         {
             try
             {
                 this.Close();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        private void dtpEndTime_MouseDown(object sender, MouseEventArgs e)
+        {
+            try
+            {
+                chkRunEndTimer.Checked = false;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        private void dtpEndTime_KeyDown(object sender, KeyEventArgs e)
+        {
+            try
+            {
+                chkRunEndTimer.Checked = false;
             }
             catch (Exception)
             {
