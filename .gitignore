@@ -1,0 +1,17 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/RoboJo/obj/Debug
+/RoboJo/obj/Release
+/RoboJo/bin/Debug
+/RoboJo/bin/Release
+/.vs/RoboJo/v15
+/.vs/VSWorkspaceState.json
+/.vs/RoboJo/v16/Server/sqlite3/db.lock
+/.vs/RoboJo/v16/Server/sqlite3/storage.ide-shm
+/.vs/RoboJo/v16/Server/sqlite3/storage.ide
+/.vs/RoboJo/v16/Server/sqlite3/storage.ide-wal
+/.vs/RoboJo/v16/.suo
+/RoboJo/obj
+/packages
