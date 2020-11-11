@@ -12,6 +12,15 @@ namespace RoboJo
 {
     public partial class Prompt : Form
     {
+        public enum eButtons
+        {
+            Cancel,
+            Skip,
+            Ok
+        }
+        bool _booSaveInput = false;
+        eButtons _ButtonPressed;
+
         public Prompt()
         {
             InitializeComponent();
@@ -25,6 +34,8 @@ namespace RoboJo
             {
                 txtUserInput.Text = "";
                 txtDuration.Text = "00:00:00";
+                _booSaveInput = false;
+                _ButtonPressed = eButtons.Cancel;
                 this.Close();
             }
             catch (Exception)
@@ -34,10 +45,26 @@ namespace RoboJo
             }
         }
 
+        private void btnSkip_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                _booSaveInput = false;
+                _ButtonPressed = eButtons.Skip;
+                this.Close();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
         private void btnOk_Click(object sender, EventArgs e)
         {
             try
             {
+                _booSaveInput = true;
+                _ButtonPressed = eButtons.Ok;
                 this.Close();
             }
             catch (Exception)
@@ -79,18 +106,6 @@ namespace RoboJo
             }
         }
 
-        private void btnSkip_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                this.Close();
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-        }
-
         private void dtpEndTime_MouseDown(object sender, MouseEventArgs e)
         {
             try
@@ -128,6 +143,23 @@ namespace RoboJo
             set 
             {
                 txtUserInput.Text = value; 
+            }
+        }
+
+        public bool SaveInput
+        {
+            get
+            {
+                return _booSaveInput;
+            }
+        }
+
+
+        public eButtons ButtonPressed
+        {
+            get
+            {
+                return _ButtonPressed;
             }
         }
 
