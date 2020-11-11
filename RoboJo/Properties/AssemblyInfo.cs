@@ -6,9 +6,9 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("RoboJo Time Tracker")]
-[assembly: AssemblyDescription("A quick app to remind me to log my timesheets periodically")]
+[assembly: AssemblyDescription("A quick app to remind me to log my timesheets periodically.\r\n\r\nGet the latest version at:\r\nhttps://github.com/fettesps/RoboJo")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("FettesPS")]
 [assembly: AssemblyProduct("RoboJo Time Tracker")]
 [assembly: AssemblyCopyright("Copyright ©  2020")]
 [assembly: AssemblyTrademark("FettesPS")]
