@@ -168,27 +168,34 @@ namespace RoboJo
                 _dal.ClearDb();
 
                 // Go through all the table rows and save them to the database
-                foreach (DataRow row in timetrackerDataSet.Tables[0].Rows)
+                if (timetrackerDataSet.Tables[0].Rows.Count > 0)
                 {
-                    // Since the datagrid stores everything as text we need to covert it all back into proper types
-                    DateTime dtOut, dtStartTime, dtEndTime;
-
-                    // Todo: Add some debugging incase conversions fail
-                    DateTime.TryParse(row["start_time"].ToString(), out dtOut);
-                    dtStartTime = dtOut;
-
-                    DateTime.TryParse(row["end_time"].ToString(), out dtOut);
-                    dtEndTime = dtOut;
-
-                    TimeSpan tsHours;
-                    TimeSpan.TryParse(row["hours"].ToString(), out tsHours);
-
-                    var billable = row["billable"];
-
-                    if (_dal.WriteToDb(dtStartTime, dtEndTime, row["description"].ToString(), tsHours, (bool)billable))
+                    foreach (DataRow row in timetrackerDataSet.Tables[0].Rows)
                     {
-                        booSuccess = true;
+                        // Since the datagrid stores everything as text we need to covert it all back into proper types
+                        DateTime dtOut, dtStartTime, dtEndTime;
+
+                        // Todo: Add some debugging incase conversions fail
+                        DateTime.TryParse(row["start_time"].ToString(), out dtOut);
+                        dtStartTime = dtOut;
+
+                        DateTime.TryParse(row["end_time"].ToString(), out dtOut);
+                        dtEndTime = dtOut;
+
+                        TimeSpan tsHours;
+                        TimeSpan.TryParse(row["hours"].ToString(), out tsHours);
+
+                        var billable = row["billable"];
+
+                        if (_dal.WriteToDb(dtStartTime, dtEndTime, row["description"].ToString(), tsHours, (bool)billable))
+                        {
+                            booSuccess = true;
+                        }
                     }
+                } 
+                else
+                {
+                    booSuccess = true;
                 }
 
                 return booSuccess;
