@@ -240,7 +240,7 @@ namespace RoboJo
                         {
                             AddTimeRecord(timePrompt.UserInput, timePrompt.Billable, timePrompt.StartTime, timePrompt.EndTime);
                             _booInputActive = false;
-                            _dtStartTimer = DateTime.Now;
+                            _dtStartTimer = timePrompt.EndTime;
                             _dtStartProgress = DateTime.Now;
                             _booBillable = timePrompt.Billable;
                         }
