@@ -11,8 +11,8 @@ namespace RoboJo
 {
     public partial class frmMain : Form
     {
-        private DateTime? _dtStart;             // Stores current start time, is reset when timer is stopped
-        private DateTime? _dtEnd;               // Stores time that last entry was entered
+        private DateTime? _dtStartTimer;        // Stores current timer's start time, is reset when timer is stopped
+        private DateTime? _dtEndTimer;          // Stores time for the last time entry that was entered
         private DateTime? _dtStartAbsolute;     // Stores original start time for the application life cycle
         private DateTime? _dtStartProgress;     // Stores start time for the progress bar
         private bool _booInputActive = false;
@@ -69,16 +69,15 @@ namespace RoboJo
 
                     timetrackerDataSet.timesheet.AddtimesheetRow((timetrackerDataSet.timesheetRow)dr);
                     timetrackerDataSet.AcceptChanges();
-
                 }
 
                 // Load last entry
                 lblCurrentEntryValue.Text = entries.LastOrDefault()?.Description;
                 tsslCurrentEntryVal.Text = entries.LastOrDefault()?.Description;
 
-                _dtStart = entries.FirstOrDefault()?.StartTime;
-                _dtEnd = entries.LastOrDefault()?.EndTime;
-                CalculateTotal(_dtStart, _dtEnd);
+                _dtStartTimer = entries.FirstOrDefault()?.StartTime;
+                _dtEndTimer = entries.LastOrDefault()?.EndTime;
+                CalculateTotal(_dtStartTimer, _dtEndTimer);
             }
             catch (Exception)
             {
@@ -169,27 +168,34 @@ namespace RoboJo
                 _dal.ClearDb();
 
                 // Go through all the table rows and save them to the database
-                foreach (DataRow row in timetrackerDataSet.Tables[0].Rows)
+                if (timetrackerDataSet.Tables[0].Rows.Count > 0)
                 {
-                    // Since the datagrid stores everything as text we need to covert it all back into proper types
-                    DateTime dtOut, dtStartTime, dtEndTime;
-
-                    // Todo: Add some debugging incase conversions fail
-                    DateTime.TryParse(row["start_time"].ToString(), out dtOut);
-                    dtStartTime = dtOut;
-
-                    DateTime.TryParse(row["end_time"].ToString(), out dtOut);
-                    dtEndTime = dtOut;
-
-                    TimeSpan tsHours;
-                    TimeSpan.TryParse(row["hours"].ToString(), out tsHours);
-
-                    var billable = row["billable"];
-
-                    if (_dal.WriteToDb(dtStartTime, dtEndTime, row["description"].ToString(), tsHours, (bool)billable))
+                    foreach (DataRow row in timetrackerDataSet.Tables[0].Rows)
                     {
-                        booSuccess = true;
+                        // Since the datagrid stores everything as text we need to covert it all back into proper types
+                        DateTime dtOut, dtStartTime, dtEndTime;
+
+                        // Todo: Add some debugging incase conversions fail
+                        DateTime.TryParse(row["start_time"].ToString(), out dtOut);
+                        dtStartTime = dtOut;
+
+                        DateTime.TryParse(row["end_time"].ToString(), out dtOut);
+                        dtEndTime = dtOut;
+
+                        TimeSpan tsHours;
+                        TimeSpan.TryParse(row["hours"].ToString(), out tsHours);
+
+                        var billable = row["billable"];
+
+                        if (_dal.WriteToDb(dtStartTime, dtEndTime, row["description"].ToString(), tsHours, (bool)billable))
+                        {
+                            booSuccess = true;
+                        }
                     }
+                } 
+                else
+                {
+                    booSuccess = true;
                 }
 
                 return booSuccess;
@@ -200,7 +206,7 @@ namespace RoboJo
             }
         }      
 
-        private void PromptUser(String strMessage = "What have you been working on?")
+        private void PromptUser()
         {
             try
             {
@@ -210,7 +216,7 @@ namespace RoboJo
                     UserInput = String.Empty,
                     Billable = _booBillable,
                     RunEndTimer = _booRunEndTimer,
-                    StartTime = _dtStart != null ? _dtStart.Value : DateTime.Now,
+                    StartTime = _dtStartTimer != null ? _dtStartTimer.Value : DateTime.Now,
                     EndTime = DateTime.Now,
                     StartPosition = FormStartPosition.WindowsDefaultLocation
                 };
@@ -225,21 +231,42 @@ namespace RoboJo
                 else
                 {
                     return;
-                }
+                }                
 
-                // If there was user input, save it
-                if (!String.IsNullOrWhiteSpace(timePrompt.UserInput))
+                switch (timePrompt.ButtonPressed)
                 {
-                    AddTimeRecord(timePrompt.UserInput, timePrompt.Billable, timePrompt.StartTime, timePrompt.EndTime);
-                    _booInputActive = false;
-                    _dtStart = _dtStartProgress = DateTime.Now;
-                    _booBillable = timePrompt.Billable;
-                }
-                // User canceled action
-                else
-                {
-                    _dtStartProgress = DateTime.Now;
-                    _booInputActive = false;
+                    case Prompt.eButtons.Ok:
+                        if(timePrompt.SaveInput && !String.IsNullOrWhiteSpace(timePrompt.UserInput))
+                        {
+                            AddTimeRecord(timePrompt.UserInput, timePrompt.Billable, timePrompt.StartTime, timePrompt.EndTime);
+                            _booInputActive = false;
+                            _dtStartTimer = timePrompt.EndTime;
+                            _dtStartProgress = DateTime.Now;
+                            _booBillable = timePrompt.Billable;
+                        }
+                        goto default;
+
+                    case Prompt.eButtons.Skip:
+                        _dtStartTimer = DateTime.Now;
+                        _dtStartProgress = DateTime.Now;
+                        _booInputActive = false;
+                        goto default;
+
+                    case Prompt.eButtons.Cancel:
+                        _booInputActive = false;
+                        tmrMain.Enabled = false;
+                        tmrPrompt.Enabled = false;
+                        tsProgressBar.Value = 0;
+                        _dtStartTimer = null;
+                        _dtStartProgress = null;
+                        btnMultiButton.Text = "Start";
+                        break;
+
+                    default:
+                        // Restart timer
+                        tmrPrompt.Stop();
+                        tmrPrompt.Start();
+                        break;
                 }
             }
             catch (Exception)
@@ -276,11 +303,11 @@ namespace RoboJo
             {
                 tmrMain.Enabled = true;
                 tmrPrompt.Enabled = true;
-                _dtStart = _dtStartProgress = DateTime.Now;
+                _dtStartTimer = _dtStartProgress = DateTime.Now;
                 _dtStartAbsolute = _dtStartAbsolute == null ? DateTime.Now : _dtStartAbsolute;
                 btnMultiButton.Text = "Stop";
 
-                PromptUser("What will you be working on?");
+                PromptUser();
             }
             catch (Exception ex)
             {
@@ -319,7 +346,7 @@ namespace RoboJo
                 tmrPrompt_Tick(this, new EventArgs()); // make a final log entry
                 tmrPrompt.Enabled = false;
                 tsProgressBar.Value = 0;
-                _dtStart = null;
+                _dtStartTimer = null;
                 _dtStartProgress = null;
                 btnMultiButton.Text = "Start";
             }
@@ -522,7 +549,6 @@ namespace RoboJo
         }
 
         #endregion
-
     }
 
     #endregion
