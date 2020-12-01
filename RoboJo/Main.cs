@@ -162,7 +162,7 @@ namespace RoboJo
         {
             try
             {
-                bool booSuccess = false;
+                bool booSuccess = true;
 
                 // Clear it out first
                 _dal.ClearDb();
@@ -172,6 +172,8 @@ namespace RoboJo
                 {
                     foreach (DataRow row in timetrackerDataSet.Tables[0].Rows)
                     {
+                        if (row.RowState == DataRowState.Deleted) continue;
+
                         // Since the datagrid stores everything as text we need to covert it all back into proper types
                         DateTime dtOut, dtStartTime, dtEndTime;
 
@@ -189,14 +191,10 @@ namespace RoboJo
 
                         if (_dal.WriteToDb(dtStartTime, dtEndTime, row["description"].ToString(), tsHours, (bool)billable))
                         {
-                            booSuccess = true;
+                            booSuccess = false;
                         }
                     }
                 } 
-                else
-                {
-                    booSuccess = true;
-                }
 
                 return booSuccess;
             }
