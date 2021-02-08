@@ -25,6 +25,11 @@ namespace RoboJo
             InitializeComponent();
         }
 
+        private void frmSplitEntry_Shown(object sender, EventArgs e)
+        {
+            UpdateHours();
+        }
+
         #region Controls 
 
         private void btnCancel_Click(object sender, EventArgs e)
@@ -39,7 +44,6 @@ namespace RoboJo
             }
             catch (Exception)
             {
-
                 throw;
             }
         }
@@ -51,26 +55,6 @@ namespace RoboJo
                 _booSaveInput = true;
                 _ButtonPressed = eButtons.Ok;
                 this.Close();
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-        }
-
-        private void tmrPromptTicker_Tick(object sender, EventArgs e)
-        {
-            try
-            {
-                // Calculate hours, to nearest half hour
-                TimeSpan ts = dtpStartTime_First != null ? dtpEndTime_First.Value - dtpStartTime_First.Value : new TimeSpan(0);
-                TimeSpan tsHours = ts.RoundToNearestMinutes(15);
-                txtDuration_First.Text = tsHours.ToString();
-
-                TimeSpan ts2 = dtpStartTime_Second != null ? dtpEndTime_Second.Value - dtpStartTime_Second.Value : new TimeSpan(0);
-                TimeSpan tsHours2 = ts2.RoundToNearestMinutes(15);
-                txtDuration_Second.Text = tsHours2.ToString();
-
             }
             catch (Exception)
             {
@@ -90,6 +74,75 @@ namespace RoboJo
             catch (Exception)
             {
 
+                throw;
+            }
+        }
+
+        private void dtpStartTime_First_KeyUp(object sender, EventArgs e)
+        {
+            try
+            {
+                UpdateHours();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        private void dtpEndTime_First_KeyUp(object sender, KeyEventArgs e)
+        {
+            try
+            {
+                dtpStartTime_Second.Value = dtpEndTime_First.Value;
+                UpdateHours();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        private void dtpStartTime_Second_KeyUp(object sender, KeyEventArgs e)
+        {
+            try
+            {
+                dtpEndTime_First.Value = dtpStartTime_Second.Value;
+                UpdateHours();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        private void dtpEndTime_Second_KeyUp(object sender, EventArgs e)
+        {
+            try
+            {
+                UpdateHours();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        private void UpdateHours()
+        {
+            try
+            {
+                // Calculate hours, to nearest half hour
+                TimeSpan ts = dtpEndTime_First.Value - dtpStartTime_First.Value;
+                TimeSpan tsHours = ts.RoundToNearestMinutes(15);
+                txtDuration_First.Text = tsHours.ToString();
+
+                TimeSpan ts2 = dtpEndTime_Second.Value - dtpStartTime_Second.Value;
+                TimeSpan tsHours2 = ts2.RoundToNearestMinutes(15);
+                txtDuration_Second.Text = tsHours2.ToString();
+            }
+            catch (Exception)
+            {
                 throw;
             }
         }

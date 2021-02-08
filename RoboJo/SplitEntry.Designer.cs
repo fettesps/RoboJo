@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             this.panel1 = new System.Windows.Forms.Panel();
             this.txtDuration_First = new System.Windows.Forms.TextBox();
             this.lblDuration = new System.Windows.Forms.Label();
@@ -40,7 +39,6 @@
             this.txtUserInput_First = new System.Windows.Forms.TextBox();
             this.lblUserInput = new System.Windows.Forms.Label();
             this.btnOk = new System.Windows.Forms.Button();
-            this.tmrPromptTicker = new System.Windows.Forms.Timer(this.components);
             this.panel2 = new System.Windows.Forms.Panel();
             this.txtDuration_Second = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
@@ -114,6 +112,7 @@
             this.dtpEndTime_First.Name = "dtpEndTime_First";
             this.dtpEndTime_First.Size = new System.Drawing.Size(102, 20);
             this.dtpEndTime_First.TabIndex = 4;
+            this.dtpEndTime_First.KeyUp += new System.Windows.Forms.KeyEventHandler(this.dtpEndTime_First_KeyUp);
             // 
             // dtpStartTime_First
             // 
@@ -122,6 +121,7 @@
             this.dtpStartTime_First.Name = "dtpStartTime_First";
             this.dtpStartTime_First.Size = new System.Drawing.Size(102, 20);
             this.dtpStartTime_First.TabIndex = 3;
+            this.dtpStartTime_First.KeyUp += new System.Windows.Forms.KeyEventHandler(this.dtpStartTime_First_KeyUp);
             // 
             // chkBillable_First
             // 
@@ -162,12 +162,6 @@
             this.btnOk.Text = "Ok";
             this.btnOk.UseVisualStyleBackColor = true;
             this.btnOk.Click += new System.EventHandler(this.btnOk_Click);
-            // 
-            // tmrPromptTicker
-            // 
-            this.tmrPromptTicker.Enabled = true;
-            this.tmrPromptTicker.Interval = 500;
-            this.tmrPromptTicker.Tick += new System.EventHandler(this.tmrPromptTicker_Tick);
             // 
             // panel2
             // 
@@ -239,6 +233,7 @@
             this.dtpEndTime_Second.Name = "dtpEndTime_Second";
             this.dtpEndTime_Second.Size = new System.Drawing.Size(102, 20);
             this.dtpEndTime_Second.TabIndex = 4;
+            this.dtpEndTime_Second.KeyUp += new System.Windows.Forms.KeyEventHandler(this.dtpEndTime_Second_KeyUp);
             // 
             // dtpStartTime_Second
             // 
@@ -247,6 +242,7 @@
             this.dtpStartTime_Second.Name = "dtpStartTime_Second";
             this.dtpStartTime_Second.Size = new System.Drawing.Size(102, 20);
             this.dtpStartTime_Second.TabIndex = 3;
+            this.dtpStartTime_Second.KeyUp += new System.Windows.Forms.KeyEventHandler(this.dtpStartTime_Second_KeyUp);
             // 
             // chkBillable_Second
             // 
@@ -289,6 +285,7 @@
             this.MaximizeBox = false;
             this.Name = "frmSplitEntry";
             this.Text = "Split Entry";
+            this.Shown += new System.EventHandler(this.frmSplitEntry_Shown);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);
@@ -310,7 +307,6 @@
         private System.Windows.Forms.Label lblUserInput;
         private System.Windows.Forms.TextBox txtDuration_First;
         private System.Windows.Forms.Label lblDuration;
-        private System.Windows.Forms.Timer tmrPromptTicker;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.TextBox txtDuration_Second;
         private System.Windows.Forms.Label label3;
