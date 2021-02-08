@@ -29,6 +29,7 @@ namespace RoboJo
                     {
                         yield return new Entry()
                         {
+                            Entry_ID = Convert.ToInt32(sqlDr["entry_id"].ToString()),
                             StartTime = Convert.ToDateTime(sqlDr["start_time"].ToString()),
                             EndTime = Convert.ToDateTime(sqlDr["end_time"].ToString()),
                             Description = sqlDr["description"].ToString(),
@@ -41,7 +42,7 @@ namespace RoboJo
             }
         }
 
-        public bool WriteToDb(DateTime? dtStart, DateTime? dtEnd, String strDescription, TimeSpan tsHours, bool booBillable)
+        public long WriteToDb(DateTime? dtStart, DateTime? dtEnd, String strDescription, TimeSpan tsHours, bool booBillable)
         {
             try
             {
@@ -60,12 +61,40 @@ namespace RoboJo
                         cmd.Parameters.AddWithValue("@billable", booBillable);
                         cmd.Parameters.AddWithValue("@hours", tsHours.ToString());
 
-                        int intRowsInserted = cmd.ExecuteNonQuery();
-                        if (intRowsInserted > 0) return true;
+                        int intInsertCmd = cmd.ExecuteNonQuery();
+                        long intInsertedId = sqlCon.LastInsertRowId;
+
+                        return intInsertedId;
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public bool DeleteFromDb(int entry_id)
+        {
+            try
+            {
+                String strSQLStatement = "DELETE FROM entries " +
+                                         "WHERE entry_id = @entry_id";
+
+                using (SQLiteConnection sqlCon = new SQLiteConnection(GetConnectionString()))
+                {
+                    sqlCon.Open();
+
+                    using (SQLiteCommand cmd = new SQLiteCommand(strSQLStatement, sqlCon))
+                    {
+                        cmd.Parameters.AddWithValue("@entry_id", entry_id);
+
+                        int intRowsDeleted = cmd.ExecuteNonQuery();
+                        if (intRowsDeleted > 0) return true;
                     }
                 }
 
-                return true;
+                return false;
             }
             catch (Exception)
             {

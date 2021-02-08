@@ -61,6 +61,7 @@ namespace RoboJo
 
                     DataRow dr = timetrackerDataSet.Tables[0].NewRow();
 
+                    dr["id"] = entry.Entry_ID;
                     dr["start_time"] = entry.StartTime.Value.ToShortTimeString();
                     dr["end_time"] = entry.EndTime.Value.ToShortTimeString();
                     dr["description"] = entry.Description;
@@ -96,19 +97,11 @@ namespace RoboJo
                 TimeSpan ts = dtEnd.Value - dtStart.Value;
                 TimeSpan tsHours = ts.RoundToNearestMinutes(15);
 
+                // Save it to the database
+                long lngInsertedId = _dal.WriteToDb(dtStart, DateTime.Now, strDetails, tsHours, true);
+
                 // Add to grid
-                timetrackerDataSet.AcceptChanges();
-
-                DataRow dr = timetrackerDataSet.Tables[0].NewRow();
-
-                dr["start_time"] = dtStart.Value.ToShortTimeString();
-                dr["end_time"] = dtEnd.Value.ToShortTimeString();
-                dr["description"] = strDetails;
-                dr["hours"] = tsHours.ToString();
-                dr["billable"] = booBillable ? 1 : 0;
-
-                timetrackerDataSet.timesheet.AddtimesheetRow((timetrackerDataSet.timesheetRow)dr);
-                timetrackerDataSet.AcceptChanges();
+                AddToGrid(lngInsertedId, strDetails, booBillable, dtStart, dtEnd, tsHours);
 
                 // Add to Total 
                 CalculateTotal(_dtStartAbsolute, dtEnd);
@@ -118,8 +111,69 @@ namespace RoboJo
                 lblCurrentEntryValue.Text = strDetails;
                 tsslCurrentEntryVal.Text = strDetails;
 
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        private void AddToGrid(long lngEntryId, string strUserInput, bool booBillable, DateTime? dtStart, DateTime? dtEnd, TimeSpan tsHours)
+        {
+            try
+            {
+                timetrackerDataSet.AcceptChanges();
+
+                DataRow dr = timetrackerDataSet.Tables[0].NewRow();
+
+                dr["id"] = lngEntryId;
+                dr["start_time"] = dtStart.Value.ToShortTimeString();
+                dr["end_time"] = dtEnd.Value.ToShortTimeString();
+                dr["description"] = strUserInput;
+                dr["hours"] = tsHours.ToString();
+                dr["billable"] = booBillable ? 1 : 0;
+
+                timetrackerDataSet.timesheet.AddtimesheetRow((timetrackerDataSet.timesheetRow)dr);
+                timetrackerDataSet.AcceptChanges();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        private void SaveSplitTimeRecord(
+            String UserInput_First, bool Billable_First, DateTime? StartTime_First, DateTime? EndTime_First, TimeSpan ts_First,
+            String UserInput_Second, bool Billable_Second, DateTime? StartTime_Second, DateTime? EndTime_Second, TimeSpan ts_Second
+        )
+        {
+            try
+            {
+                #region First Record 
+
                 // Save it to the database
-                _dal.WriteToDb(dtStart, DateTime.Now, strDetails, tsHours, true);
+                long lngInsertedId_First = _dal.WriteToDb(StartTime_First, EndTime_First, UserInput_First, ts_First, Billable_First);
+
+                // Add to grid
+                AddToGrid(lngInsertedId_First, UserInput_First, Billable_First, StartTime_First, EndTime_First, ts_First);
+
+                // Add to Total 
+                //CalculateTotal(_dtStartAbsolute, dtEnd);
+
+                #endregion
+
+                #region Second Record
+
+                // Save it to the database
+                long lngInsertedId_Second = _dal.WriteToDb(StartTime_Second, EndTime_Second, UserInput_Second, ts_Second, Billable_Second);
+
+                // Add to grid
+                AddToGrid(lngInsertedId_Second, UserInput_Second, Billable_Second, StartTime_Second, EndTime_Second, ts_Second);
+
+                // Add to Total 
+                //CalculateTotal(_dtStartAbsolute, dtEnd);
+
+                #endregion
             }
             catch (Exception)
             {
@@ -158,6 +212,83 @@ namespace RoboJo
             }
         }
 
+        private void PromptSplitEntry()
+        {
+            try
+            {
+                if(dgTimesheet.SelectedRows.Count > 0)
+                {
+                    // Get selected item
+                    int selectedIndex = 0;
+                    selectedIndex = dgTimesheet.SelectedRows[0].Index;
+                    var boundItem = dgTimesheet.SelectedRows[0].DataBoundItem;
+
+                    // Since the datagrid stores everything as text we need to covert it all back into proper types
+                    int intEntryId = (int)timetrackerDataSet.Tables[0].Rows[selectedIndex]["id"];
+                    String strUserInput = timetrackerDataSet.Tables[0].Rows[selectedIndex]["description"].ToString();
+                    DateTime.TryParse(timetrackerDataSet.Tables[0].Rows[selectedIndex]["start_time"].ToString(), out DateTime dtStartTime);
+                    DateTime.TryParse(timetrackerDataSet.Tables[0].Rows[selectedIndex]["end_time"].ToString(), out DateTime dtEndTime);
+                    TimeSpan.TryParse(timetrackerDataSet.Tables[0].Rows[selectedIndex]["hours"].ToString(), out TimeSpan tsHours);
+                    var billable = timetrackerDataSet.Tables[0].Rows[selectedIndex]["billable"];
+                    
+                    // Prepare Split Entry window
+                    frmSplitEntry splitEntry = new frmSplitEntry
+                    {
+                        StartPosition = FormStartPosition.CenterParent,
+
+                        UserInput_First = strUserInput,
+                        Billable_First = (bool)billable,
+                        StartTime_First = dtStartTime,
+                        EndTime_First = dtEndTime,
+
+                        UserInput_Second = strUserInput,
+                        Billable_Second = (bool)billable,
+                        StartTime_Second = dtStartTime,
+                        EndTime_Second = dtEndTime
+                    };
+
+                    splitEntry.ShowDialog();
+                    
+                    // After user has closed the dialog
+                    switch (splitEntry.ButtonPressed)
+                    {
+                        case frmSplitEntry.eButtons.Ok:
+                            if (splitEntry.SaveInput && !String.IsNullOrWhiteSpace(splitEntry.UserInput_First))
+                            {
+                                SaveSplitTimeRecord(
+                                    splitEntry.UserInput_First, splitEntry.Billable_First, splitEntry.StartTime_First, splitEntry.EndTime_First, splitEntry.Duration_First,
+                                    splitEntry.UserInput_Second, splitEntry.Billable_Second, splitEntry.StartTime_Second, splitEntry.EndTime_Second, splitEntry.Duration_Second
+                                );
+
+                                // Delete the row from the grid 
+                                timetrackerDataSet.AcceptChanges();
+                                timetrackerDataSet.Tables[0].Rows[selectedIndex].Delete();
+                                timetrackerDataSet.AcceptChanges();
+
+                                // Delete the row in the database
+                                _dal.DeleteFromDb(intEntryId);
+                            }
+                            break;
+
+                        case frmSplitEntry.eButtons.Cancel:
+                            _booInputActive = false;
+
+                            break;
+                    }
+
+                }
+                else
+                {
+                    MessageBox.Show("No Row Selected", "Please make sure to select a row not a cell.", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+
         private bool ResaveAllToDb()
         {
             try
@@ -175,21 +306,15 @@ namespace RoboJo
                         if (row.RowState == DataRowState.Deleted) continue;
 
                         // Since the datagrid stores everything as text we need to covert it all back into proper types
-                        DateTime dtOut, dtStartTime, dtEndTime;
 
                         // Todo: Add some debugging incase conversions fail
-                        DateTime.TryParse(row["start_time"].ToString(), out dtOut);
-                        dtStartTime = dtOut;
-
-                        DateTime.TryParse(row["end_time"].ToString(), out dtOut);
-                        dtEndTime = dtOut;
-
-                        TimeSpan tsHours;
-                        TimeSpan.TryParse(row["hours"].ToString(), out tsHours);
-
+                        DateTime.TryParse(row["start_time"].ToString(), out DateTime dtStartTime);
+                        DateTime.TryParse(row["end_time"].ToString(), out DateTime dtEndTime);
+                        TimeSpan.TryParse(row["hours"].ToString(), out TimeSpan tsHours);
                         var billable = row["billable"];
 
-                        if (_dal.WriteToDb(dtStartTime, dtEndTime, row["description"].ToString(), tsHours, (bool)billable))
+                        long lngResult = _dal.WriteToDb(dtStartTime, dtEndTime, row["description"].ToString(), tsHours, (bool)billable);
+                        if (lngResult < 1)
                         {
                             booSuccess = false;
                         }
@@ -209,7 +334,7 @@ namespace RoboJo
             try
             {
                 // Prepare Prompt window
-                Prompt timePrompt = new Prompt
+                frmPrompt timePrompt = new frmPrompt
                 {
                     UserInput = String.Empty,
                     Billable = _booBillable,
@@ -233,7 +358,7 @@ namespace RoboJo
 
                 switch (timePrompt.ButtonPressed)
                 {
-                    case Prompt.eButtons.Ok:
+                    case frmPrompt.eButtons.Ok:
                         if(timePrompt.SaveInput && !String.IsNullOrWhiteSpace(timePrompt.UserInput))
                         {
                             AddTimeRecord(timePrompt.UserInput, timePrompt.Billable, timePrompt.StartTime, timePrompt.EndTime);
@@ -244,13 +369,13 @@ namespace RoboJo
                         }
                         goto default;
 
-                    case Prompt.eButtons.Skip:
+                    case frmPrompt.eButtons.Skip:
                         _dtStartTimer = DateTime.Now;
                         _dtStartProgress = DateTime.Now;
                         _booInputActive = false;
                         goto default;
 
-                    case Prompt.eButtons.Cancel:
+                    case frmPrompt.eButtons.Cancel:
                         _booInputActive = false;
                         tmrMain.Enabled = false;
                         tmrPrompt.Enabled = false;
@@ -547,6 +672,18 @@ namespace RoboJo
         }
 
         #endregion
+
+        private void btnSplit_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                PromptSplitEntry();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString(), "Exception", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
     }
 
     #endregion
