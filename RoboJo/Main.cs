@@ -78,7 +78,8 @@ namespace RoboJo
 
                 _dtStartTimer = entries.FirstOrDefault()?.StartTime;
                 _dtEndTimer = entries.LastOrDefault()?.EndTime;
-                CalculateTotal(_dtStartTimer, _dtEndTimer);
+                
+                CalculateTotals();
             }
             catch (Exception)
             {
@@ -103,8 +104,8 @@ namespace RoboJo
                 // Add to grid
                 AddToGrid(lngInsertedId, strDetails, booBillable, dtStart, dtEnd, tsHours);
 
-                // Add to Total 
-                CalculateTotal(_dtStartAbsolute, dtEnd);
+                // Update Totals
+                CalculateTotals();
 
                 // Update Trackers
                 lblLastEntryValue.Text = lblCurrentEntryValue.Text;
@@ -157,9 +158,6 @@ namespace RoboJo
                 // Add to grid
                 AddToGrid(lngInsertedId_First, UserInput_First, Billable_First, StartTime_First, EndTime_First, ts_First);
 
-                // Add to Total 
-                //CalculateTotal(_dtStartAbsolute, dtEnd);
-
                 #endregion
 
                 #region Second Record
@@ -170,8 +168,11 @@ namespace RoboJo
                 // Add to grid
                 AddToGrid(lngInsertedId_Second, UserInput_Second, Billable_Second, StartTime_Second, EndTime_Second, ts_Second);
 
-                // Add to Total 
-                //CalculateTotal(_dtStartAbsolute, dtEnd);
+                #endregion
+
+                #region Update Totals
+
+                CalculateTotals();
 
                 #endregion
             }
@@ -181,15 +182,25 @@ namespace RoboJo
             }
         }
 
-        private void CalculateTotal(DateTime? dtStart, DateTime? dtEnd)
+        private void CalculateTotals()
         {
             try
             {
-                // Recalculate Total Hours
-                TimeSpan tsAbs = dtStart != null ? dtEnd.Value - dtStart.Value : new TimeSpan(0);
-                tsAbs = tsAbs.RoundToNearestMinutes(15);
+                IEnumerable<Entry> entries = _dal.ReadFromDb();
 
-                tsslTotal.Text = "Total: " + tsAbs.ToString();
+                TimeSpan tsHours;
+                TimeSpan tsHoursTotal = new TimeSpan();
+
+                // Recalculate Total Hours
+                foreach (Entry entry in entries)
+                {
+                    tsHours = entry.EndTime.Value - entry.StartTime.Value;
+                    tsHours = tsHours.RoundToNearestMinutes(15);
+
+                    tsHoursTotal = tsHoursTotal.Add(tsHours);
+                }
+
+                tsslTotal.Text = "Total: " + tsHoursTotal.ToString();
             }
             catch (Exception)
             {
@@ -216,20 +227,26 @@ namespace RoboJo
         {
             try
             {
-                if(dgTimesheet.SelectedRows.Count > 0)
+                if(dgTimesheet.SelectedRows.Count > 0 || dgTimesheet.SelectedCells.Count > 0)
                 {
                     // Get selected item
-                    int selectedIndex = 0;
-                    selectedIndex = dgTimesheet.SelectedRows[0].Index;
-                    var boundItem = dgTimesheet.SelectedRows[0].DataBoundItem;
+                    int selectedRowIndex = 0;
+                    if (dgTimesheet.SelectedRows.Count > 0)
+                    {
+                        selectedRowIndex = dgTimesheet.SelectedRows[0].Index;
+                    } 
+                    else
+                    {
+                        selectedRowIndex = dgTimesheet.SelectedCells[0].RowIndex;
+                    }
 
                     // Since the datagrid stores everything as text we need to covert it all back into proper types
-                    int intEntryId = (int)timetrackerDataSet.Tables[0].Rows[selectedIndex]["id"];
-                    String strUserInput = timetrackerDataSet.Tables[0].Rows[selectedIndex]["description"].ToString();
-                    DateTime.TryParse(timetrackerDataSet.Tables[0].Rows[selectedIndex]["start_time"].ToString(), out DateTime dtStartTime);
-                    DateTime.TryParse(timetrackerDataSet.Tables[0].Rows[selectedIndex]["end_time"].ToString(), out DateTime dtEndTime);
-                    TimeSpan.TryParse(timetrackerDataSet.Tables[0].Rows[selectedIndex]["hours"].ToString(), out TimeSpan tsHours);
-                    var billable = timetrackerDataSet.Tables[0].Rows[selectedIndex]["billable"];
+                    int intEntryId = (int)timetrackerDataSet.Tables[0].Rows[selectedRowIndex]["id"];
+                    String strUserInput = timetrackerDataSet.Tables[0].Rows[selectedRowIndex]["description"].ToString();
+                    DateTime.TryParse(timetrackerDataSet.Tables[0].Rows[selectedRowIndex]["start_time"].ToString(), out DateTime dtStartTime);
+                    DateTime.TryParse(timetrackerDataSet.Tables[0].Rows[selectedRowIndex]["end_time"].ToString(), out DateTime dtEndTime);
+                    TimeSpan.TryParse(timetrackerDataSet.Tables[0].Rows[selectedRowIndex]["hours"].ToString(), out TimeSpan tsHours);
+                    var billable = timetrackerDataSet.Tables[0].Rows[selectedRowIndex]["billable"];
                     
                     // Prepare Split Entry window
                     frmSplitEntry splitEntry = new frmSplitEntry
@@ -262,7 +279,7 @@ namespace RoboJo
 
                                 // Delete the row from the grid 
                                 timetrackerDataSet.AcceptChanges();
-                                timetrackerDataSet.Tables[0].Rows[selectedIndex].Delete();
+                                timetrackerDataSet.Tables[0].Rows[selectedRowIndex].Delete();
                                 timetrackerDataSet.AcceptChanges();
 
                                 // Delete the row in the database
@@ -279,7 +296,7 @@ namespace RoboJo
                 }
                 else
                 {
-                    MessageBox.Show("No Row Selected", "Please make sure to select a row not a cell.", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("No Row Selected", "Please make sure to select a row or a cell.", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
             catch (Exception)
@@ -319,7 +336,9 @@ namespace RoboJo
                             booSuccess = false;
                         }
                     }
-                } 
+                }
+
+                CalculateTotals();
 
                 return booSuccess;
             }
