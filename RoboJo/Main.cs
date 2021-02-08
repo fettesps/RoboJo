@@ -623,6 +623,23 @@ namespace RoboJo
             }
         }
 
+        private void btnMultiButton_Click(object sender, EventArgs e)
+        {
+            switch (btnMultiButton.Text)
+            {
+                case "Start":
+                    {
+                        Start();
+                    }
+                    break;
+                case "Stop":
+                    {
+                        Stop();
+                    }
+                    break;
+            }
+        }
+
         #region Strip Menu Events
 
         private void toolStripMenuItem_Exit_Click(object sender, EventArgs e)
@@ -675,24 +692,7 @@ namespace RoboJo
             }
         }
 
-        private void btnMultiButton_Click(object sender, EventArgs e)
-        {
-            switch (btnMultiButton.Text)
-            {
-                case "Start":
-                    {
-                        Start();
-                    } break;
-                case "Stop":
-                    {
-                        Stop();
-                    } break;
-            }
-        }
-
-        #endregion
-
-        private void btnSplit_Click(object sender, EventArgs e)
+        private void toolStripMenuItem_Split_Click(object sender, EventArgs e)
         {
             try
             {
@@ -703,6 +703,8 @@ namespace RoboJo
                 MessageBox.Show(ex.ToString(), "Exception", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+        #endregion
     }
 
     #endregion

@@ -40,6 +40,12 @@
             this.lblLastEntry = new System.Windows.Forms.Label();
             this.tmrPrompt = new System.Windows.Forms.Timer(this.components);
             this.dgTimesheet = new System.Windows.Forms.DataGridView();
+            this.idDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.starttimeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.endtimeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.descriptionDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.billableDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.hoursDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.timesheetBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.timetrackerDataSet = new RoboJo.timetrackerDataSet();
             this.tmrMain = new System.Windows.Forms.Timer(this.components);
@@ -55,6 +61,7 @@
             this.toolStripMenuItem_Start = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem_Stop = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem_LogNow = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem_Split = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem_Resave = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem_Clear = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
@@ -64,13 +71,6 @@
             this.lblDate_Label = new System.Windows.Forms.Label();
             this.lblDate_Value = new System.Windows.Forms.Label();
             this.btnMultiButton = new System.Windows.Forms.Button();
-            this.btnSplit = new System.Windows.Forms.Button();
-            this.idDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.starttimeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.endtimeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.descriptionDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.billableDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.hoursDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgTimesheet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.timesheetBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.timetrackerDataSet)).BeginInit();
@@ -183,6 +183,46 @@
             this.dgTimesheet.Size = new System.Drawing.Size(797, 419);
             this.dgTimesheet.TabIndex = 21;
             // 
+            // idDataGridViewTextBoxColumn
+            // 
+            this.idDataGridViewTextBoxColumn.DataPropertyName = "id";
+            this.idDataGridViewTextBoxColumn.HeaderText = "id";
+            this.idDataGridViewTextBoxColumn.Name = "idDataGridViewTextBoxColumn";
+            this.idDataGridViewTextBoxColumn.Visible = false;
+            // 
+            // starttimeDataGridViewTextBoxColumn
+            // 
+            this.starttimeDataGridViewTextBoxColumn.DataPropertyName = "start_time";
+            this.starttimeDataGridViewTextBoxColumn.HeaderText = "Start Time";
+            this.starttimeDataGridViewTextBoxColumn.Name = "starttimeDataGridViewTextBoxColumn";
+            // 
+            // endtimeDataGridViewTextBoxColumn
+            // 
+            this.endtimeDataGridViewTextBoxColumn.DataPropertyName = "end_time";
+            this.endtimeDataGridViewTextBoxColumn.HeaderText = "End Time";
+            this.endtimeDataGridViewTextBoxColumn.Name = "endtimeDataGridViewTextBoxColumn";
+            // 
+            // descriptionDataGridViewTextBoxColumn
+            // 
+            this.descriptionDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.descriptionDataGridViewTextBoxColumn.DataPropertyName = "description";
+            this.descriptionDataGridViewTextBoxColumn.HeaderText = "Description";
+            this.descriptionDataGridViewTextBoxColumn.Name = "descriptionDataGridViewTextBoxColumn";
+            // 
+            // billableDataGridViewTextBoxColumn
+            // 
+            this.billableDataGridViewTextBoxColumn.DataPropertyName = "billable";
+            this.billableDataGridViewTextBoxColumn.HeaderText = "Billable";
+            this.billableDataGridViewTextBoxColumn.Name = "billableDataGridViewTextBoxColumn";
+            this.billableDataGridViewTextBoxColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.billableDataGridViewTextBoxColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            // 
+            // hoursDataGridViewTextBoxColumn
+            // 
+            this.hoursDataGridViewTextBoxColumn.DataPropertyName = "hours";
+            this.hoursDataGridViewTextBoxColumn.HeaderText = "Hours";
+            this.hoursDataGridViewTextBoxColumn.Name = "hoursDataGridViewTextBoxColumn";
+            // 
             // timesheetBindingSource
             // 
             this.timesheetBindingSource.DataMember = "timesheet";
@@ -266,6 +306,7 @@
             this.toolStripMenuItem_Start,
             this.toolStripMenuItem_Stop,
             this.toolStripMenuItem_LogNow,
+            this.toolStripMenuItem_Split,
             this.toolStripMenuItem_Resave,
             this.toolStripMenuItem_Clear,
             this.toolStripSeparator2,
@@ -277,23 +318,30 @@
             // toolStripMenuItem_Start
             // 
             this.toolStripMenuItem_Start.Name = "toolStripMenuItem_Start";
-            this.toolStripMenuItem_Start.Size = new System.Drawing.Size(150, 22);
+            this.toolStripMenuItem_Start.Size = new System.Drawing.Size(180, 22);
             this.toolStripMenuItem_Start.Text = "&Start";
             this.toolStripMenuItem_Start.Click += new System.EventHandler(this.toolStripMenuItem_Start_Click);
             // 
             // toolStripMenuItem_Stop
             // 
             this.toolStripMenuItem_Stop.Name = "toolStripMenuItem_Stop";
-            this.toolStripMenuItem_Stop.Size = new System.Drawing.Size(150, 22);
+            this.toolStripMenuItem_Stop.Size = new System.Drawing.Size(180, 22);
             this.toolStripMenuItem_Stop.Text = "Sto&p";
             this.toolStripMenuItem_Stop.Click += new System.EventHandler(this.toolStripMenuItem_Stop_Click);
             // 
             // toolStripMenuItem_LogNow
             // 
             this.toolStripMenuItem_LogNow.Name = "toolStripMenuItem_LogNow";
-            this.toolStripMenuItem_LogNow.Size = new System.Drawing.Size(150, 22);
+            this.toolStripMenuItem_LogNow.Size = new System.Drawing.Size(180, 22);
             this.toolStripMenuItem_LogNow.Text = "&Log Now";
             this.toolStripMenuItem_LogNow.Click += new System.EventHandler(this.toolStripMenuItem_LogNow_Click);
+            // 
+            // toolStripMenuItem_Split
+            // 
+            this.toolStripMenuItem_Split.Name = "toolStripMenuItem_Split";
+            this.toolStripMenuItem_Split.Size = new System.Drawing.Size(180, 22);
+            this.toolStripMenuItem_Split.Text = "Split Entry";
+            this.toolStripMenuItem_Split.Click += new System.EventHandler(this.toolStripMenuItem_Split_Click);
             // 
             // toolStripMenuItem_Resave
             // 
@@ -301,7 +349,7 @@
             this.toolStripMenuItem_Resave.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripMenuItem_Resave.Name = "toolStripMenuItem_Resave";
             this.toolStripMenuItem_Resave.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
-            this.toolStripMenuItem_Resave.Size = new System.Drawing.Size(150, 22);
+            this.toolStripMenuItem_Resave.Size = new System.Drawing.Size(180, 22);
             this.toolStripMenuItem_Resave.Text = "&Resave";
             this.toolStripMenuItem_Resave.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
             // 
@@ -311,19 +359,19 @@
             this.toolStripMenuItem_Clear.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripMenuItem_Clear.Name = "toolStripMenuItem_Clear";
             this.toolStripMenuItem_Clear.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
-            this.toolStripMenuItem_Clear.Size = new System.Drawing.Size(150, 22);
+            this.toolStripMenuItem_Clear.Size = new System.Drawing.Size(180, 22);
             this.toolStripMenuItem_Clear.Text = "&Clear";
             this.toolStripMenuItem_Clear.Click += new System.EventHandler(this.toolStripMenuItem_Clear_Click);
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(147, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(177, 6);
             // 
             // toolStripMenuItem_Exit
             // 
             this.toolStripMenuItem_Exit.Name = "toolStripMenuItem_Exit";
-            this.toolStripMenuItem_Exit.Size = new System.Drawing.Size(150, 22);
+            this.toolStripMenuItem_Exit.Size = new System.Drawing.Size(180, 22);
             this.toolStripMenuItem_Exit.Text = "E&xit";
             this.toolStripMenuItem_Exit.Click += new System.EventHandler(this.toolStripMenuItem_Exit_Click);
             // 
@@ -372,62 +420,11 @@
             this.btnMultiButton.UseVisualStyleBackColor = true;
             this.btnMultiButton.Click += new System.EventHandler(this.btnMultiButton_Click);
             // 
-            // btnSplit
-            // 
-            this.btnSplit.Location = new System.Drawing.Point(226, 29);
-            this.btnSplit.Name = "btnSplit";
-            this.btnSplit.Size = new System.Drawing.Size(75, 23);
-            this.btnSplit.TabIndex = 31;
-            this.btnSplit.Text = "Split";
-            this.btnSplit.UseVisualStyleBackColor = true;
-            this.btnSplit.Click += new System.EventHandler(this.btnSplit_Click);
-            // 
-            // idDataGridViewTextBoxColumn
-            // 
-            this.idDataGridViewTextBoxColumn.DataPropertyName = "id";
-            this.idDataGridViewTextBoxColumn.HeaderText = "id";
-            this.idDataGridViewTextBoxColumn.Name = "idDataGridViewTextBoxColumn";
-            this.idDataGridViewTextBoxColumn.Visible = false;
-            // 
-            // starttimeDataGridViewTextBoxColumn
-            // 
-            this.starttimeDataGridViewTextBoxColumn.DataPropertyName = "start_time";
-            this.starttimeDataGridViewTextBoxColumn.HeaderText = "Start Time";
-            this.starttimeDataGridViewTextBoxColumn.Name = "starttimeDataGridViewTextBoxColumn";
-            // 
-            // endtimeDataGridViewTextBoxColumn
-            // 
-            this.endtimeDataGridViewTextBoxColumn.DataPropertyName = "end_time";
-            this.endtimeDataGridViewTextBoxColumn.HeaderText = "End Time";
-            this.endtimeDataGridViewTextBoxColumn.Name = "endtimeDataGridViewTextBoxColumn";
-            // 
-            // descriptionDataGridViewTextBoxColumn
-            // 
-            this.descriptionDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.descriptionDataGridViewTextBoxColumn.DataPropertyName = "description";
-            this.descriptionDataGridViewTextBoxColumn.HeaderText = "Description";
-            this.descriptionDataGridViewTextBoxColumn.Name = "descriptionDataGridViewTextBoxColumn";
-            // 
-            // billableDataGridViewTextBoxColumn
-            // 
-            this.billableDataGridViewTextBoxColumn.DataPropertyName = "billable";
-            this.billableDataGridViewTextBoxColumn.HeaderText = "Billable";
-            this.billableDataGridViewTextBoxColumn.Name = "billableDataGridViewTextBoxColumn";
-            this.billableDataGridViewTextBoxColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.billableDataGridViewTextBoxColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            // 
-            // hoursDataGridViewTextBoxColumn
-            // 
-            this.hoursDataGridViewTextBoxColumn.DataPropertyName = "hours";
-            this.hoursDataGridViewTextBoxColumn.HeaderText = "Hours";
-            this.hoursDataGridViewTextBoxColumn.Name = "hoursDataGridViewTextBoxColumn";
-            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(831, 553);
-            this.Controls.Add(this.btnSplit);
             this.Controls.Add(this.btnMultiButton);
             this.Controls.Add(this.lblDate_Value);
             this.Controls.Add(this.lblDate_Label);
@@ -495,13 +492,13 @@
         private System.Windows.Forms.Label lblDate_Value;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem_LogNow;
         private System.Windows.Forms.Button btnMultiButton;
-        private System.Windows.Forms.Button btnSplit;
         private System.Windows.Forms.DataGridViewTextBoxColumn idDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn starttimeDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn endtimeDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn descriptionDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewCheckBoxColumn billableDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn hoursDataGridViewTextBoxColumn;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem_Split;
     }
 }
 
