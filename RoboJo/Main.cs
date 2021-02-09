@@ -143,10 +143,8 @@ namespace RoboJo
             }
         }
 
-        private void SaveSplitTimeRecord(
-            String UserInput_First, bool Billable_First, DateTime? StartTime_First, DateTime? EndTime_First, TimeSpan ts_First,
-            String UserInput_Second, bool Billable_Second, DateTime? StartTime_Second, DateTime? EndTime_Second, TimeSpan ts_Second
-        )
+        private void SaveSplitTimeRecord(String UserInput_First, bool Billable_First, DateTime? StartTime_First, DateTime? EndTime_First, TimeSpan ts_First,
+                                        String UserInput_Second, bool Billable_Second, DateTime? StartTime_Second, DateTime? EndTime_Second, TimeSpan ts_Second)
         {
             try
             {
@@ -304,7 +302,6 @@ namespace RoboJo
                 throw;
             }
         }
-
 
         private bool ResaveAllToDb()
         {
@@ -505,6 +502,7 @@ namespace RoboJo
                 if (_dal.ClearDb())
                 {
                     ClearDataGrid();
+                    CalculateTotals();
                 }
             }
             catch (Exception ex)
