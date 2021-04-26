@@ -627,6 +627,26 @@ namespace RoboJo
             }
         }
 
+        private void frmMain_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            try
+            {
+                if (tmrMain.Enabled || tmrPrompt.Enabled)
+                {
+                    DialogResult dlgExit = MessageBox.Show("Timer is still running!  Are you sure you want to exit?", "Confirm Exit", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                    if(dlgExit == DialogResult.No)
+                    {
+                        e.Cancel = true;
+                        return;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString(), "Exception", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
         #region Notification Icon Events
 
         private void notifyIcon_DoubleClick(object sender, EventArgs e)
