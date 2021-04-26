@@ -18,6 +18,8 @@ namespace RoboJo
             Ok
         }
         bool _booSaveInput = false;
+        bool _booIsLoaded = false;
+        bool _booIsLocked = false;
         eButtons _ButtonPressed;
 
         public frmSplitEntry()
@@ -28,6 +30,7 @@ namespace RoboJo
         private void frmSplitEntry_Shown(object sender, EventArgs e)
         {
             UpdateHours();
+            _booIsLoaded = true;
         }
 
         #region Controls 
@@ -90,11 +93,16 @@ namespace RoboJo
             }
         }
 
-        private void dtpEndTime_First_KeyUp(object sender, KeyEventArgs e)
+
+        private void dtpStartTime_Second_ValueChanged(object sender, EventArgs e)
         {
             try
             {
-                dtpStartTime_Second.Value = dtpEndTime_First.Value;
+                if (!_booIsLoaded || _booIsLocked) return;
+
+                _booIsLocked = true;
+                dtpEndTime_First.Value = dtpStartTime_Second.Value;
+                _booIsLocked = false;
                 UpdateHours();
             }
             catch (Exception)
@@ -103,11 +111,15 @@ namespace RoboJo
             }
         }
 
-        private void dtpStartTime_Second_KeyUp(object sender, KeyEventArgs e)
+        private void dtpEndTime_First_ValueChanged(object sender, EventArgs e)
         {
             try
             {
-                dtpEndTime_First.Value = dtpStartTime_Second.Value;
+                if (!_booIsLoaded || _booIsLocked) return;
+
+                _booIsLocked = true;
+                dtpStartTime_Second.Value = dtpEndTime_First.Value;
+                _booIsLocked = false;
                 UpdateHours();
             }
             catch (Exception)

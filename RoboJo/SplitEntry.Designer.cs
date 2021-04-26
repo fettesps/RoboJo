@@ -112,7 +112,7 @@
             this.dtpEndTime_First.Name = "dtpEndTime_First";
             this.dtpEndTime_First.Size = new System.Drawing.Size(102, 20);
             this.dtpEndTime_First.TabIndex = 4;
-            this.dtpEndTime_First.KeyUp += new System.Windows.Forms.KeyEventHandler(this.dtpEndTime_First_KeyUp);
+            this.dtpEndTime_First.ValueChanged += new System.EventHandler(this.dtpEndTime_First_ValueChanged);
             // 
             // dtpStartTime_First
             // 
@@ -242,7 +242,7 @@
             this.dtpStartTime_Second.Name = "dtpStartTime_Second";
             this.dtpStartTime_Second.Size = new System.Drawing.Size(102, 20);
             this.dtpStartTime_Second.TabIndex = 3;
-            this.dtpStartTime_Second.KeyUp += new System.Windows.Forms.KeyEventHandler(this.dtpStartTime_Second_KeyUp);
+            this.dtpStartTime_Second.ValueChanged += new System.EventHandler(this.dtpStartTime_Second_ValueChanged);
             // 
             // chkBillable_Second
             // 
