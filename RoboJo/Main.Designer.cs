@@ -70,11 +70,16 @@
             this.lblDate_Label = new System.Windows.Forms.Label();
             this.lblDate_Value = new System.Windows.Forms.Label();
             this.btnMultiButton = new System.Windows.Forms.Button();
+            this.contextMenuNotification = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.startToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.stopToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.logNowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.dgTimesheet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.timesheetBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.timetrackerDataSet)).BeginInit();
             this.statusStrip.SuspendLayout();
             this.menuStrip1.SuspendLayout();
+            this.contextMenuNotification.SuspendLayout();
             this.SuspendLayout();
             // 
             // notifyIcon
@@ -82,6 +87,7 @@
             this.notifyIcon.BalloonTipIcon = System.Windows.Forms.ToolTipIcon.Info;
             this.notifyIcon.BalloonTipText = "RoboJo is still running!";
             this.notifyIcon.BalloonTipTitle = "RoboJo";
+            this.notifyIcon.ContextMenuStrip = this.contextMenuNotification;
             this.notifyIcon.Icon = ((System.Drawing.Icon)(resources.GetObject("notifyIcon.Icon")));
             this.notifyIcon.Visible = true;
             this.notifyIcon.DoubleClick += new System.EventHandler(this.notifyIcon_DoubleClick);
@@ -316,21 +322,21 @@
             // toolStripMenuItem_Start
             // 
             this.toolStripMenuItem_Start.Name = "toolStripMenuItem_Start";
-            this.toolStripMenuItem_Start.Size = new System.Drawing.Size(150, 22);
+            this.toolStripMenuItem_Start.Size = new System.Drawing.Size(180, 22);
             this.toolStripMenuItem_Start.Text = "&Start";
             this.toolStripMenuItem_Start.Click += new System.EventHandler(this.toolStripMenuItem_Start_Click);
             // 
             // toolStripMenuItem_Stop
             // 
             this.toolStripMenuItem_Stop.Name = "toolStripMenuItem_Stop";
-            this.toolStripMenuItem_Stop.Size = new System.Drawing.Size(150, 22);
+            this.toolStripMenuItem_Stop.Size = new System.Drawing.Size(180, 22);
             this.toolStripMenuItem_Stop.Text = "Sto&p";
             this.toolStripMenuItem_Stop.Click += new System.EventHandler(this.toolStripMenuItem_Stop_Click);
             // 
             // toolStripMenuItem_LogNow
             // 
             this.toolStripMenuItem_LogNow.Name = "toolStripMenuItem_LogNow";
-            this.toolStripMenuItem_LogNow.Size = new System.Drawing.Size(150, 22);
+            this.toolStripMenuItem_LogNow.Size = new System.Drawing.Size(180, 22);
             this.toolStripMenuItem_LogNow.Text = "&Log Now";
             this.toolStripMenuItem_LogNow.Click += new System.EventHandler(this.toolStripMenuItem_LogNow_Click);
             // 
@@ -340,7 +346,7 @@
             this.toolStripMenuItem_Resave.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripMenuItem_Resave.Name = "toolStripMenuItem_Resave";
             this.toolStripMenuItem_Resave.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
-            this.toolStripMenuItem_Resave.Size = new System.Drawing.Size(150, 22);
+            this.toolStripMenuItem_Resave.Size = new System.Drawing.Size(180, 22);
             this.toolStripMenuItem_Resave.Text = "&Resave";
             this.toolStripMenuItem_Resave.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
             // 
@@ -350,19 +356,19 @@
             this.toolStripMenuItem_Clear.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripMenuItem_Clear.Name = "toolStripMenuItem_Clear";
             this.toolStripMenuItem_Clear.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
-            this.toolStripMenuItem_Clear.Size = new System.Drawing.Size(150, 22);
+            this.toolStripMenuItem_Clear.Size = new System.Drawing.Size(180, 22);
             this.toolStripMenuItem_Clear.Text = "&Clear";
             this.toolStripMenuItem_Clear.Click += new System.EventHandler(this.toolStripMenuItem_Clear_Click);
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(147, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(177, 6);
             // 
             // toolStripMenuItem_Exit
             // 
             this.toolStripMenuItem_Exit.Name = "toolStripMenuItem_Exit";
-            this.toolStripMenuItem_Exit.Size = new System.Drawing.Size(150, 22);
+            this.toolStripMenuItem_Exit.Size = new System.Drawing.Size(180, 22);
             this.toolStripMenuItem_Exit.Text = "E&xit";
             this.toolStripMenuItem_Exit.Click += new System.EventHandler(this.toolStripMenuItem_Exit_Click);
             // 
@@ -411,6 +417,36 @@
             this.btnMultiButton.UseVisualStyleBackColor = true;
             this.btnMultiButton.Click += new System.EventHandler(this.btnMultiButton_Click);
             // 
+            // contextMenuNotification
+            // 
+            this.contextMenuNotification.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.startToolStripMenuItem,
+            this.stopToolStripMenuItem,
+            this.logNowToolStripMenuItem});
+            this.contextMenuNotification.Name = "contextMenuNotification";
+            this.contextMenuNotification.Size = new System.Drawing.Size(123, 70);
+            // 
+            // startToolStripMenuItem
+            // 
+            this.startToolStripMenuItem.Name = "startToolStripMenuItem";
+            this.startToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
+            this.startToolStripMenuItem.Text = "Start";
+            this.startToolStripMenuItem.Click += new System.EventHandler(this.startToolStripMenuItem_Click);
+            // 
+            // stopToolStripMenuItem
+            // 
+            this.stopToolStripMenuItem.Name = "stopToolStripMenuItem";
+            this.stopToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
+            this.stopToolStripMenuItem.Text = "Stop";
+            this.stopToolStripMenuItem.Click += new System.EventHandler(this.stopToolStripMenuItem_Click);
+            // 
+            // logNowToolStripMenuItem
+            // 
+            this.logNowToolStripMenuItem.Name = "logNowToolStripMenuItem";
+            this.logNowToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
+            this.logNowToolStripMenuItem.Text = "Log Now";
+            this.logNowToolStripMenuItem.Click += new System.EventHandler(this.logNowToolStripMenuItem_Click);
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -442,6 +478,7 @@
             this.statusStrip.PerformLayout();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
+            this.contextMenuNotification.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -489,6 +526,10 @@
         private System.Windows.Forms.Label lblDate_Value;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem_LogNow;
         private System.Windows.Forms.Button btnMultiButton;
+        private System.Windows.Forms.ContextMenuStrip contextMenuNotification;
+        private System.Windows.Forms.ToolStripMenuItem startToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem stopToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem logNowToolStripMenuItem;
     }
 }
 

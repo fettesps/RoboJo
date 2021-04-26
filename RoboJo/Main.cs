@@ -464,6 +464,8 @@ namespace RoboJo
             }
         }
 
+        #region Notification Icon Events
+
         private void notifyIcon_DoubleClick(object sender, EventArgs e)
         {            
             try
@@ -478,6 +480,23 @@ namespace RoboJo
                 MessageBox.Show(ex.ToString(), "Exception", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+        private void startToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Start();
+        }
+
+        private void stopToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Stop();
+        }
+
+        private void logNowToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            PromptUser();
+        }
+
+        #endregion
 
         #region Strip Menu Events
 
