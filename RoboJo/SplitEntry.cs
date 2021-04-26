@@ -93,7 +93,6 @@ namespace RoboJo
             }
         }
 
-
         private void dtpStartTime_Second_ValueChanged(object sender, EventArgs e)
         {
             try

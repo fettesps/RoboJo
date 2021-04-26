@@ -53,8 +53,11 @@ namespace RoboJo
         {
             try
             {
+                // Get Records
                 IEnumerable<Entry> entries =_dal.ReadFromDb();
+                entries = entries.OrderBy(c => c.StartTime);
 
+                // Add to Grid
                 foreach(Entry entry in entries)
                 {
                     timetrackerDataSet.AcceptChanges();
@@ -62,7 +65,9 @@ namespace RoboJo
                     DataRow dr = timetrackerDataSet.Tables[0].NewRow();
 
                     dr["id"] = entry.Entry_ID;
+                    dr["start_date"] = entry.StartTime.Value.ToShortDateString();
                     dr["start_time"] = entry.StartTime.Value.ToShortTimeString();
+                    dr["end_date"] = entry.EndTime.Value.ToShortDateString();
                     dr["end_time"] = entry.EndTime.Value.ToShortTimeString();
                     dr["description"] = entry.Description;
                     dr["hours"] = entry.Hours;
@@ -128,7 +133,9 @@ namespace RoboJo
                 DataRow dr = timetrackerDataSet.Tables[0].NewRow();
 
                 dr["id"] = lngEntryId;
+                dr["start_date"] = dtStart.Value.ToShortDateString();
                 dr["start_time"] = dtStart.Value.ToShortTimeString();
+                dr["end_date"] = dtEnd.Value.ToShortDateString();
                 dr["end_time"] = dtEnd.Value.ToShortTimeString();
                 dr["description"] = strUserInput;
                 dr["hours"] = tsHours.ToString();
@@ -168,9 +175,10 @@ namespace RoboJo
 
                 #endregion
 
-                #region Update Totals
+                #region Refresh Data
 
-                CalculateTotals();
+                ClearDataGrid();
+                LoadRecords();
 
                 #endregion
             }
@@ -243,6 +251,8 @@ namespace RoboJo
                     String strUserInput = timetrackerDataSet.Tables[0].Rows[selectedRowIndex]["description"].ToString();
                     DateTime.TryParse(timetrackerDataSet.Tables[0].Rows[selectedRowIndex]["start_time"].ToString(), out DateTime dtStartTime);
                     DateTime.TryParse(timetrackerDataSet.Tables[0].Rows[selectedRowIndex]["end_time"].ToString(), out DateTime dtEndTime);
+                    DateTime.TryParse(timetrackerDataSet.Tables[0].Rows[selectedRowIndex]["start_date"].ToString(), out DateTime dtStartDate);
+                    DateTime.TryParse(timetrackerDataSet.Tables[0].Rows[selectedRowIndex]["end_date"].ToString(), out DateTime dtEndDate);
                     TimeSpan.TryParse(timetrackerDataSet.Tables[0].Rows[selectedRowIndex]["hours"].ToString(), out TimeSpan tsHours);
                     var billable = timetrackerDataSet.Tables[0].Rows[selectedRowIndex]["billable"];
                     
@@ -253,13 +263,13 @@ namespace RoboJo
 
                         UserInput_First = strUserInput,
                         Billable_First = (bool)billable,
-                        StartTime_First = dtStartTime,
-                        EndTime_First = dtEndTime,
+                        StartTime_First = dtStartDate.Date.Add(dtStartTime.TimeOfDay),
+                        EndTime_First = dtEndDate.Date.Add(dtEndTime.TimeOfDay),
 
                         UserInput_Second = strUserInput,
                         Billable_Second = (bool)billable,
-                        StartTime_Second = dtStartTime,
-                        EndTime_Second = dtEndTime
+                        StartTime_Second = dtStartDate.Date.Add(dtStartTime.TimeOfDay),
+                        EndTime_Second = dtEndDate.Date.Add(dtEndTime.TimeOfDay)
                     };
 
                     splitEntry.ShowDialog();
@@ -270,11 +280,6 @@ namespace RoboJo
                         case frmSplitEntry.eButtons.Ok:
                             if (splitEntry.SaveInput && !String.IsNullOrWhiteSpace(splitEntry.UserInput_First))
                             {
-                                SaveSplitTimeRecord(
-                                    splitEntry.UserInput_First, splitEntry.Billable_First, splitEntry.StartTime_First, splitEntry.EndTime_First, splitEntry.Duration_First,
-                                    splitEntry.UserInput_Second, splitEntry.Billable_Second, splitEntry.StartTime_Second, splitEntry.EndTime_Second, splitEntry.Duration_Second
-                                );
-
                                 // Delete the row from the grid 
                                 timetrackerDataSet.AcceptChanges();
                                 timetrackerDataSet.Tables[0].Rows[selectedRowIndex].Delete();
@@ -282,6 +287,12 @@ namespace RoboJo
 
                                 // Delete the row in the database
                                 _dal.DeleteFromDb(intEntryId);
+
+                                // Add the Split Records
+                                SaveSplitTimeRecord(
+                                    splitEntry.UserInput_First, splitEntry.Billable_First, splitEntry.StartTime_First, splitEntry.EndTime_First, splitEntry.Duration_First,
+                                    splitEntry.UserInput_Second, splitEntry.Billable_Second, splitEntry.StartTime_Second, splitEntry.EndTime_Second, splitEntry.Duration_Second
+                                );
                             }
                             break;
 
@@ -324,10 +335,18 @@ namespace RoboJo
                         // Todo: Add some debugging incase conversions fail
                         DateTime.TryParse(row["start_time"].ToString(), out DateTime dtStartTime);
                         DateTime.TryParse(row["end_time"].ToString(), out DateTime dtEndTime);
+                        DateTime.TryParse(row["start_date"].ToString(), out DateTime dtStartDate);
+                        DateTime.TryParse(row["end_date"].ToString(), out DateTime dtEndDate);
                         TimeSpan.TryParse(row["hours"].ToString(), out TimeSpan tsHours);
                         var billable = row["billable"];
 
-                        long lngResult = _dal.WriteToDb(dtStartTime, dtEndTime, row["description"].ToString(), tsHours, (bool)billable);
+                        long lngResult = _dal.WriteToDb(
+                            dtStartDate.Date.Add(dtStartTime.TimeOfDay), 
+                            dtEndDate.Date.Add(dtEndTime.TimeOfDay), 
+                            row["description"].ToString(), 
+                            tsHours, 
+                            (bool)billable
+                        );
                         if (lngResult < 1)
                         {
                             booSuccess = false;
