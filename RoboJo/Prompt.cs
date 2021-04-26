@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 namespace RoboJo
 {
-    public partial class Prompt : Form
+    public partial class frmPrompt : Form
     {
         public enum eButtons
         {
@@ -21,7 +21,7 @@ namespace RoboJo
         bool _booSaveInput = false;
         eButtons _ButtonPressed;
 
-        public Prompt()
+        public frmPrompt()
         {
             InitializeComponent();
         }

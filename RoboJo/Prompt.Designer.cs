@@ -1,6 +1,6 @@
 ﻿namespace RoboJo
 {
-    partial class Prompt
+    partial class frmPrompt
     {
         /// <summary>
         /// Required designer variable.

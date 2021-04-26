@@ -8,6 +8,7 @@ namespace RoboJo.Entities
 {
     class Entry
     {
+        public int Entry_ID { get; set; }
         public DateTime? StartTime { get; set; }
         public DateTime? EndTime { get; set; }
         public String Description { get; set; }
