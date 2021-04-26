@@ -500,6 +500,8 @@ namespace RoboJo
         {
             try
             {
+                if (!tmrMain.Enabled && !tmrPrompt.Enabled) return;
+
                 tmrMain.Enabled = false;
                 tmrPrompt_Tick(this, new EventArgs()); // make a final log entry
                 tmrPrompt.Enabled = false;
