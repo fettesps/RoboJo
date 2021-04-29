@@ -405,7 +405,6 @@ namespace RoboJo
                         goto default;
 
                     case frmPrompt.eButtons.Skip:
-                        _dtStartTimer = DateTime.Now;
                         _dtStartProgress = DateTime.Now;
                         _booInputActive = false;
                         goto default;
