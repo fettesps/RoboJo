@@ -541,12 +541,16 @@ namespace RoboJo
         {
             try
             {
+                // Calculate Time Elapsed
                 TimeSpan ts = _dtStartProgress != null ? (DateTime.Now - _dtStartProgress.Value) : new TimeSpan(0);
                 int intSecondsElapsed = (int)ts.TotalSeconds; 
                 int intSecondsLeft = (tmrPrompt.Interval / 1000) - intSecondsElapsed;
 
+                // Update Labels
                 lblNextEntryInValue.Text = String.Concat(intSecondsLeft.ToString(), " seconds");
+                lblDate_Value.Text = System.DateTime.Now.ToShortDateString();
 
+                // Update Progress Bar
                 tsProgressBar.Minimum = 0;
                 tsProgressBar.Maximum = (tmrPrompt.Interval / 1000);
                 tsProgressBar.Value = intSecondsElapsed < tsProgressBar.Maximum ? intSecondsElapsed : tsProgressBar.Maximum;
