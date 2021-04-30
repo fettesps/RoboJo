@@ -44,14 +44,6 @@
             this.lblLastEntry = new System.Windows.Forms.Label();
             this.tmrPrompt = new System.Windows.Forms.Timer(this.components);
             this.dgTimesheet = new System.Windows.Forms.DataGridView();
-            this.idDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.start_date = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.starttimeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.end_date = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.endtimeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.descriptionDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.billableDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.hoursDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.timesheetBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.timetrackerDataSet = new RoboJo.timetrackerDataSet();
             this.tmrMain = new System.Windows.Forms.Timer(this.components);
@@ -72,11 +64,22 @@
             this.toolStripMenuItem_Clear = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripMenuItem_Exit = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem_Setup = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem_Clients = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem_Projects = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem_About = new System.Windows.Forms.ToolStripMenuItem();
             this.lblDate_Label = new System.Windows.Forms.Label();
             this.lblDate_Value = new System.Windows.Forms.Label();
             this.btnMultiButton = new System.Windows.Forms.Button();
+            this.idDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.start_date = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.starttimeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.end_date = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.endtimeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.descriptionDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.billableDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.hoursDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.contextMenuNotification.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgTimesheet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.timesheetBindingSource)).BeginInit();
@@ -223,60 +226,6 @@
             this.dgTimesheet.Size = new System.Drawing.Size(797, 419);
             this.dgTimesheet.TabIndex = 21;
             // 
-            // idDataGridViewTextBoxColumn
-            // 
-            this.idDataGridViewTextBoxColumn.DataPropertyName = "id";
-            this.idDataGridViewTextBoxColumn.HeaderText = "id";
-            this.idDataGridViewTextBoxColumn.Name = "idDataGridViewTextBoxColumn";
-            this.idDataGridViewTextBoxColumn.Visible = false;
-            // 
-            // start_date
-            // 
-            this.start_date.DataPropertyName = "start_date";
-            this.start_date.HeaderText = "Start Date";
-            this.start_date.Name = "start_date";
-            this.start_date.Visible = false;
-            // 
-            // starttimeDataGridViewTextBoxColumn
-            // 
-            this.starttimeDataGridViewTextBoxColumn.DataPropertyName = "start_time";
-            this.starttimeDataGridViewTextBoxColumn.HeaderText = "Start Time";
-            this.starttimeDataGridViewTextBoxColumn.Name = "starttimeDataGridViewTextBoxColumn";
-            // 
-            // end_date
-            // 
-            this.end_date.DataPropertyName = "end_date";
-            this.end_date.HeaderText = "End Date";
-            this.end_date.Name = "end_date";
-            this.end_date.Visible = false;
-            // 
-            // endtimeDataGridViewTextBoxColumn
-            // 
-            this.endtimeDataGridViewTextBoxColumn.DataPropertyName = "end_time";
-            this.endtimeDataGridViewTextBoxColumn.HeaderText = "End Time";
-            this.endtimeDataGridViewTextBoxColumn.Name = "endtimeDataGridViewTextBoxColumn";
-            // 
-            // descriptionDataGridViewTextBoxColumn
-            // 
-            this.descriptionDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.descriptionDataGridViewTextBoxColumn.DataPropertyName = "description";
-            this.descriptionDataGridViewTextBoxColumn.HeaderText = "Description";
-            this.descriptionDataGridViewTextBoxColumn.Name = "descriptionDataGridViewTextBoxColumn";
-            // 
-            // billableDataGridViewTextBoxColumn
-            // 
-            this.billableDataGridViewTextBoxColumn.DataPropertyName = "billable";
-            this.billableDataGridViewTextBoxColumn.HeaderText = "Billable";
-            this.billableDataGridViewTextBoxColumn.Name = "billableDataGridViewTextBoxColumn";
-            this.billableDataGridViewTextBoxColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.billableDataGridViewTextBoxColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            // 
-            // hoursDataGridViewTextBoxColumn
-            // 
-            this.hoursDataGridViewTextBoxColumn.DataPropertyName = "hours";
-            this.hoursDataGridViewTextBoxColumn.HeaderText = "Hours";
-            this.hoursDataGridViewTextBoxColumn.Name = "hoursDataGridViewTextBoxColumn";
-            // 
             // timesheetBindingSource
             // 
             this.timesheetBindingSource.DataMember = "timesheet";
@@ -347,6 +296,7 @@
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileToolStripMenuItem,
+            this.toolStripMenuItem_Setup,
             this.helpToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
@@ -429,6 +379,29 @@
             this.toolStripMenuItem_Exit.Text = "E&xit";
             this.toolStripMenuItem_Exit.Click += new System.EventHandler(this.toolStripMenuItem_Exit_Click);
             // 
+            // toolStripMenuItem_Setup
+            // 
+            this.toolStripMenuItem_Setup.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripMenuItem_Clients,
+            this.toolStripMenuItem_Projects});
+            this.toolStripMenuItem_Setup.Name = "toolStripMenuItem_Setup";
+            this.toolStripMenuItem_Setup.Size = new System.Drawing.Size(49, 20);
+            this.toolStripMenuItem_Setup.Text = "&Setup";
+            // 
+            // toolStripMenuItem_Clients
+            // 
+            this.toolStripMenuItem_Clients.Name = "toolStripMenuItem_Clients";
+            this.toolStripMenuItem_Clients.Size = new System.Drawing.Size(116, 22);
+            this.toolStripMenuItem_Clients.Text = "&Clients";
+            this.toolStripMenuItem_Clients.Click += new System.EventHandler(this.toolStripMenuItem_Clients_Click);
+            // 
+            // toolStripMenuItem_Projects
+            // 
+            this.toolStripMenuItem_Projects.Name = "toolStripMenuItem_Projects";
+            this.toolStripMenuItem_Projects.Size = new System.Drawing.Size(116, 22);
+            this.toolStripMenuItem_Projects.Text = "&Projects";
+            this.toolStripMenuItem_Projects.Click += new System.EventHandler(this.toolStripMenuItem_Projects_Click);
+            // 
             // helpToolStripMenuItem
             // 
             this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -473,6 +446,60 @@
             this.btnMultiButton.Text = "Multi Button";
             this.btnMultiButton.UseVisualStyleBackColor = true;
             this.btnMultiButton.Click += new System.EventHandler(this.btnMultiButton_Click);
+            // 
+            // idDataGridViewTextBoxColumn
+            // 
+            this.idDataGridViewTextBoxColumn.DataPropertyName = "entry_id";
+            this.idDataGridViewTextBoxColumn.HeaderText = "entry_id";
+            this.idDataGridViewTextBoxColumn.Name = "idDataGridViewTextBoxColumn";
+            this.idDataGridViewTextBoxColumn.Visible = false;
+            // 
+            // start_date
+            // 
+            this.start_date.DataPropertyName = "start_date";
+            this.start_date.HeaderText = "Start Date";
+            this.start_date.Name = "start_date";
+            this.start_date.Visible = false;
+            // 
+            // starttimeDataGridViewTextBoxColumn
+            // 
+            this.starttimeDataGridViewTextBoxColumn.DataPropertyName = "start_time";
+            this.starttimeDataGridViewTextBoxColumn.HeaderText = "Start Time";
+            this.starttimeDataGridViewTextBoxColumn.Name = "starttimeDataGridViewTextBoxColumn";
+            // 
+            // end_date
+            // 
+            this.end_date.DataPropertyName = "end_date";
+            this.end_date.HeaderText = "End Date";
+            this.end_date.Name = "end_date";
+            this.end_date.Visible = false;
+            // 
+            // endtimeDataGridViewTextBoxColumn
+            // 
+            this.endtimeDataGridViewTextBoxColumn.DataPropertyName = "end_time";
+            this.endtimeDataGridViewTextBoxColumn.HeaderText = "End Time";
+            this.endtimeDataGridViewTextBoxColumn.Name = "endtimeDataGridViewTextBoxColumn";
+            // 
+            // descriptionDataGridViewTextBoxColumn
+            // 
+            this.descriptionDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.descriptionDataGridViewTextBoxColumn.DataPropertyName = "description";
+            this.descriptionDataGridViewTextBoxColumn.HeaderText = "Description";
+            this.descriptionDataGridViewTextBoxColumn.Name = "descriptionDataGridViewTextBoxColumn";
+            // 
+            // billableDataGridViewTextBoxColumn
+            // 
+            this.billableDataGridViewTextBoxColumn.DataPropertyName = "billable";
+            this.billableDataGridViewTextBoxColumn.HeaderText = "Billable";
+            this.billableDataGridViewTextBoxColumn.Name = "billableDataGridViewTextBoxColumn";
+            this.billableDataGridViewTextBoxColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.billableDataGridViewTextBoxColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            // 
+            // hoursDataGridViewTextBoxColumn
+            // 
+            this.hoursDataGridViewTextBoxColumn.DataPropertyName = "hours";
+            this.hoursDataGridViewTextBoxColumn.HeaderText = "Hours";
+            this.hoursDataGridViewTextBoxColumn.Name = "hoursDataGridViewTextBoxColumn";
             // 
             // frmMain
             // 
@@ -549,6 +576,13 @@
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem_LogNow;
         private System.Windows.Forms.Button btnMultiButton;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem_Split;
+        private System.Windows.Forms.ContextMenuStrip contextMenuNotification;
+        private System.Windows.Forms.ToolStripMenuItem startToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem stopToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem logNowToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem_Setup;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem_Projects;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem_Clients;
         private System.Windows.Forms.DataGridViewTextBoxColumn idDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn start_date;
         private System.Windows.Forms.DataGridViewTextBoxColumn starttimeDataGridViewTextBoxColumn;
@@ -557,10 +591,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn descriptionDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewCheckBoxColumn billableDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn hoursDataGridViewTextBoxColumn;
-        private System.Windows.Forms.ContextMenuStrip contextMenuNotification;
-        private System.Windows.Forms.ToolStripMenuItem startToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem stopToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem logNowToolStripMenuItem;
     }
 }
 

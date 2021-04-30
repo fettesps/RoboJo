@@ -54,7 +54,7 @@ namespace RoboJo
             try
             {
                 // Get Records
-                IEnumerable<Entry> entries =_dal.ReadFromDb();
+                IEnumerable<Entry> entries =_dal.LoadEntries_fromDB();
                 entries = entries.OrderBy(c => c.StartTime);
 
                 // Add to Grid
@@ -62,7 +62,7 @@ namespace RoboJo
                 {
                     timetrackerDataSet.AcceptChanges();
 
-                    DataRow dr = timetrackerDataSet.Tables[0].NewRow();
+                    DataRow dr = timetrackerDataSet.Tables[4].NewRow();
 
                     dr["id"] = entry.Entry_ID;
                     dr["start_date"] = entry.StartTime.Value.ToShortDateString();
@@ -104,7 +104,7 @@ namespace RoboJo
                 TimeSpan tsHours = ts.RoundToNearestMinutes(15);
 
                 // Save it to the database
-                long lngInsertedId = _dal.WriteToDb(dtStart, DateTime.Now, strDetails, tsHours, true);
+                long lngInsertedId = _dal.WriteEntries_toDB(dtStart, DateTime.Now, strDetails, tsHours, true);
 
                 // Add to grid
                 AddToGrid(lngInsertedId, strDetails, booBillable, dtStart, dtEnd, tsHours);
@@ -116,7 +116,6 @@ namespace RoboJo
                 lblLastEntryValue.Text = lblCurrentEntryValue.Text;
                 lblCurrentEntryValue.Text = strDetails;
                 tsslCurrentEntryVal.Text = strDetails;
-
             }
             catch (Exception)
             {
@@ -130,7 +129,7 @@ namespace RoboJo
             {
                 timetrackerDataSet.AcceptChanges();
 
-                DataRow dr = timetrackerDataSet.Tables[0].NewRow();
+                DataRow dr = timetrackerDataSet.Tables[4].NewRow();
 
                 dr["id"] = lngEntryId;
                 dr["start_date"] = dtStart.Value.ToShortDateString();
@@ -158,7 +157,7 @@ namespace RoboJo
                 #region First Record 
 
                 // Save it to the database
-                long lngInsertedId_First = _dal.WriteToDb(StartTime_First, EndTime_First, UserInput_First, ts_First, Billable_First);
+                long lngInsertedId_First = _dal.WriteEntries_toDB(StartTime_First, EndTime_First, UserInput_First, ts_First, Billable_First);
 
                 // Add to grid
                 AddToGrid(lngInsertedId_First, UserInput_First, Billable_First, StartTime_First, EndTime_First, ts_First);
@@ -168,7 +167,7 @@ namespace RoboJo
                 #region Second Record
 
                 // Save it to the database
-                long lngInsertedId_Second = _dal.WriteToDb(StartTime_Second, EndTime_Second, UserInput_Second, ts_Second, Billable_Second);
+                long lngInsertedId_Second = _dal.WriteEntries_toDB(StartTime_Second, EndTime_Second, UserInput_Second, ts_Second, Billable_Second);
 
                 // Add to grid
                 AddToGrid(lngInsertedId_Second, UserInput_Second, Billable_Second, StartTime_Second, EndTime_Second, ts_Second);
@@ -192,7 +191,7 @@ namespace RoboJo
         {
             try
             {
-                IEnumerable<Entry> entries = _dal.ReadFromDb();
+                IEnumerable<Entry> entries = _dal.LoadEntries_fromDB();
 
                 TimeSpan tsHours;
                 TimeSpan tsHoursTotal = new TimeSpan();
@@ -220,7 +219,7 @@ namespace RoboJo
             {
                 // Add to grid
                 timetrackerDataSet.AcceptChanges();
-                timetrackerDataSet.Tables[0].Clear();
+                timetrackerDataSet.Tables[4].Clear();
                 timetrackerDataSet.AcceptChanges();
             }
             catch (Exception)
@@ -247,14 +246,14 @@ namespace RoboJo
                     }
 
                     // Since the datagrid stores everything as text we need to covert it all back into proper types
-                    int intEntryId = (int)timetrackerDataSet.Tables[0].Rows[selectedRowIndex]["id"];
-                    String strUserInput = timetrackerDataSet.Tables[0].Rows[selectedRowIndex]["description"].ToString();
-                    DateTime.TryParse(timetrackerDataSet.Tables[0].Rows[selectedRowIndex]["start_time"].ToString(), out DateTime dtStartTime);
-                    DateTime.TryParse(timetrackerDataSet.Tables[0].Rows[selectedRowIndex]["end_time"].ToString(), out DateTime dtEndTime);
-                    DateTime.TryParse(timetrackerDataSet.Tables[0].Rows[selectedRowIndex]["start_date"].ToString(), out DateTime dtStartDate);
-                    DateTime.TryParse(timetrackerDataSet.Tables[0].Rows[selectedRowIndex]["end_date"].ToString(), out DateTime dtEndDate);
-                    TimeSpan.TryParse(timetrackerDataSet.Tables[0].Rows[selectedRowIndex]["hours"].ToString(), out TimeSpan tsHours);
-                    var billable = timetrackerDataSet.Tables[0].Rows[selectedRowIndex]["billable"];
+                    int intEntryId = (int)timetrackerDataSet.Tables[4].Rows[selectedRowIndex]["id"];
+                    String strUserInput = timetrackerDataSet.Tables[4].Rows[selectedRowIndex]["description"].ToString();
+                    DateTime.TryParse(timetrackerDataSet.Tables[4].Rows[selectedRowIndex]["start_time"].ToString(), out DateTime dtStartTime);
+                    DateTime.TryParse(timetrackerDataSet.Tables[4].Rows[selectedRowIndex]["end_time"].ToString(), out DateTime dtEndTime);
+                    DateTime.TryParse(timetrackerDataSet.Tables[4].Rows[selectedRowIndex]["start_date"].ToString(), out DateTime dtStartDate);
+                    DateTime.TryParse(timetrackerDataSet.Tables[4].Rows[selectedRowIndex]["end_date"].ToString(), out DateTime dtEndDate);
+                    TimeSpan.TryParse(timetrackerDataSet.Tables[4].Rows[selectedRowIndex]["hours"].ToString(), out TimeSpan tsHours);
+                    var billable = timetrackerDataSet.Tables[4].Rows[selectedRowIndex]["billable"];
                     
                     // Prepare Split Entry window
                     frmSplitEntry splitEntry = new frmSplitEntry
@@ -282,11 +281,11 @@ namespace RoboJo
                             {
                                 // Delete the row from the grid 
                                 timetrackerDataSet.AcceptChanges();
-                                timetrackerDataSet.Tables[0].Rows[selectedRowIndex].Delete();
+                                timetrackerDataSet.Tables[4].Rows[selectedRowIndex].Delete();
                                 timetrackerDataSet.AcceptChanges();
 
                                 // Delete the row in the database
-                                _dal.DeleteFromDb(intEntryId);
+                                _dal.DeleteEntries_fromDB(intEntryId);
 
                                 // Add the Split Records
                                 SaveSplitTimeRecord(
@@ -321,12 +320,12 @@ namespace RoboJo
                 bool booSuccess = true;
 
                 // Clear it out first
-                _dal.ClearDb();
+                _dal.ClearDb("entries");
 
                 // Go through all the table rows and save them to the database
-                if (timetrackerDataSet.Tables[0].Rows.Count > 0)
+                if (timetrackerDataSet.Tables[4].Rows.Count > 0)
                 {
-                    foreach (DataRow row in timetrackerDataSet.Tables[0].Rows)
+                    foreach (DataRow row in timetrackerDataSet.Tables[4].Rows)
                     {
                         if (row.RowState == DataRowState.Deleted) continue;
 
@@ -340,7 +339,7 @@ namespace RoboJo
                         TimeSpan.TryParse(row["hours"].ToString(), out TimeSpan tsHours);
                         var billable = row["billable"];
 
-                        long lngResult = _dal.WriteToDb(
+                        long lngResult = _dal.WriteEntries_toDB(
                             dtStartDate.Date.Add(dtStartTime.TimeOfDay), 
                             dtEndDate.Date.Add(dtEndTime.TimeOfDay), 
                             row["description"].ToString(), 
@@ -520,7 +519,7 @@ namespace RoboJo
         {
             try
             {
-                if (_dal.ClearDb())
+                if (_dal.ClearDb("entries"))
                 {
                     ClearDataGrid();
                     CalculateTotals();
@@ -741,7 +740,7 @@ namespace RoboJo
         {
             try
             {
-                AboutBox ab = new AboutBox();
+                frmAboutBox ab = new frmAboutBox();
                 ab.ShowDialog();
             }
             catch (Exception ex)
@@ -762,7 +761,35 @@ namespace RoboJo
             }
         }
 
+        private void toolStripMenuItem_Projects_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                frmProjects proj = new frmProjects();
+                proj.ShowDialog();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString(), "Exception", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+
+        private void toolStripMenuItem_Clients_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                frmClients clients = new frmClients();
+                clients.ShowDialog();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString(), "Exception", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
         #endregion
+
     }
 
     #endregion

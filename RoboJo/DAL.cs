@@ -13,7 +13,9 @@ namespace RoboJo
 {
     class DAL : IDAL
     {
-        public IEnumerable<Entry> ReadFromDb()
+        #region Entries
+
+        public IEnumerable<Entry> LoadEntries_fromDB()
         {
             String strReadStatement = "SELECT * " +
                                       "FROM entries";
@@ -42,7 +44,7 @@ namespace RoboJo
             }
         }
 
-        public long WriteToDb(DateTime? dtStart, DateTime? dtEnd, String strDescription, TimeSpan tsHours, bool booBillable)
+        public long WriteEntries_toDB(DateTime? dtStart, DateTime? dtEnd, String strDescription, TimeSpan tsHours, bool booBillable)
         {
             try
             {
@@ -74,7 +76,7 @@ namespace RoboJo
             }
         }
 
-        public bool DeleteFromDb(int entry_id)
+        public bool DeleteEntries_fromDB(int entry_id)
         {
             try
             {
@@ -102,11 +104,105 @@ namespace RoboJo
             }
         }
 
-        public bool ClearDb()
+        #endregion
+
+        #region Clients
+
+        public IEnumerable<Client> LoadClients_fromDB()
+        {
+            String strReadStatement = "SELECT * " +
+                                      "FROM Clients";
+
+            using (SQLiteConnection sqlCon = new SQLiteConnection(GetConnectionString()))
+            {
+                sqlCon.Open();
+
+                using (SQLiteCommand cmd = new SQLiteCommand(strReadStatement, sqlCon))
+                {
+                    SQLiteDataReader sqlDr = cmd.ExecuteReader();
+                    while (sqlDr.Read())
+                    {
+                        yield return new Client()
+                        {
+                            Client_ID = Convert.ToInt32(sqlDr["client_id"].ToString()),
+                            Name = sqlDr["name"].ToString()
+                        };
+                    }
+                    sqlDr.Close();
+                }
+            }
+        }
+
+        public long WriteClient_toDB(String strName)
         {
             try
             {
-                String strClearSql = "DELETE FROM entries";
+                String strInsertStatement = "INSERT INTO Clients ([name]) " +
+                                           " VALUES (@name)";
+
+                using (SQLiteConnection sqlCon = new SQLiteConnection(GetConnectionString()))
+                {
+                    sqlCon.Open();
+
+                    using (SQLiteCommand cmd = new SQLiteCommand(strInsertStatement, sqlCon))
+                    {
+                        cmd.Parameters.AddWithValue("@name", strName);
+
+                        int intInsertCmd = cmd.ExecuteNonQuery();
+                        long intInsertedId = sqlCon.LastInsertRowId;
+
+                        return intInsertedId;
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public bool DeleteClient_fromDB(int client_id)
+        {
+            try
+            {
+                String strSQLStatement = "DELETE FROM Clients " +
+                                         "WHERE client_id = @client_id";
+
+                using (SQLiteConnection sqlCon = new SQLiteConnection(GetConnectionString()))
+                {
+                    sqlCon.Open();
+
+                    using (SQLiteCommand cmd = new SQLiteCommand(strSQLStatement, sqlCon))
+                    {
+                        cmd.Parameters.AddWithValue("@client_id", client_id);
+
+                        int intRowsDeleted = cmd.ExecuteNonQuery();
+                        if (intRowsDeleted > 0) return true;
+                    }
+                }
+
+                return false;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        #endregion
+
+        #region Projects
+
+
+        #endregion
+
+        #region General
+
+        public bool ClearDb(string strTable)
+        {
+            try
+            {
+                String strClearSql = "DELETE FROM " + strTable;
 
                 using (SQLiteConnection sqlCon = new SQLiteConnection(GetConnectionString()))
                 {
@@ -140,5 +236,7 @@ namespace RoboJo
                 throw;
             }
         }
+
+        #endregion
     }
 }

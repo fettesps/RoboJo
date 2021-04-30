@@ -9,9 +9,9 @@ using System.Windows.Forms;
 
 namespace RoboJo
 {
-    partial class AboutBox : Form
+    partial class frmAboutBox : Form
     {
-        public AboutBox()
+        public frmAboutBox()
         {
             InitializeComponent();
             this.Text = String.Format("About {0}", AssemblyTitle);
