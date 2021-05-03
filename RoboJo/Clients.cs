@@ -22,11 +22,6 @@ namespace RoboJo
             LoadRecords();
         }
 
-        private void frmClients_Shown(object sender, EventArgs e)
-        {
-
-        }
-
         #region Controls 
 
         private void btnCancel_Click(object sender, EventArgs e)
@@ -93,7 +88,6 @@ namespace RoboJo
             }
         }
 
-
         private void btnPrev_Click(object sender, EventArgs e)
         {
             try
@@ -156,6 +150,18 @@ namespace RoboJo
             }
         }
 
+        private void dgClients_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
+        {
+            try
+            {
+                dgClients.ClearSelection();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
         private void dgClients_UserDeletingRow(object sender, DataGridViewRowCancelEventArgs e)
         {
             try
@@ -210,10 +216,6 @@ namespace RoboJo
                     clientsDataSet.clients.AddClientsRow((timetrackerDataSet.clientsRow)dr);
                     clientsDataSet.AcceptChanges();
                 }
-
-                // Load last entry
-                txtClient_ID.Text = clients.FirstOrDefault()?.Client_ID.ToString();
-                txtClientName.Text = clients.FirstOrDefault()?.Name;
             }
             catch (Exception)
             {
@@ -222,6 +224,5 @@ namespace RoboJo
         }
 
         #endregion
-
     }
 }

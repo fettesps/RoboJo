@@ -537,6 +537,18 @@ namespace RoboJo
 
         #region Events
 
+        private void dgTimesheet_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
+        {
+            try
+            {
+                dgTimesheet.ClearSelection();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
         private void tmrMain_Tick(object sender, EventArgs e)
         {
             try

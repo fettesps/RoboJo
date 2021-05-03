@@ -35,6 +35,8 @@
             this.btnNext = new System.Windows.Forms.Button();
             this.btnPrev = new System.Windows.Forms.Button();
             this.dgClients = new System.Windows.Forms.DataGridView();
+            this.clientidDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.nameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.clientsBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.clientsDataSet = new RoboJo.timetrackerDataSet();
             this.btnCancel = new System.Windows.Forms.Button();
@@ -43,8 +45,6 @@
             this.lblProjectName = new System.Windows.Forms.Label();
             this.txtClient_ID = new System.Windows.Forms.TextBox();
             this.lblClientID = new System.Windows.Forms.Label();
-            this.nameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.clientidDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgClients)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.clientsBindingSource)).BeginInit();
@@ -64,7 +64,7 @@
             this.panel1.Controls.Add(this.lblProjectName);
             this.panel1.Controls.Add(this.txtClient_ID);
             this.panel1.Controls.Add(this.lblClientID);
-            this.panel1.Location = new System.Drawing.Point(12, 12);
+            this.panel1.Location = new System.Drawing.Point(6, 5);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(495, 278);
             this.panel1.TabIndex = 0;
@@ -128,7 +128,20 @@
             this.dgClients.ShowEditingIcon = false;
             this.dgClients.Size = new System.Drawing.Size(470, 168);
             this.dgClients.TabIndex = 22;
+            this.dgClients.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.dgClients_DataBindingComplete);
             this.dgClients.UserDeletingRow += new System.Windows.Forms.DataGridViewRowCancelEventHandler(this.dgClients_UserDeletingRow);
+            // 
+            // clientidDataGridViewTextBoxColumn
+            // 
+            this.clientidDataGridViewTextBoxColumn.DataPropertyName = "client_id";
+            this.clientidDataGridViewTextBoxColumn.HeaderText = "Client_ID";
+            this.clientidDataGridViewTextBoxColumn.Name = "clientidDataGridViewTextBoxColumn";
+            // 
+            // nameDataGridViewTextBoxColumn
+            // 
+            this.nameDataGridViewTextBoxColumn.DataPropertyName = "name";
+            this.nameDataGridViewTextBoxColumn.HeaderText = "Name";
+            this.nameDataGridViewTextBoxColumn.Name = "nameDataGridViewTextBoxColumn";
             // 
             // clientsBindingSource
             // 
@@ -193,30 +206,17 @@
             this.lblClientID.TabIndex = 0;
             this.lblClientID.Text = "Client ID:";
             // 
-            // nameDataGridViewTextBoxColumn
-            // 
-            this.nameDataGridViewTextBoxColumn.DataPropertyName = "name";
-            this.nameDataGridViewTextBoxColumn.HeaderText = "Name";
-            this.nameDataGridViewTextBoxColumn.Name = "nameDataGridViewTextBoxColumn";
-            // 
-            // clientidDataGridViewTextBoxColumn
-            // 
-            this.clientidDataGridViewTextBoxColumn.DataPropertyName = "client_id";
-            this.clientidDataGridViewTextBoxColumn.HeaderText = "Client_ID";
-            this.clientidDataGridViewTextBoxColumn.Name = "clientidDataGridViewTextBoxColumn";
-            // 
             // frmClients
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(519, 305);
+            this.ClientSize = new System.Drawing.Size(504, 285);
             this.ControlBox = false;
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
             this.Name = "frmClients";
             this.Text = "Clients";
-            this.Shown += new System.EventHandler(this.frmClients_Shown);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgClients)).EndInit();
