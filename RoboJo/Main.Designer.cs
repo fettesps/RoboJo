@@ -79,6 +79,7 @@
             this.lblDate_Label = new System.Windows.Forms.Label();
             this.lblDate_Value = new System.Windows.Forms.Label();
             this.btnMultiButton = new System.Windows.Forms.Button();
+            this.toolStripMenuItem_Tasks = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuNotification.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgTimesheet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.timesheetBindingSource)).BeginInit();
@@ -368,28 +369,28 @@
             // toolStripMenuItem_Start
             // 
             this.toolStripMenuItem_Start.Name = "toolStripMenuItem_Start";
-            this.toolStripMenuItem_Start.Size = new System.Drawing.Size(150, 22);
+            this.toolStripMenuItem_Start.Size = new System.Drawing.Size(180, 22);
             this.toolStripMenuItem_Start.Text = "&Start";
             this.toolStripMenuItem_Start.Click += new System.EventHandler(this.toolStripMenuItem_Start_Click);
             // 
             // toolStripMenuItem_Stop
             // 
             this.toolStripMenuItem_Stop.Name = "toolStripMenuItem_Stop";
-            this.toolStripMenuItem_Stop.Size = new System.Drawing.Size(150, 22);
+            this.toolStripMenuItem_Stop.Size = new System.Drawing.Size(180, 22);
             this.toolStripMenuItem_Stop.Text = "Sto&p";
             this.toolStripMenuItem_Stop.Click += new System.EventHandler(this.toolStripMenuItem_Stop_Click);
             // 
             // toolStripMenuItem_LogNow
             // 
             this.toolStripMenuItem_LogNow.Name = "toolStripMenuItem_LogNow";
-            this.toolStripMenuItem_LogNow.Size = new System.Drawing.Size(150, 22);
+            this.toolStripMenuItem_LogNow.Size = new System.Drawing.Size(180, 22);
             this.toolStripMenuItem_LogNow.Text = "&Log Now";
             this.toolStripMenuItem_LogNow.Click += new System.EventHandler(this.toolStripMenuItem_LogNow_Click);
             // 
             // toolStripMenuItem_Split
             // 
             this.toolStripMenuItem_Split.Name = "toolStripMenuItem_Split";
-            this.toolStripMenuItem_Split.Size = new System.Drawing.Size(150, 22);
+            this.toolStripMenuItem_Split.Size = new System.Drawing.Size(180, 22);
             this.toolStripMenuItem_Split.Text = "Split Entry";
             this.toolStripMenuItem_Split.Click += new System.EventHandler(this.toolStripMenuItem_Split_Click);
             // 
@@ -399,7 +400,7 @@
             this.toolStripMenuItem_Resave.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripMenuItem_Resave.Name = "toolStripMenuItem_Resave";
             this.toolStripMenuItem_Resave.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
-            this.toolStripMenuItem_Resave.Size = new System.Drawing.Size(150, 22);
+            this.toolStripMenuItem_Resave.Size = new System.Drawing.Size(180, 22);
             this.toolStripMenuItem_Resave.Text = "&Resave";
             this.toolStripMenuItem_Resave.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
             // 
@@ -409,19 +410,19 @@
             this.toolStripMenuItem_Clear.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripMenuItem_Clear.Name = "toolStripMenuItem_Clear";
             this.toolStripMenuItem_Clear.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
-            this.toolStripMenuItem_Clear.Size = new System.Drawing.Size(150, 22);
+            this.toolStripMenuItem_Clear.Size = new System.Drawing.Size(180, 22);
             this.toolStripMenuItem_Clear.Text = "&Clear";
             this.toolStripMenuItem_Clear.Click += new System.EventHandler(this.toolStripMenuItem_Clear_Click);
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(147, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(177, 6);
             // 
             // toolStripMenuItem_Exit
             // 
             this.toolStripMenuItem_Exit.Name = "toolStripMenuItem_Exit";
-            this.toolStripMenuItem_Exit.Size = new System.Drawing.Size(150, 22);
+            this.toolStripMenuItem_Exit.Size = new System.Drawing.Size(180, 22);
             this.toolStripMenuItem_Exit.Text = "E&xit";
             this.toolStripMenuItem_Exit.Click += new System.EventHandler(this.toolStripMenuItem_Exit_Click);
             // 
@@ -429,6 +430,7 @@
             // 
             this.toolStripMenuItem_Setup.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripMenuItem_Clients,
+            this.toolStripMenuItem_Tasks,
             this.toolStripMenuItem_Projects});
             this.toolStripMenuItem_Setup.Name = "toolStripMenuItem_Setup";
             this.toolStripMenuItem_Setup.Size = new System.Drawing.Size(49, 20);
@@ -437,14 +439,14 @@
             // toolStripMenuItem_Clients
             // 
             this.toolStripMenuItem_Clients.Name = "toolStripMenuItem_Clients";
-            this.toolStripMenuItem_Clients.Size = new System.Drawing.Size(116, 22);
+            this.toolStripMenuItem_Clients.Size = new System.Drawing.Size(180, 22);
             this.toolStripMenuItem_Clients.Text = "&Clients";
             this.toolStripMenuItem_Clients.Click += new System.EventHandler(this.toolStripMenuItem_Clients_Click);
             // 
             // toolStripMenuItem_Projects
             // 
             this.toolStripMenuItem_Projects.Name = "toolStripMenuItem_Projects";
-            this.toolStripMenuItem_Projects.Size = new System.Drawing.Size(116, 22);
+            this.toolStripMenuItem_Projects.Size = new System.Drawing.Size(180, 22);
             this.toolStripMenuItem_Projects.Text = "&Projects";
             this.toolStripMenuItem_Projects.Click += new System.EventHandler(this.toolStripMenuItem_Projects_Click);
             // 
@@ -459,7 +461,7 @@
             // toolStripMenuItem_About
             // 
             this.toolStripMenuItem_About.Name = "toolStripMenuItem_About";
-            this.toolStripMenuItem_About.Size = new System.Drawing.Size(116, 22);
+            this.toolStripMenuItem_About.Size = new System.Drawing.Size(180, 22);
             this.toolStripMenuItem_About.Text = "&About...";
             this.toolStripMenuItem_About.Click += new System.EventHandler(this.toolStripMenuItem_About_Click);
             // 
@@ -492,6 +494,13 @@
             this.btnMultiButton.Text = "Multi Button";
             this.btnMultiButton.UseVisualStyleBackColor = true;
             this.btnMultiButton.Click += new System.EventHandler(this.btnMultiButton_Click);
+            // 
+            // toolStripMenuItem_Tasks
+            // 
+            this.toolStripMenuItem_Tasks.Name = "toolStripMenuItem_Tasks";
+            this.toolStripMenuItem_Tasks.Size = new System.Drawing.Size(180, 22);
+            this.toolStripMenuItem_Tasks.Text = "&Tasks";
+            this.toolStripMenuItem_Tasks.Click += new System.EventHandler(this.toolStripMenuItem_Tasks_Click);
             // 
             // frmMain
             // 
@@ -583,6 +592,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn descriptionDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewCheckBoxColumn billableDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn hoursDataGridViewTextBoxColumn;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem_Tasks;
     }
 }
 

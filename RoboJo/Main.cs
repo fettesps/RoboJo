@@ -800,6 +800,20 @@ namespace RoboJo
             }
         }
 
+
+        private void toolStripMenuItem_Tasks_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                //frmTasks tasks = new frmTasks();
+                //tasks.ShowDialog();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString(), "Exception", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
         #endregion
 
     }
