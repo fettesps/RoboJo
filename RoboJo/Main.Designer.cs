@@ -112,21 +112,21 @@
             this.startToolStripMenuItem.Name = "startToolStripMenuItem";
             this.startToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
             this.startToolStripMenuItem.Text = "Start";
-            this.startToolStripMenuItem.Click += new System.EventHandler(this.startToolStripMenuItem_Click);
+            this.startToolStripMenuItem.Click += new System.EventHandler(this.notifyIconToolStripMenuItem_Start_Click);
             // 
             // stopToolStripMenuItem
             // 
             this.stopToolStripMenuItem.Name = "stopToolStripMenuItem";
             this.stopToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
             this.stopToolStripMenuItem.Text = "Stop";
-            this.stopToolStripMenuItem.Click += new System.EventHandler(this.stopToolStripMenuItem_Click);
+            this.stopToolStripMenuItem.Click += new System.EventHandler(this.notifyIconToolStripMenuItem_Stop_Click);
             // 
             // logNowToolStripMenuItem
             // 
             this.logNowToolStripMenuItem.Name = "logNowToolStripMenuItem";
             this.logNowToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
             this.logNowToolStripMenuItem.Text = "Log Now";
-            this.logNowToolStripMenuItem.Click += new System.EventHandler(this.logNowToolStripMenuItem_Click);
+            this.logNowToolStripMenuItem.Click += new System.EventHandler(this.notifyIconToolStripMenuItem_LogNow_Click);
             // 
             // cboPromptEveryValue
             // 
@@ -402,7 +402,7 @@
             this.toolStripMenuItem_Resave.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
             this.toolStripMenuItem_Resave.Size = new System.Drawing.Size(180, 22);
             this.toolStripMenuItem_Resave.Text = "&Resave";
-            this.toolStripMenuItem_Resave.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
+            this.toolStripMenuItem_Resave.Click += new System.EventHandler(this.toolStripMenuItem_Save_Click);
             // 
             // toolStripMenuItem_Clear
             // 
@@ -487,7 +487,7 @@
             // 
             // btnMultiButton
             // 
-            this.btnMultiButton.Location = new System.Drawing.Point(357, 30);
+            this.btnMultiButton.Location = new System.Drawing.Point(614, 61);
             this.btnMultiButton.Name = "btnMultiButton";
             this.btnMultiButton.Size = new System.Drawing.Size(75, 23);
             this.btnMultiButton.TabIndex = 30;

@@ -675,11 +675,6 @@ namespace RoboJo
             }
         }
 
-        private void startToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Start();
-        }
-
         private void btnMultiButton_Click(object sender, EventArgs e)
         {
             switch (btnMultiButton.Text)
@@ -697,12 +692,17 @@ namespace RoboJo
             }
         }
 
-        private void stopToolStripMenuItem_Click(object sender, EventArgs e)
+        private void notifyIconToolStripMenuItem_Start_Click(object sender, EventArgs e)
+        {
+            Start();
+        }
+
+        private void notifyIconToolStripMenuItem_Stop_Click(object sender, EventArgs e)
         {
             Stop();
         }
 
-        private void logNowToolStripMenuItem_Click(object sender, EventArgs e)
+        private void notifyIconToolStripMenuItem_LogNow_Click(object sender, EventArgs e)
         {
             PromptUser();
         }
@@ -723,7 +723,7 @@ namespace RoboJo
             }
         }
 
-        private void saveToolStripMenuItem_Click(object sender, EventArgs e)
+        private void toolStripMenuItem_Save_Click(object sender, EventArgs e)
         {
             Resave();
         }
@@ -786,7 +786,6 @@ namespace RoboJo
             }
         }
 
-
         private void toolStripMenuItem_Clients_Click(object sender, EventArgs e)
         {
             try
@@ -799,7 +798,6 @@ namespace RoboJo
                 MessageBox.Show(ex.ToString(), "Exception", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
 
         private void toolStripMenuItem_Tasks_Click(object sender, EventArgs e)
         {
@@ -815,7 +813,6 @@ namespace RoboJo
         }
 
         #endregion
-
     }
 
     #endregion
