@@ -650,6 +650,34 @@ namespace RoboJo
             }
         }
 
+        private void dgTimesheet_UserDeletingRow(object sender, DataGridViewRowCancelEventArgs e)
+        {
+            try
+            {
+                if (dgTimesheet.SelectedRows.Count > 0 || dgTimesheet.SelectedCells.Count > 0)
+                {
+                    // Get selected item
+                    int selectedRowIndex = 0;
+                    if (dgTimesheet.SelectedRows.Count > 0)
+                    {
+                        selectedRowIndex = dgTimesheet.SelectedRows[0].Index;
+                    }
+                    else
+                    {
+                        selectedRowIndex = dgTimesheet.SelectedCells[0].RowIndex;
+                    }
+
+                    var entry_id = dgTimesheet.Rows[selectedRowIndex].Cells[0].Value;
+
+                    _dal.DeleteFromDb((int)entry_id);
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
         #region Notification Icon Events
 
         private void notifyIcon_DoubleClick(object sender, EventArgs e)
@@ -766,6 +794,7 @@ namespace RoboJo
         }
 
         #endregion
+
     }
 
     #endregion
