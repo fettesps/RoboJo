@@ -222,6 +222,7 @@
             this.dgTimesheet.Name = "dgTimesheet";
             this.dgTimesheet.Size = new System.Drawing.Size(797, 419);
             this.dgTimesheet.TabIndex = 21;
+            this.dgTimesheet.UserDeletingRow += new System.Windows.Forms.DataGridViewRowCancelEventHandler(this.dgTimesheet_UserDeletingRow);
             // 
             // idDataGridViewTextBoxColumn
             // 
