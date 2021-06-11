@@ -193,6 +193,86 @@ namespace RoboJo
 
         #region Projects
 
+        public IEnumerable<Project> LoadProjects_fromDB()
+        {
+            String strReadStatement = "SELECT * " +
+                                      "FROM Projects";
+
+            using (SQLiteConnection sqlCon = new SQLiteConnection(GetConnectionString()))
+            {
+                sqlCon.Open();
+
+                using (SQLiteCommand cmd = new SQLiteCommand(strReadStatement, sqlCon))
+                {
+                    SQLiteDataReader sqlDr = cmd.ExecuteReader();
+                    while (sqlDr.Read())
+                    {
+                        yield return new Project()
+                        {
+                            Project_ID = Convert.ToInt32(sqlDr["project_id"].ToString()),
+                            Name = sqlDr["name"].ToString()
+                        };
+                    }
+                    sqlDr.Close();
+                }
+            }
+        }
+
+        public long WriteProject_toDB(String strName)
+        {
+            try
+            {
+                String strInsertStatement = "INSERT INTO Projects ([name]) " +
+                                           " VALUES (@name)";
+
+                using (SQLiteConnection sqlCon = new SQLiteConnection(GetConnectionString()))
+                {
+                    sqlCon.Open();
+
+                    using (SQLiteCommand cmd = new SQLiteCommand(strInsertStatement, sqlCon))
+                    {
+                        cmd.Parameters.AddWithValue("@name", strName);
+
+                        int intInsertCmd = cmd.ExecuteNonQuery();
+                        long intInsertedId = sqlCon.LastInsertRowId;
+
+                        return intInsertedId;
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public bool DeleteProject_fromDB(int project_id)
+        {
+            try
+            {
+                String strSQLStatement = "DELETE FROM Project " +
+                                         "WHERE project_id = @project_id";
+
+                using (SQLiteConnection sqlCon = new SQLiteConnection(GetConnectionString()))
+                {
+                    sqlCon.Open();
+
+                    using (SQLiteCommand cmd = new SQLiteCommand(strSQLStatement, sqlCon))
+                    {
+                        cmd.Parameters.AddWithValue("@project_id", project_id);
+
+                        int intRowsDeleted = cmd.ExecuteNonQuery();
+                        if (intRowsDeleted > 0) return true;
+                    }
+                }
+
+                return false;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
 
         #endregion
 

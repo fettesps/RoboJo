@@ -35,8 +35,6 @@
             this.btnNext = new System.Windows.Forms.Button();
             this.btnPrev = new System.Windows.Forms.Button();
             this.dgClients = new System.Windows.Forms.DataGridView();
-            this.clientidDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.nameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.clientsBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.clientsDataSet = new RoboJo.timetrackerDataSet();
             this.btnCancel = new System.Windows.Forms.Button();
@@ -45,6 +43,8 @@
             this.lblProjectName = new System.Windows.Forms.Label();
             this.txtClientID = new System.Windows.Forms.TextBox();
             this.lblClientID = new System.Windows.Forms.Label();
+            this.clientidDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.nameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgClients)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.clientsBindingSource)).BeginInit();
@@ -131,18 +131,6 @@
             this.dgClients.TabIndex = 22;
             this.dgClients.UserDeletingRow += new System.Windows.Forms.DataGridViewRowCancelEventHandler(this.dgClients_UserDeletingRow);
             // 
-            // clientidDataGridViewTextBoxColumn
-            // 
-            this.clientidDataGridViewTextBoxColumn.DataPropertyName = "client_id";
-            this.clientidDataGridViewTextBoxColumn.HeaderText = "Client_ID";
-            this.clientidDataGridViewTextBoxColumn.Name = "clientidDataGridViewTextBoxColumn";
-            // 
-            // nameDataGridViewTextBoxColumn
-            // 
-            this.nameDataGridViewTextBoxColumn.DataPropertyName = "name";
-            this.nameDataGridViewTextBoxColumn.HeaderText = "Name";
-            this.nameDataGridViewTextBoxColumn.Name = "nameDataGridViewTextBoxColumn";
-            // 
             // clientsBindingSource
             // 
             this.clientsBindingSource.DataMember = "clients";
@@ -206,6 +194,18 @@
             this.lblClientID.Size = new System.Drawing.Size(50, 13);
             this.lblClientID.TabIndex = 0;
             this.lblClientID.Text = "Client ID:";
+            // 
+            // clientidDataGridViewTextBoxColumn
+            // 
+            this.clientidDataGridViewTextBoxColumn.DataPropertyName = "client_id";
+            this.clientidDataGridViewTextBoxColumn.HeaderText = "Client ID";
+            this.clientidDataGridViewTextBoxColumn.Name = "clientidDataGridViewTextBoxColumn";
+            // 
+            // nameDataGridViewTextBoxColumn
+            // 
+            this.nameDataGridViewTextBoxColumn.DataPropertyName = "name";
+            this.nameDataGridViewTextBoxColumn.HeaderText = "Name";
+            this.nameDataGridViewTextBoxColumn.Name = "nameDataGridViewTextBoxColumn";
             // 
             // frmClients
             // 

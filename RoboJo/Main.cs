@@ -271,7 +271,7 @@ namespace RoboJo
                         EndTime_Second = dtEndDate.Date.Add(dtEndTime.TimeOfDay)
                     };
 
-                    splitEntry.ShowDialog();
+                    splitEntry.ShowDialog(this);
                     
                     // After user has closed the dialog
                     switch (splitEntry.ButtonPressed)
@@ -383,7 +383,7 @@ namespace RoboJo
                 {
                     _booInputActive = true;
                     PlayChime();
-                    timePrompt.ShowDialog();
+                    timePrompt.ShowDialog(this);
                 }
                 else
                 {
@@ -753,7 +753,7 @@ namespace RoboJo
             try
             {
                 frmAboutBox ab = new frmAboutBox();
-                ab.ShowDialog();
+                ab.ShowDialog(this);
             }
             catch (Exception ex)
             {
@@ -778,7 +778,7 @@ namespace RoboJo
             try
             {
                 frmProjects proj = new frmProjects();
-                proj.ShowDialog();
+                proj.ShowDialog(this);
             }
             catch (Exception ex)
             {
@@ -791,7 +791,7 @@ namespace RoboJo
             try
             {
                 frmClients clients = new frmClients();
-                clients.ShowDialog();
+                clients.ShowDialog(this);
             }
             catch (Exception ex)
             {
@@ -804,7 +804,7 @@ namespace RoboJo
             try
             {
                 //frmTasks tasks = new frmTasks();
-                //tasks.ShowDialog();
+                //tasks.ShowDialog(this);
             }
             catch (Exception ex)
             {

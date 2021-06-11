@@ -6,12 +6,15 @@ namespace RoboJo
 {
     interface IDAL
     {
-        bool ClearDb(String strTable);
-        bool DeleteClient_fromDB(int client_id);
+        bool ClearDb(String strTable);        
         bool DeleteEntries_fromDB(int entry_id);
-        IEnumerable<Client> LoadClients_fromDB();
         IEnumerable<Entry> LoadEntries_fromDB();
-        long WriteClient_toDB(string strName);
         long WriteEntries_toDB(DateTime? dtStart, DateTime? dtEnd, string strDescription, TimeSpan tsHours, bool booBillable);
+        IEnumerable<Client> LoadClients_fromDB();
+        bool DeleteClient_fromDB(int client_id);
+        long WriteClient_toDB(string strName);
+        IEnumerable<Project> LoadProjects_fromDB();
+        bool DeleteProject_fromDB(int project_id);
+        long WriteProject_toDB(string strName);
     }
 }

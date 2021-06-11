@@ -8,6 +8,7 @@ namespace RoboJo.Entities
 {
     class Project
     {
+        public int Project_ID { get; set; }
         public String Name { get; set; }
         public String Manager { get; set; }
         public String Lead { get; set; }
