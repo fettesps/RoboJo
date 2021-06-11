@@ -803,8 +803,8 @@ namespace RoboJo
         {
             try
             {
-                //frmTasks tasks = new frmTasks();
-                //tasks.ShowDialog(this);
+                frmTasks tasks = new frmTasks();
+                tasks.ShowDialog(this);
             }
             catch (Exception ex)
             {

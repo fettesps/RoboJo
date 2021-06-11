@@ -1,12 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
-using System.Data.SqlClient;
 using System.Data.SQLite;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using RoboJo.Entities;
 
 namespace RoboJo
@@ -260,6 +255,91 @@ namespace RoboJo
                     using (SQLiteCommand cmd = new SQLiteCommand(strSQLStatement, sqlCon))
                     {
                         cmd.Parameters.AddWithValue("@project_id", project_id);
+
+                        int intRowsDeleted = cmd.ExecuteNonQuery();
+                        if (intRowsDeleted > 0) return true;
+                    }
+                }
+
+                return false;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        #endregion
+
+        #region Tasks
+
+        public IEnumerable<Task> LoadTasks_fromDB()
+        {
+            String strReadStatement = "SELECT * " +
+                                      "FROM Tasks";
+
+            using (SQLiteConnection sqlCon = new SQLiteConnection(GetConnectionString()))
+            {
+                sqlCon.Open();
+
+                using (SQLiteCommand cmd = new SQLiteCommand(strReadStatement, sqlCon))
+                {
+                    SQLiteDataReader sqlDr = cmd.ExecuteReader();
+                    while (sqlDr.Read())
+                    {
+                        yield return new Task()
+                        {
+                            Task_ID = Convert.ToInt32(sqlDr["task_id"].ToString()),
+                            Name = sqlDr["name"].ToString()
+                        };
+                    }
+                    sqlDr.Close();
+                }
+            }
+        }
+
+        public long WriteTask_toDB(String strName)
+        {
+            try
+            {
+                String strInsertStatement = "INSERT INTO Tasks ([name]) " +
+                                           " VALUES (@name)";
+
+                using (SQLiteConnection sqlCon = new SQLiteConnection(GetConnectionString()))
+                {
+                    sqlCon.Open();
+
+                    using (SQLiteCommand cmd = new SQLiteCommand(strInsertStatement, sqlCon))
+                    {
+                        cmd.Parameters.AddWithValue("@name", strName);
+
+                        int intInsertCmd = cmd.ExecuteNonQuery();
+                        long intInsertedId = sqlCon.LastInsertRowId;
+
+                        return intInsertedId;
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public bool DeleteTask_fromDB(int task_id)
+        {
+            try
+            {
+                String strSQLStatement = "DELETE FROM Task " +
+                                         "WHERE task_id = @task_id";
+
+                using (SQLiteConnection sqlCon = new SQLiteConnection(GetConnectionString()))
+                {
+                    sqlCon.Open();
+
+                    using (SQLiteCommand cmd = new SQLiteCommand(strSQLStatement, sqlCon))
+                    {
+                        cmd.Parameters.AddWithValue("@task_id", task_id);
 
                         int intRowsDeleted = cmd.ExecuteNonQuery();
                         if (intRowsDeleted > 0) return true;

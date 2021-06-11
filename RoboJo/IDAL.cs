@@ -16,5 +16,8 @@ namespace RoboJo
         IEnumerable<Project> LoadProjects_fromDB();
         bool DeleteProject_fromDB(int project_id);
         long WriteProject_toDB(string strName);
+        IEnumerable<Task> LoadTasks_fromDB();
+        bool DeleteTask_fromDB(int task_id);
+        long WriteTask_toDB(string strName);
     }
 }
