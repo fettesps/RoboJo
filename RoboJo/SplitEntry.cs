@@ -35,6 +35,88 @@ namespace RoboJo
 
         #region Controls 
 
+
+        private void txtUserInput_Second_KeyDown(object sender, KeyEventArgs e)
+        {
+            try
+            {
+                if (e.KeyCode == Keys.Enter)
+                {
+                    btnOk_Click(sender, e);
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+
+        private void dtpEndTime_First_KeyDown(object sender, KeyEventArgs e)
+        {
+            try
+            {
+                if (e.KeyCode == Keys.Enter)
+                {
+                    btnOk_Click(sender, e);
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        private void dtpStartTime_First_KeyDown(object sender, KeyEventArgs e)
+        {
+            try
+            {
+                if (e.KeyCode == Keys.Enter)
+                {
+                    btnOk_Click(sender, e);
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        private void dtpStartTime_Second_KeyDown(object sender, KeyEventArgs e)
+        {
+            try
+            {
+                if (e.KeyCode == Keys.Enter)
+                {
+                    btnOk_Click(sender, e);
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        private void dtpEndTime_Second_KeyDown(object sender, KeyEventArgs e)
+        {
+            try
+            {
+                if (e.KeyCode == Keys.Enter)
+                {
+                    btnOk_Click(sender, e);
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
         private void btnCancel_Click(object sender, EventArgs e)
         {
             try
@@ -181,13 +263,13 @@ namespace RoboJo
 
         public string UserInput_First
         {
-            get 
+            get
             {
                 return txtUserInput_First.Text;
             }
-            set 
+            set
             {
-                txtUserInput_First.Text = value; 
+                txtUserInput_First.Text = value;
             }
         }
 
@@ -298,5 +380,6 @@ namespace RoboJo
         }
 
         #endregion
+
     }
 }
