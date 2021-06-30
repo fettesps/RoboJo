@@ -338,14 +338,15 @@ namespace RoboJo
                         DateTime.TryParse(row["start_date"].ToString(), out DateTime dtStartDate);
                         DateTime.TryParse(row["end_date"].ToString(), out DateTime dtEndDate);
                         TimeSpan.TryParse(row["hours"].ToString(), out TimeSpan tsHours);
-                        var billable = row["billable"];
+                        //var billable = row["billable"];
+                        bool.TryParse(row["billable"].ToString(), out bool booBillable);
 
                         long lngResult = _dal.WriteToDb(
                             dtStartDate.Date.Add(dtStartTime.TimeOfDay), 
                             dtEndDate.Date.Add(dtEndTime.TimeOfDay), 
                             row["description"].ToString(), 
-                            tsHours, 
-                            (bool)billable
+                            tsHours,
+                            booBillable
                         );
                         if (lngResult < 1)
                         {
