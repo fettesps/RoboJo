@@ -35,6 +35,8 @@
             this.btnNext = new System.Windows.Forms.Button();
             this.btnPrev = new System.Windows.Forms.Button();
             this.dgClients = new System.Windows.Forms.DataGridView();
+            this.clientidDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.nameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.clientsBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.clientsDataSet = new RoboJo.timetrackerDataSet();
             this.btnCancel = new System.Windows.Forms.Button();
@@ -43,8 +45,8 @@
             this.lblProjectName = new System.Windows.Forms.Label();
             this.txtClientID = new System.Windows.Forms.TextBox();
             this.lblClientID = new System.Windows.Forms.Label();
-            this.clientidDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.nameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.btnDelete = new System.Windows.Forms.Button();
+            this.btnEdit = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgClients)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.clientsBindingSource)).BeginInit();
@@ -53,6 +55,8 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.btnEdit);
+            this.panel1.Controls.Add(this.btnDelete);
             this.panel1.Controls.Add(this.btnNew);
             this.panel1.Controls.Add(this.btnSave);
             this.panel1.Controls.Add(this.btnNext);
@@ -131,6 +135,18 @@
             this.dgClients.TabIndex = 22;
             this.dgClients.UserDeletingRow += new System.Windows.Forms.DataGridViewRowCancelEventHandler(this.dgClients_UserDeletingRow);
             // 
+            // clientidDataGridViewTextBoxColumn
+            // 
+            this.clientidDataGridViewTextBoxColumn.DataPropertyName = "client_id";
+            this.clientidDataGridViewTextBoxColumn.HeaderText = "Client ID";
+            this.clientidDataGridViewTextBoxColumn.Name = "clientidDataGridViewTextBoxColumn";
+            // 
+            // nameDataGridViewTextBoxColumn
+            // 
+            this.nameDataGridViewTextBoxColumn.DataPropertyName = "name";
+            this.nameDataGridViewTextBoxColumn.HeaderText = "Name";
+            this.nameDataGridViewTextBoxColumn.Name = "nameDataGridViewTextBoxColumn";
+            // 
             // clientsBindingSource
             // 
             this.clientsBindingSource.DataMember = "clients";
@@ -195,17 +211,25 @@
             this.lblClientID.TabIndex = 0;
             this.lblClientID.Text = "Client ID:";
             // 
-            // clientidDataGridViewTextBoxColumn
+            // btnDelete
             // 
-            this.clientidDataGridViewTextBoxColumn.DataPropertyName = "client_id";
-            this.clientidDataGridViewTextBoxColumn.HeaderText = "Client ID";
-            this.clientidDataGridViewTextBoxColumn.Name = "clientidDataGridViewTextBoxColumn";
+            this.btnDelete.Location = new System.Drawing.Point(326, 32);
+            this.btnDelete.Name = "btnDelete";
+            this.btnDelete.Size = new System.Drawing.Size(75, 23);
+            this.btnDelete.TabIndex = 27;
+            this.btnDelete.Text = "Delete";
+            this.btnDelete.UseVisualStyleBackColor = true;
+            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
             // 
-            // nameDataGridViewTextBoxColumn
+            // btnEdit
             // 
-            this.nameDataGridViewTextBoxColumn.DataPropertyName = "name";
-            this.nameDataGridViewTextBoxColumn.HeaderText = "Name";
-            this.nameDataGridViewTextBoxColumn.Name = "nameDataGridViewTextBoxColumn";
+            this.btnEdit.Location = new System.Drawing.Point(326, 3);
+            this.btnEdit.Name = "btnEdit";
+            this.btnEdit.Size = new System.Drawing.Size(75, 23);
+            this.btnEdit.TabIndex = 28;
+            this.btnEdit.Text = "Edit";
+            this.btnEdit.UseVisualStyleBackColor = true;
+            this.btnEdit.Click += new System.EventHandler(this.btnEdit_Click);
             // 
             // frmClients
             // 
@@ -245,5 +269,7 @@
         private System.Windows.Forms.Button btnNew;
         private System.Windows.Forms.DataGridViewTextBoxColumn clientidDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn nameDataGridViewTextBoxColumn;
+        private System.Windows.Forms.Button btnEdit;
+        private System.Windows.Forms.Button btnDelete;
     }
 }

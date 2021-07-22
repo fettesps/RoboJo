@@ -75,23 +75,49 @@ namespace RoboJo
         {
             try
             {
-                if (!String.IsNullOrEmpty(txtClientName.Text))
+                if (!String.IsNullOrEmpty(txtClientID.Text))
                 {
-                    clientsDataSet.AcceptChanges();
+                    // Update Entry
+                    if (!String.IsNullOrEmpty(txtClientName.Text))
+                    {
+                        clientsDataSet.AcceptChanges();
 
-                    _dal.WriteClient_toDB(txtClientName.Text);
+                        _dal.WriteClient_toDB(txtClientName.Text);
 
-                    DataRow dr = clientsDataSet.Tables[0].NewRow();
+                        DataRow dr = clientsDataSet.Tables[0].NewRow();
 
-                    dr["client_id"] = txtClientID.Text;
-                    dr["name"] = txtClientName.Text;
+                        dr["client_id"] = txtClientID.Text;
+                        dr["name"] = txtClientName.Text;
 
-                    clientsDataSet.clients.AddClientsRow((timetrackerDataSet.clientsRow)dr);
+                        clientsDataSet.clients.AddClientsRow((timetrackerDataSet.clientsRow)dr);
 
-                    btnSave.Enabled = false;
-                    txtClientName.Enabled = false;
+                        btnSave.Enabled = false;
+                        txtClientName.Enabled = false;
 
-                    clientsDataSet.AcceptChanges();
+                        clientsDataSet.AcceptChanges();
+                    }
+                }
+                else
+                {
+                    // New Entry
+                    if (!String.IsNullOrEmpty(txtClientName.Text))
+                    {
+                        clientsDataSet.AcceptChanges();
+
+                        _dal.WriteClient_toDB(txtClientName.Text);
+
+                        DataRow dr = clientsDataSet.Tables[0].NewRow();
+
+                        dr["client_id"] = txtClientID.Text;
+                        dr["name"] = txtClientName.Text;
+
+                        clientsDataSet.clients.AddClientsRow((timetrackerDataSet.clientsRow)dr);
+
+                        btnSave.Enabled = false;
+                        txtClientName.Enabled = false;
+
+                        clientsDataSet.AcceptChanges();
+                    }
                 }
             }
             catch (Exception)
@@ -228,5 +254,43 @@ namespace RoboJo
         }
 
         #endregion
+
+        private void btnDelete_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnEdit_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (dgClients.SelectedRows.Count > 0 || dgClients.SelectedCells.Count > 0)
+                {
+                    // Get selected item
+                    int selectedRowIndex = 0;
+                    if (dgClients.SelectedRows.Count > 0)
+                    {
+                        selectedRowIndex = dgClients.SelectedRows[0].Index;
+                    }
+                    else
+                    {
+                        selectedRowIndex = dgClients.SelectedCells[0].RowIndex;
+                    }
+
+                    txtClientID.Text = dgClients.Rows[selectedRowIndex].Cells[0].Value.ToString();
+                    txtClientName.Text = dgClients.Rows[selectedRowIndex].Cells[1].Value.ToString();
+
+                    txtClientName.Enabled = true;
+                    btnEdit.Enabled = false;
+                    btnSave.Enabled = true;
+                    btnDelete.Enabled = false;
+                    btnNew.Enabled = false;
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
     }
 }
