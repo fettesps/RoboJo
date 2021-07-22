@@ -101,7 +101,6 @@ namespace RoboJo
             }
             catch (Exception)
             {
-
                 throw;
             }
         }
@@ -123,6 +122,41 @@ namespace RoboJo
             try
             {
                 chkRunEndTimer.Checked = false;
+
+                if (e.KeyCode == Keys.Enter)
+                {
+                    btnOk_Click(sender, e);
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        private void dtpStartTime_KeyDown(object sender, KeyEventArgs e)
+        {
+            try
+            {
+                if (e.KeyCode == Keys.Enter)
+                {
+                    btnOk_Click(sender, e);
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        private void txtDuration_KeyDown(object sender, KeyEventArgs e)
+        {
+            try
+            {
+                if (e.KeyCode == Keys.Enter)
+                {
+                    btnOk_Click(sender, e);
+                }
             }
             catch (Exception)
             {

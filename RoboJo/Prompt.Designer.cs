@@ -98,6 +98,7 @@
             this.txtDuration.Size = new System.Drawing.Size(60, 20);
             this.txtDuration.TabIndex = 10;
             this.txtDuration.Text = "00:00:00";
+            this.txtDuration.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtDuration_KeyDown);
             // 
             // lblDuration
             // 
@@ -163,6 +164,7 @@
             this.dtpStartTime.Name = "dtpStartTime";
             this.dtpStartTime.Size = new System.Drawing.Size(102, 20);
             this.dtpStartTime.TabIndex = 3;
+            this.dtpStartTime.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dtpStartTime_KeyDown);
             // 
             // chkBillable
             // 
@@ -200,7 +202,7 @@
             this.tmrPromptTicker.Interval = 500;
             this.tmrPromptTicker.Tick += new System.EventHandler(this.tmrPromptTicker_Tick);
             // 
-            // Prompt
+            // frmPrompt
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -209,7 +211,7 @@
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
-            this.Name = "Prompt";
+            this.Name = "frmPrompt";
             this.Text = "Time Entry";
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
