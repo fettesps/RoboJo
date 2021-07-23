@@ -94,7 +94,7 @@ namespace RoboJo
         {
             try
             {
-                if (e.KeyCode == Keys.Enter)
+                if (e.KeyCode == Keys.Enter && !String.IsNullOrEmpty(txtUserInput.Text))
                 {
                     btnOk_Click(sender, e);
                 }
@@ -123,7 +123,7 @@ namespace RoboJo
             {
                 chkRunEndTimer.Checked = false;
 
-                if (e.KeyCode == Keys.Enter)
+                if (e.KeyCode == Keys.Enter && !String.IsNullOrEmpty(txtUserInput.Text))
                 {
                     btnOk_Click(sender, e);
                 }
@@ -138,7 +138,7 @@ namespace RoboJo
         {
             try
             {
-                if (e.KeyCode == Keys.Enter)
+                if (e.KeyCode == Keys.Enter && !String.IsNullOrEmpty(txtUserInput.Text))
                 {
                     btnOk_Click(sender, e);
                 }
@@ -153,7 +153,7 @@ namespace RoboJo
         {
             try
             {
-                if (e.KeyCode == Keys.Enter)
+                if (e.KeyCode == Keys.Enter && !String.IsNullOrEmpty(txtUserInput.Text))
                 {
                     btnOk_Click(sender, e);
                 }
