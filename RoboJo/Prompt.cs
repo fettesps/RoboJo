@@ -28,6 +28,22 @@ namespace RoboJo
 
         #region Controls 
 
+        private void dtpStartTime_KeyDown(object sender, KeyEventArgs e)
+        {
+            try
+            {
+                if (e.KeyCode == Keys.Enter)
+                {
+                    btnOk_Click(sender, e);
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
         private void btnCancel_Click(object sender, EventArgs e)
         {
             try
