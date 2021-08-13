@@ -113,6 +113,7 @@
             this.dtpEndTime_First.Size = new System.Drawing.Size(102, 20);
             this.dtpEndTime_First.TabIndex = 4;
             this.dtpEndTime_First.ValueChanged += new System.EventHandler(this.dtpEndTime_First_ValueChanged);
+            this.dtpEndTime_First.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dtpEndTime_First_KeyDown);
             // 
             // dtpStartTime_First
             // 
@@ -121,6 +122,7 @@
             this.dtpStartTime_First.Name = "dtpStartTime_First";
             this.dtpStartTime_First.Size = new System.Drawing.Size(102, 20);
             this.dtpStartTime_First.TabIndex = 3;
+            this.dtpStartTime_First.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dtpStartTime_First_KeyDown);
             this.dtpStartTime_First.KeyUp += new System.Windows.Forms.KeyEventHandler(this.dtpStartTime_First_KeyUp);
             // 
             // chkBillable_First
@@ -233,6 +235,7 @@
             this.dtpEndTime_Second.Name = "dtpEndTime_Second";
             this.dtpEndTime_Second.Size = new System.Drawing.Size(102, 20);
             this.dtpEndTime_Second.TabIndex = 4;
+            this.dtpEndTime_Second.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dtpEndTime_Second_KeyDown);
             this.dtpEndTime_Second.KeyUp += new System.Windows.Forms.KeyEventHandler(this.dtpEndTime_Second_KeyUp);
             // 
             // dtpStartTime_Second
@@ -243,6 +246,7 @@
             this.dtpStartTime_Second.Size = new System.Drawing.Size(102, 20);
             this.dtpStartTime_Second.TabIndex = 3;
             this.dtpStartTime_Second.ValueChanged += new System.EventHandler(this.dtpStartTime_Second_ValueChanged);
+            this.dtpStartTime_Second.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dtpStartTime_Second_KeyDown);
             // 
             // chkBillable_Second
             // 
@@ -263,6 +267,7 @@
             this.txtUserInput_Second.Name = "txtUserInput_Second";
             this.txtUserInput_Second.Size = new System.Drawing.Size(306, 20);
             this.txtUserInput_Second.TabIndex = 1;
+            this.txtUserInput_Second.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtUserInput_Second_KeyDown);
             // 
             // label6
             // 

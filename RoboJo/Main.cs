@@ -81,7 +81,7 @@ namespace RoboJo
                 lblCurrentEntryValue.Text = entries.LastOrDefault()?.Description;
                 tsslCurrentEntryVal.Text = entries.LastOrDefault()?.Description;
 
-                _dtStartTimer = entries.FirstOrDefault()?.StartTime;
+                _dtStartTimer = entries.LastOrDefault()?.StartTime;
                 _dtEndTimer = entries.LastOrDefault()?.EndTime;
                 
                 CalculateTotals();
