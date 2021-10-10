@@ -28,4 +28,10 @@
     </Reference>
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="Assets\robojo-fake.db">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

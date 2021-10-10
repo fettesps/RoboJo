@@ -9,6 +9,11 @@ namespace RoboJo.Tests
 {
     class FakeDb : IDAL
     {
+        public string GetConnectionString()
+        {
+            throw new NotImplementedException();
+        }
+
         bool IDAL.ClearDb()
         {
             throw new NotImplementedException();

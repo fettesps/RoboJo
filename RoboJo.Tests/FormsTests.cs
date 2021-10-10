@@ -7,16 +7,14 @@ using RoboJo;
 using Xunit;
 using System.Windows;
 using RoboJo.Entities;
+using System.Windows.Forms;
 
 namespace RoboJo.Tests
 {
     public class FormsTests
     {
-
-        // Arrange
-        // Act
-        // Assert
-
+        #region Main
+        
         [Fact]
         public void FormShould_LoadRecords()
         {
@@ -42,5 +40,32 @@ namespace RoboJo.Tests
             // Assert
             Assert.IsType<Entry>(data.FirstOrDefault());
         }
+
+        #endregion
+
+        #region Prompt
+
+        [Fact]
+        public void Prompt_ReturnsInput()
+        {
+            // Arrange
+            frmPrompt timePrompt = new frmPrompt
+            {
+                UserInput = "Hello world!",
+                Billable = false,
+                RunEndTimer = true,
+                StartTime = DateTime.Now.AddHours(-1),
+                EndTime = DateTime.Now,
+                StartPosition = FormStartPosition.WindowsDefaultLocation
+            };
+
+            // Act
+            timePrompt.Close();
+
+            // Assert
+            Assert.NotNull(timePrompt.UserInput);
+        }
+
+        #endregion
     }
 }

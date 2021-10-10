@@ -10,5 +10,6 @@ namespace RoboJo
         bool DeleteFromDb(int entry_id);
         IEnumerable<Entry> ReadFromDb();
         long WriteToDb(DateTime? dtStart, DateTime? dtEnd, string strDescription, TimeSpan tsHours, bool booBillable);
+        string GetConnectionString();
     }
 }

@@ -28,6 +28,7 @@ namespace RoboJo
             try
             {
                 _dal = Factory.OpenDB();
+                _bll = Factory.OpenBLL();
 
                 InitializeComponent();
                 cboPromptEveryValue.SelectedIndex = 2; 
@@ -236,7 +237,7 @@ namespace RoboJo
                         selectedRowIndex = dgTimesheet.SelectedCells[0].RowIndex;
                     }
 
-                    // Since the datagrid stores everything as text we need to covert it all back into proper types
+                    // Since the datagrid stores everything as text we need to convert it all back into proper types
                     int intEntryId = (int)timetrackerDataSet.Tables[0].Rows[selectedRowIndex]["id"];
                     String strUserInput = timetrackerDataSet.Tables[0].Rows[selectedRowIndex]["description"].ToString();
                     DateTime.TryParse(timetrackerDataSet.Tables[0].Rows[selectedRowIndex]["start_time"].ToString(), out DateTime dtStartTime);
@@ -291,7 +292,6 @@ namespace RoboJo
 
                             break;
                     }
-
                 }
                 else
                 {
@@ -784,7 +784,6 @@ namespace RoboJo
         }
 
         #endregion
-
     }
 
     #endregion

@@ -1,17 +1,14 @@
-﻿using System;
+﻿using RoboJo.Entities;
+using System;
 using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
-using System.Data.SqlClient;
 using System.Data.SQLite;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using RoboJo.Entities;
 
-namespace RoboJo
+namespace RoboJo.Tests
 {
-    class DAL : IDAL
+    class FakeDb2
     {
         public IEnumerable<Entry> ReadFromDb()
         {
@@ -129,7 +126,7 @@ namespace RoboJo
         {
             try
             {
-                String relativePath = @"Assets\robojo.db";
+                String relativePath = @"Assets\robojo-fake.db";
                 String currentPath = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().GetName().CodeBase);
                 String absolutePath = System.IO.Path.Combine(currentPath, relativePath).Remove(0, 6);
 
