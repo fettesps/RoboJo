@@ -6,11 +6,16 @@ using System.Threading.Tasks;
 
 namespace RoboJo
 {
-    class Factory
+    public class Factory
     {
         public static IDAL OpenDB()
         {
             return new DAL();
+        }
+
+        public static IBLL OpenBLL()
+        {
+            return new BLL();
         }
     }
 }

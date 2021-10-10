@@ -13,6 +13,8 @@ namespace RoboJo
 {
     class DAL : IDAL
     {
+        bool _UseFakeDb { get; set; }
+
         public IEnumerable<Entry> ReadFromDb()
         {
             String strReadStatement = "SELECT * " +
@@ -140,5 +142,8 @@ namespace RoboJo
                 throw;
             }
         }
+
+
+        
     }
 }

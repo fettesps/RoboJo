@@ -102,9 +102,11 @@
     <Compile Include="AboutBox.Designer.cs">
       <DependentUpon>AboutBox.cs</DependentUpon>
     </Compile>
+    <Compile Include="BLL.cs" />
     <Compile Include="DAL.cs" />
     <Compile Include="Entities\Entry.cs" />
     <Compile Include="Factory.cs" />
+    <Compile Include="IBLL.cs" />
     <Compile Include="IDAL.cs" />
     <Compile Include="SplitEntry.cs">
       <SubType>Form</SubType>

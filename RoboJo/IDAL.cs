@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace RoboJo
 {
-    interface IDAL
+    public interface IDAL
     {
         bool ClearDb();
         bool DeleteFromDb(int entry_id);

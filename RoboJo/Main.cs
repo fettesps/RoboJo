@@ -19,6 +19,7 @@ namespace RoboJo
         private bool _booBillable = true;
         private bool _booRunEndTimer = true;
         private IDAL _dal;
+        private IBLL _bll;
 
         #region Constructor
 
@@ -49,7 +50,7 @@ namespace RoboJo
 
         #region Methods
 
-        private void LoadRecords()
+        public IEnumerable<Entry> LoadRecords()
         {
             try
             {
@@ -85,6 +86,8 @@ namespace RoboJo
                 _dtEndTimer = entries.LastOrDefault()?.EndTime;
                 
                 CalculateTotals();
+
+                return entries;
             }
             catch (Exception)
             {
@@ -188,24 +191,11 @@ namespace RoboJo
             }
         }
 
-        private void CalculateTotals()
+        public void CalculateTotals()
         {
             try
             {
-                IEnumerable<Entry> entries = _dal.ReadFromDb();
-
-                TimeSpan tsHours;
-                TimeSpan tsHoursTotal = new TimeSpan();
-
-                // Recalculate Total Hours
-                foreach (Entry entry in entries)
-                {
-                    tsHours = entry.EndTime.Value - entry.StartTime.Value;
-                    tsHours = tsHours.RoundToNearestMinutes(15);
-
-                    tsHoursTotal = tsHoursTotal.Add(tsHours);
-                }
-
+                TimeSpan tsHoursTotal = _bll.CalculateTotals();
                 tsslTotal.Text = "Total: " + tsHoursTotal.ToString();
             }
             catch (Exception)

@@ -15,3 +15,6 @@
 /.vs/RoboJo/v16/.suo
 /RoboJo/obj
 /packages
+/RoboJo.Tests/obj
+/.vs/RoboJo/v16/TestStore/0
+/RoboJo.Tests/bin/Debug/net5.0
