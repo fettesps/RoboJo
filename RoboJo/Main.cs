@@ -54,7 +54,7 @@ namespace RoboJo
             try
             {
                 // Get Records
-                IEnumerable<Entry> entries =_dal.LoadEntries_fromDB();
+                IEnumerable<Entry> entries =_dal.LoadEntries();
                 entries = entries.OrderBy(c => c.StartTime);
 
                 // Add to Grid
@@ -104,7 +104,7 @@ namespace RoboJo
                 TimeSpan tsHours = ts.RoundToNearestMinutes(15);
 
                 // Save it to the database
-                long lngInsertedId = _dal.WriteEntries_toDB(dtStart, DateTime.Now, strDetails, tsHours, true);
+                long lngInsertedId = _dal.WriteEntries(dtStart, DateTime.Now, strDetails, tsHours, true);
 
                 // Add to grid
                 AddToGrid(lngInsertedId, strDetails, booBillable, dtStart, dtEnd, tsHours);
@@ -157,7 +157,7 @@ namespace RoboJo
                 #region First Record 
 
                 // Save it to the database
-                long lngInsertedId_First = _dal.WriteEntries_toDB(StartTime_First, EndTime_First, UserInput_First, ts_First, Billable_First);
+                long lngInsertedId_First = _dal.WriteEntries(StartTime_First, EndTime_First, UserInput_First, ts_First, Billable_First);
 
                 // Add to grid
                 AddToGrid(lngInsertedId_First, UserInput_First, Billable_First, StartTime_First, EndTime_First, ts_First);
@@ -167,7 +167,7 @@ namespace RoboJo
                 #region Second Record
 
                 // Save it to the database
-                long lngInsertedId_Second = _dal.WriteEntries_toDB(StartTime_Second, EndTime_Second, UserInput_Second, ts_Second, Billable_Second);
+                long lngInsertedId_Second = _dal.WriteEntries(StartTime_Second, EndTime_Second, UserInput_Second, ts_Second, Billable_Second);
 
                 // Add to grid
                 AddToGrid(lngInsertedId_Second, UserInput_Second, Billable_Second, StartTime_Second, EndTime_Second, ts_Second);
@@ -191,7 +191,7 @@ namespace RoboJo
         {
             try
             {
-                IEnumerable<Entry> entries = _dal.LoadEntries_fromDB();
+                IEnumerable<Entry> entries = _dal.LoadEntries();
 
                 TimeSpan tsHours;
                 TimeSpan tsHoursTotal = new TimeSpan();
@@ -285,7 +285,7 @@ namespace RoboJo
                                 timetrackerDataSet.AcceptChanges();
 
                                 // Delete the row in the database
-                                _dal.DeleteEntries_fromDB(intEntryId);
+                                _dal.DeleteEntries(intEntryId);
 
                                 // Add the Split Records
                                 SaveSplitTimeRecord(
@@ -320,7 +320,7 @@ namespace RoboJo
                 bool booSuccess = true;
 
                 // Clear it out first
-                _dal.ClearDb("entries");
+                _dal.ClearTable("entries");
 
                 // Go through all the table rows and save them to the database
                 if (timetrackerDataSet.Tables[4].Rows.Count > 0)
@@ -339,7 +339,7 @@ namespace RoboJo
                         TimeSpan.TryParse(row["hours"].ToString(), out TimeSpan tsHours);
                         var billable = row["billable"];
 
-                        long lngResult = _dal.WriteEntries_toDB(
+                        long lngResult = _dal.WriteEntries(
                             dtStartDate.Date.Add(dtStartTime.TimeOfDay), 
                             dtEndDate.Date.Add(dtEndTime.TimeOfDay), 
                             row["description"].ToString(), 
@@ -519,7 +519,7 @@ namespace RoboJo
         {
             try
             {
-                if (_dal.ClearDb("entries"))
+                if (_dal.ClearTable("entries"))
                 {
                     ClearDataGrid();
                     CalculateTotals();

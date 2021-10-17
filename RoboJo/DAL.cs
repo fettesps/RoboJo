@@ -15,7 +15,7 @@ namespace RoboJo
     {
         #region Entries
 
-        public IEnumerable<Entry> LoadEntries_fromDB()
+        public IEnumerable<Entry> LoadEntries()
         {
             String strReadStatement = "SELECT * " +
                                       "FROM entries";
@@ -44,7 +44,7 @@ namespace RoboJo
             }
         }
 
-        public long WriteEntries_toDB(DateTime? dtStart, DateTime? dtEnd, String strDescription, TimeSpan tsHours, bool booBillable)
+        public long WriteEntries(DateTime? dtStart, DateTime? dtEnd, String strDescription, TimeSpan tsHours, bool booBillable)
         {
             try
             {
@@ -76,7 +76,7 @@ namespace RoboJo
             }
         }
 
-        public bool DeleteEntries_fromDB(int entry_id)
+        public bool DeleteEntries(int entry_id)
         {
             try
             {
@@ -108,7 +108,7 @@ namespace RoboJo
 
         #region Clients
 
-        public IEnumerable<Client> LoadClients_fromDB()
+        public IEnumerable<Client> LoadClients()
         {
             String strReadStatement = "SELECT * " +
                                       "FROM Clients";
@@ -133,7 +133,7 @@ namespace RoboJo
             }
         }
 
-        public long WriteClient_toDB(String strName)
+        public long WriteClient(String strName)
         {
             try
             {
@@ -161,7 +161,7 @@ namespace RoboJo
             }
         }
 
-        public bool DeleteClient_fromDB(int client_id)
+        public bool DeleteClient(int client_id)
         {
             try
             {
@@ -193,6 +193,20 @@ namespace RoboJo
 
         #region Projects
 
+        public bool DeleteProjects(int project_id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<Project> LoadProjects()
+        {
+            throw new NotImplementedException();
+        }
+
+        public long WriteProject(string strName)
+        {
+            throw new NotImplementedException();
+        }
 
         #endregion
 
@@ -235,6 +249,16 @@ namespace RoboJo
             {
                 throw;
             }
+        }
+
+        public bool ClearDb()
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool ClearTable(string strTable)
+        {
+            throw new NotImplementedException();
         }
 
         #endregion

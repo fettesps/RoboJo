@@ -70,7 +70,7 @@ namespace RoboJo
             {
                 clientsDataSet.AcceptChanges();
 
-                _dal.WriteClient_toDB(txtClientName.Text);
+                _dal.WriteClient(txtClientName.Text);
 
                 DataRow dr = clientsDataSet.Tables[0].NewRow();
 
@@ -181,7 +181,7 @@ namespace RoboJo
 
                     var client_id = dgClients.Rows[selectedRowIndex].Cells[0].Value;
 
-                    _dal.DeleteClient_fromDB((int)client_id);
+                    _dal.DeleteClient((int)client_id);
                 }
             }
             catch (Exception)
@@ -200,7 +200,7 @@ namespace RoboJo
             try
             {
                 // Get Records
-                IEnumerable<Client> clients = _dal.LoadClients_fromDB();
+                IEnumerable<Client> clients = _dal.LoadClients();
                 clients = clients.OrderBy(c => c.Client_ID);
 
                 // Add to Grid

@@ -584,7 +584,6 @@
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem_Setup;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem_Projects;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem_Clients;
-        private System.Windows.Forms.DataGridViewTextBoxColumn idDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn start_date;
         private System.Windows.Forms.DataGridViewTextBoxColumn starttimeDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn end_date;
