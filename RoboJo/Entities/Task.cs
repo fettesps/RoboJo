@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace RoboJo.Entities
 {
-    class Project
+    class Task
     {
-        public int Project_ID { get; set; }
+        public int Task_ID { get; set; }
         public String Name { get; set; }
-        public String Manager { get; set; }
-        public String Lead { get; set; }
+        public String details { get; set; }
+        public int Project_ID { get; set; }
     }
 }

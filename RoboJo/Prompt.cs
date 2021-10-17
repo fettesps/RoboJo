@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -20,10 +21,38 @@ namespace RoboJo
         }
         bool _booSaveInput = false;
         eButtons _ButtonPressed;
+        private IDAL _dal;
 
         public frmPrompt()
         {
+            _dal = Factory.OpenDB();
             InitializeComponent();
+            BindControls();
+        }
+
+        private void BindControls()
+        {
+            try
+            {
+                cboClient.DataSource = _dal.LoadClients().ToList();
+                cboClient.ValueMember = "client_id";
+                cboClient.DisplayMember = "name";
+                cboClient.SelectedValue = -1;
+
+                cboProject.DataSource = _dal.LoadProjects().ToList();
+                cboProject.ValueMember = "project_id";
+                cboProject.DisplayMember = "name";
+                cboProject.SelectedValue = -1;
+
+                cboTasks.DataSource = _dal.LoadTasks().ToList();
+                cboTasks.ValueMember = "task_id";
+                cboTasks.DisplayMember = "Name";
+                cboTasks.SelectedValue = -1;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
 
         #region Controls 
@@ -40,7 +69,6 @@ namespace RoboJo
             }
             catch (Exception)
             {
-
                 throw;
             }
         }
@@ -101,7 +129,6 @@ namespace RoboJo
             }
             catch (Exception)
             {
-
                 throw;
             }
         }
@@ -153,7 +180,6 @@ namespace RoboJo
                 return _booSaveInput;
             }
         }
-
 
         public eButtons ButtonPressed
         {
@@ -208,6 +234,30 @@ namespace RoboJo
             set
             {
                 chkRunEndTimer.Checked = value;
+            }
+        }
+
+        public String Project
+        {
+            get
+            {
+                return cboProject.SelectedValue.ToString();
+            }
+        }
+
+        public String Client
+        {
+            get
+            {
+                return cboClient.SelectedValue.ToString();
+            }
+        }
+
+        public String Task
+        {
+            get
+            {
+                return cboTasks.SelectedValue.ToString();
             }
         }
 

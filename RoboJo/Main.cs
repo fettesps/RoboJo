@@ -58,7 +58,7 @@ namespace RoboJo
                 entries = entries.OrderBy(c => c.StartTime);
 
                 // Add to Grid
-                foreach(Entry entry in entries)
+                foreach (Entry entry in entries)
                 {
                     timetrackerDataSet.AcceptChanges();
 
@@ -86,9 +86,9 @@ namespace RoboJo
                 
                 CalculateTotals();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw;
+                MessageBox.Show(ex.ToString(), "Exception", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -117,9 +117,9 @@ namespace RoboJo
                 lblCurrentEntryValue.Text = strDetails;
                 tsslCurrentEntryVal.Text = strDetails;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw;
+                MessageBox.Show(ex.ToString(), "Exception", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -143,9 +143,9 @@ namespace RoboJo
                 timetrackerDataSet.timesheet.AddtimesheetRow((timetrackerDataSet.timesheetRow)dr);
                 timetrackerDataSet.AcceptChanges();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw;
+                MessageBox.Show(ex.ToString(), "Exception", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -181,9 +181,9 @@ namespace RoboJo
 
                 #endregion
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw;
+                MessageBox.Show(ex.ToString(), "Exception", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -207,9 +207,9 @@ namespace RoboJo
 
                 tsslTotal.Text = "Total: " + tsHoursTotal.ToString();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw;
+                MessageBox.Show(ex.ToString(), "Exception", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -222,9 +222,9 @@ namespace RoboJo
                 timetrackerDataSet.Tables[4].Clear();
                 timetrackerDataSet.AcceptChanges();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw;
+                MessageBox.Show(ex.ToString(), "Exception", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -271,7 +271,7 @@ namespace RoboJo
                         EndTime_Second = dtEndDate.Date.Add(dtEndTime.TimeOfDay)
                     };
 
-                    splitEntry.ShowDialog();
+                    splitEntry.ShowDialog(this);
                     
                     // After user has closed the dialog
                     switch (splitEntry.ButtonPressed)
@@ -307,9 +307,9 @@ namespace RoboJo
                     MessageBox.Show("No Row Selected", "Please make sure to select a row or a cell.", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw;
+                MessageBox.Show(ex.ToString(), "Exception", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -357,9 +357,10 @@ namespace RoboJo
 
                 return booSuccess;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw;
+                MessageBox.Show(ex.ToString(), "Exception", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
             }
         }      
 
@@ -383,7 +384,7 @@ namespace RoboJo
                 {
                     _booInputActive = true;
                     PlayChime();
-                    timePrompt.ShowDialog();
+                    timePrompt.ShowDialog(this);
                 }
                 else
                 {
@@ -426,9 +427,9 @@ namespace RoboJo
                         break;
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw;
+                MessageBox.Show(ex.ToString(), "Exception", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -543,9 +544,9 @@ namespace RoboJo
             {
                 dgTimesheet.ClearSelection();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw;
+                MessageBox.Show(ex.ToString(), "Exception", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -753,7 +754,7 @@ namespace RoboJo
             try
             {
                 frmAboutBox ab = new frmAboutBox();
-                ab.ShowDialog();
+                ab.ShowDialog(this);
             }
             catch (Exception ex)
             {
@@ -778,7 +779,7 @@ namespace RoboJo
             try
             {
                 frmProjects proj = new frmProjects();
-                proj.ShowDialog();
+                proj.ShowDialog(this);
             }
             catch (Exception ex)
             {
@@ -791,7 +792,7 @@ namespace RoboJo
             try
             {
                 frmClients clients = new frmClients();
-                clients.ShowDialog();
+                clients.ShowDialog(this);
             }
             catch (Exception ex)
             {
@@ -803,8 +804,8 @@ namespace RoboJo
         {
             try
             {
-                //frmTasks tasks = new frmTasks();
-                //tasks.ShowDialog();
+                frmTasks tasks = new frmTasks();
+                tasks.ShowDialog(this);
             }
             catch (Exception ex)
             {

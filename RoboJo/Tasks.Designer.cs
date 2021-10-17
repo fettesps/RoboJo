@@ -1,6 +1,6 @@
 ﻿namespace RoboJo
 {
-    partial class frmProjects
+    partial class frmTasks
     {
         /// <summary>
         /// Required designer variable.
@@ -34,21 +34,21 @@
             this.btnSave = new System.Windows.Forms.Button();
             this.btnNext = new System.Windows.Forms.Button();
             this.btnPrev = new System.Windows.Forms.Button();
-            this.dgProjects = new System.Windows.Forms.DataGridView();
-            this.projectsBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.projectsDataSet = new RoboJo.timetrackerDataSet();
+            this.dgTasks = new System.Windows.Forms.DataGridView();
+            this.tasksBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.tasksDataSet = new RoboJo.timetrackerDataSet();
             this.btnCancel = new System.Windows.Forms.Button();
             this.btnOk = new System.Windows.Forms.Button();
-            this.txtProjectName = new System.Windows.Forms.TextBox();
-            this.lblProjectName = new System.Windows.Forms.Label();
-            this.txtProjectID = new System.Windows.Forms.TextBox();
-            this.lblProjectID = new System.Windows.Forms.Label();
+            this.txtTaskName = new System.Windows.Forms.TextBox();
+            this.lblTaskName = new System.Windows.Forms.Label();
+            this.txtTaskID = new System.Windows.Forms.TextBox();
+            this.lblTaskID = new System.Windows.Forms.Label();
             this.clientidDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.nameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgProjects)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.projectsBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.projectsDataSet)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgTasks)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tasksBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tasksDataSet)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
@@ -57,13 +57,13 @@
             this.panel1.Controls.Add(this.btnSave);
             this.panel1.Controls.Add(this.btnNext);
             this.panel1.Controls.Add(this.btnPrev);
-            this.panel1.Controls.Add(this.dgProjects);
+            this.panel1.Controls.Add(this.dgTasks);
             this.panel1.Controls.Add(this.btnCancel);
             this.panel1.Controls.Add(this.btnOk);
-            this.panel1.Controls.Add(this.txtProjectName);
-            this.panel1.Controls.Add(this.lblProjectName);
-            this.panel1.Controls.Add(this.txtProjectID);
-            this.panel1.Controls.Add(this.lblProjectID);
+            this.panel1.Controls.Add(this.txtTaskName);
+            this.panel1.Controls.Add(this.lblTaskName);
+            this.panel1.Controls.Add(this.txtTaskID);
+            this.panel1.Controls.Add(this.lblTaskID);
             this.panel1.Location = new System.Drawing.Point(12, 22);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(495, 278);
@@ -110,36 +110,36 @@
             this.btnPrev.UseVisualStyleBackColor = true;
             this.btnPrev.Click += new System.EventHandler(this.btnPrev_Click);
             // 
-            // dgProjects
+            // dgTasks
             // 
-            this.dgProjects.AllowUserToAddRows = false;
-            this.dgProjects.AllowUserToDeleteRows = false;
-            this.dgProjects.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.dgTasks.AllowUserToAddRows = false;
+            this.dgTasks.AllowUserToDeleteRows = false;
+            this.dgTasks.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.dgProjects.AutoGenerateColumns = false;
-            this.dgProjects.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgProjects.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dgTasks.AutoGenerateColumns = false;
+            this.dgTasks.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgTasks.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.clientidDataGridViewTextBoxColumn,
             this.nameDataGridViewTextBoxColumn});
-            this.dgProjects.DataSource = this.projectsBindingSource;
-            this.dgProjects.Location = new System.Drawing.Point(12, 65);
-            this.dgProjects.MultiSelect = false;
-            this.dgProjects.Name = "dgProjects";
-            this.dgProjects.ShowEditingIcon = false;
-            this.dgProjects.Size = new System.Drawing.Size(470, 168);
-            this.dgProjects.TabIndex = 22;
-            this.dgProjects.UserDeletingRow += new System.Windows.Forms.DataGridViewRowCancelEventHandler(this.dgProjects_UserDeletingRow);
+            this.dgTasks.DataSource = this.tasksBindingSource;
+            this.dgTasks.Location = new System.Drawing.Point(12, 65);
+            this.dgTasks.MultiSelect = false;
+            this.dgTasks.Name = "dgTasks";
+            this.dgTasks.ShowEditingIcon = false;
+            this.dgTasks.Size = new System.Drawing.Size(470, 168);
+            this.dgTasks.TabIndex = 22;
+            this.dgTasks.UserDeletingRow += new System.Windows.Forms.DataGridViewRowCancelEventHandler(this.dgTasks_UserDeletingRow);
             // 
-            // projectsBindingSource
+            // tasksBindingSource
             // 
-            this.projectsBindingSource.DataMember = "projects";
-            this.projectsBindingSource.DataSource = this.projectsDataSet;
+            this.tasksBindingSource.DataMember = "tasks";
+            this.tasksBindingSource.DataSource = this.tasksDataSet;
             // 
-            // projectsDataSet
+            // tasksDataSet
             // 
-            this.projectsDataSet.DataSetName = "projectsDataSet";
-            this.projectsDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            this.tasksDataSet.DataSetName = "tasksDataSet";
+            this.tasksDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
             // btnCancel
             // 
@@ -161,44 +161,44 @@
             this.btnOk.UseVisualStyleBackColor = true;
             this.btnOk.Click += new System.EventHandler(this.btnOk_Click);
             // 
-            // txtProjectName
+            // txtTaskName
             // 
-            this.txtProjectName.Enabled = false;
-            this.txtProjectName.Location = new System.Drawing.Point(72, 39);
-            this.txtProjectName.Name = "txtProjectName";
-            this.txtProjectName.Size = new System.Drawing.Size(219, 20);
-            this.txtProjectName.TabIndex = 12;
+            this.txtTaskName.Enabled = false;
+            this.txtTaskName.Location = new System.Drawing.Point(72, 39);
+            this.txtTaskName.Name = "txtTaskName";
+            this.txtTaskName.Size = new System.Drawing.Size(219, 20);
+            this.txtTaskName.TabIndex = 12;
             // 
-            // lblProjectName
+            // lblTaskName
             // 
-            this.lblProjectName.AutoSize = true;
-            this.lblProjectName.Location = new System.Drawing.Point(28, 42);
-            this.lblProjectName.Name = "lblProjectName";
-            this.lblProjectName.Size = new System.Drawing.Size(38, 13);
-            this.lblProjectName.TabIndex = 11;
-            this.lblProjectName.Text = "Name:";
+            this.lblTaskName.AutoSize = true;
+            this.lblTaskName.Location = new System.Drawing.Point(28, 42);
+            this.lblTaskName.Name = "lblTaskName";
+            this.lblTaskName.Size = new System.Drawing.Size(38, 13);
+            this.lblTaskName.TabIndex = 11;
+            this.lblTaskName.Text = "Name:";
             // 
-            // txtProjectID
+            // txtTaskID
             // 
-            this.txtProjectID.Enabled = false;
-            this.txtProjectID.Location = new System.Drawing.Point(72, 13);
-            this.txtProjectID.Name = "txtProjectID";
-            this.txtProjectID.Size = new System.Drawing.Size(71, 20);
-            this.txtProjectID.TabIndex = 1;
+            this.txtTaskID.Enabled = false;
+            this.txtTaskID.Location = new System.Drawing.Point(72, 13);
+            this.txtTaskID.Name = "txtTaskID";
+            this.txtTaskID.Size = new System.Drawing.Size(71, 20);
+            this.txtTaskID.TabIndex = 1;
             // 
-            // lblProjectID
+            // lblTaskID
             // 
-            this.lblProjectID.AutoSize = true;
-            this.lblProjectID.Location = new System.Drawing.Point(16, 16);
-            this.lblProjectID.Name = "lblProjectID";
-            this.lblProjectID.Size = new System.Drawing.Size(57, 13);
-            this.lblProjectID.TabIndex = 0;
-            this.lblProjectID.Text = "Project ID:";
+            this.lblTaskID.AutoSize = true;
+            this.lblTaskID.Location = new System.Drawing.Point(16, 16);
+            this.lblTaskID.Name = "lblTaskID";
+            this.lblTaskID.Size = new System.Drawing.Size(48, 13);
+            this.lblTaskID.TabIndex = 0;
+            this.lblTaskID.Text = "Task ID:";
             // 
             // clientidDataGridViewTextBoxColumn
             // 
-            this.clientidDataGridViewTextBoxColumn.DataPropertyName = "project_id";
-            this.clientidDataGridViewTextBoxColumn.HeaderText = "Project ID";
+            this.clientidDataGridViewTextBoxColumn.DataPropertyName = "task_id";
+            this.clientidDataGridViewTextBoxColumn.HeaderText = "Task ID";
             this.clientidDataGridViewTextBoxColumn.Name = "clientidDataGridViewTextBoxColumn";
             // 
             // nameDataGridViewTextBoxColumn
@@ -207,7 +207,7 @@
             this.nameDataGridViewTextBoxColumn.HeaderText = "Name";
             this.nameDataGridViewTextBoxColumn.Name = "nameDataGridViewTextBoxColumn";
             // 
-            // frmProjects
+            // frmTasks
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -216,13 +216,13 @@
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
-            this.Name = "frmProjects";
-            this.Text = "Projects";
+            this.Name = "frmTasks";
+            this.Text = "Tasks";
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgProjects)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.projectsBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.projectsDataSet)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgTasks)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tasksBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tasksDataSet)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -234,15 +234,15 @@
         private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.Button btnNext;
         private System.Windows.Forms.Button btnPrev;
-        private System.Windows.Forms.DataGridView dgProjects;
-        private System.Windows.Forms.BindingSource projectsBindingSource;
-        private timetrackerDataSet projectsDataSet;
+        private System.Windows.Forms.DataGridView dgTasks;
+        private System.Windows.Forms.BindingSource tasksBindingSource;
+        private timetrackerDataSet tasksDataSet;
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.Button btnOk;
-        private System.Windows.Forms.TextBox txtProjectName;
-        private System.Windows.Forms.Label lblProjectName;
-        private System.Windows.Forms.TextBox txtProjectID;
-        private System.Windows.Forms.Label lblProjectID;
+        private System.Windows.Forms.TextBox txtTaskName;
+        private System.Windows.Forms.Label lblTaskName;
+        private System.Windows.Forms.TextBox txtTaskID;
+        private System.Windows.Forms.Label lblTaskID;
         private System.Windows.Forms.DataGridViewTextBoxColumn clientidDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn nameDataGridViewTextBoxColumn;
     }

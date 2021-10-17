@@ -28,7 +28,7 @@ namespace RoboJo
         {
             try
             {
-                txtClient_ID.Text = "";
+                txtClientID.Text = "";
                 txtClientName.Text = "";
                 this.Close();
             }
@@ -54,8 +54,15 @@ namespace RoboJo
         {
             try
             {
-                txtClient_ID.Text = "";
+                // Estimate the next Insert ID
+                IEnumerable<Client> clients = _dal.LoadClients();
+                clients = clients.OrderBy(c => c.Client_ID);
+                int nextId = clients.LastOrDefault()?.Client_ID ?? 0;
+                nextId++;
+
+                txtClientID.Text = nextId.ToString();
                 txtClientName.Text = "";
+                txtClientName.Enabled = true;
                 btnSave.Enabled = true;
             }
             catch (Exception)
@@ -68,19 +75,50 @@ namespace RoboJo
         {
             try
             {
-                clientsDataSet.AcceptChanges();
+                if (!String.IsNullOrEmpty(txtClientID.Text))
+                {
+                    // Update Entry
+                    if (!String.IsNullOrEmpty(txtClientName.Text))
+                    {
+                        clientsDataSet.AcceptChanges();
 
-                _dal.WriteClient(txtClientName.Text);
+                        _dal.WriteClient(txtClientName.Text);
 
-                DataRow dr = clientsDataSet.Tables[0].NewRow();
+                        DataRow dr = clientsDataSet.Tables[0].NewRow();
 
-                dr["client_id"] = "0";
-                dr["name"] = txtClientName.Text;
+                        dr["client_id"] = txtClientID.Text;
+                        dr["name"] = txtClientName.Text;
 
-                clientsDataSet.clients.AddClientsRow((timetrackerDataSet.clientsRow)dr);
+                        clientsDataSet.clients.AddClientsRow((timetrackerDataSet.clientsRow)dr);
 
-                btnSave.Enabled = false;
-                clientsDataSet.AcceptChanges();
+                        btnSave.Enabled = false;
+                        txtClientName.Enabled = false;
+
+                        clientsDataSet.AcceptChanges();
+                    }
+                }
+                else
+                {
+                    // New Entry
+                    if (!String.IsNullOrEmpty(txtClientName.Text))
+                    {
+                        clientsDataSet.AcceptChanges();
+
+                        _dal.WriteClient(txtClientName.Text);
+
+                        DataRow dr = clientsDataSet.Tables[0].NewRow();
+
+                        dr["client_id"] = txtClientID.Text;
+                        dr["name"] = txtClientName.Text;
+
+                        clientsDataSet.clients.AddClientsRow((timetrackerDataSet.clientsRow)dr);
+
+                        btnSave.Enabled = false;
+                        txtClientName.Enabled = false;
+
+                        clientsDataSet.AcceptChanges();
+                    }
+                }
             }
             catch (Exception)
             {
@@ -109,7 +147,7 @@ namespace RoboJo
                     if(selectedRowIndex > 0) selectedRowIndex--;
                     dgClients.Rows[selectedRowIndex].Selected = true;
 
-                    txtClient_ID.Text = dgClients.Rows[selectedRowIndex].Cells[0].Value.ToString();
+                    txtClientID.Text = dgClients.Rows[selectedRowIndex].Cells[0].Value.ToString();
                     txtClientName.Text = dgClients.Rows[selectedRowIndex].Cells[1].Value.ToString();
                 }
             }
@@ -140,21 +178,9 @@ namespace RoboJo
                     if (selectedRowIndex < (dgClients.Rows.Count - 1)) selectedRowIndex++;
                     dgClients.Rows[selectedRowIndex].Selected = true;
 
-                    txtClient_ID.Text = dgClients.Rows[selectedRowIndex].Cells[0].Value.ToString();
+                    txtClientID.Text = dgClients.Rows[selectedRowIndex].Cells[0].Value.ToString();
                     txtClientName.Text = dgClients.Rows[selectedRowIndex].Cells[1].Value.ToString();
                 }
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-        }
-
-        private void dgClients_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
-        {
-            try
-            {
-                dgClients.ClearSelection();
             }
             catch (Exception)
             {
@@ -216,6 +242,10 @@ namespace RoboJo
                     clientsDataSet.clients.AddClientsRow((timetrackerDataSet.clientsRow)dr);
                     clientsDataSet.AcceptChanges();
                 }
+
+                // Load last entry
+                txtClientID.Text = clients.FirstOrDefault()?.Client_ID.ToString();
+                txtClientName.Text = clients.FirstOrDefault()?.Name;
             }
             catch (Exception)
             {
@@ -224,5 +254,43 @@ namespace RoboJo
         }
 
         #endregion
+
+        private void btnDelete_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnEdit_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (dgClients.SelectedRows.Count > 0 || dgClients.SelectedCells.Count > 0)
+                {
+                    // Get selected item
+                    int selectedRowIndex = 0;
+                    if (dgClients.SelectedRows.Count > 0)
+                    {
+                        selectedRowIndex = dgClients.SelectedRows[0].Index;
+                    }
+                    else
+                    {
+                        selectedRowIndex = dgClients.SelectedCells[0].RowIndex;
+                    }
+
+                    txtClientID.Text = dgClients.Rows[selectedRowIndex].Cells[0].Value.ToString();
+                    txtClientName.Text = dgClients.Rows[selectedRowIndex].Cells[1].Value.ToString();
+
+                    txtClientName.Enabled = true;
+                    btnEdit.Enabled = false;
+                    btnSave.Enabled = true;
+                    btnDelete.Enabled = false;
+                    btnNew.Enabled = false;
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
     }
 }

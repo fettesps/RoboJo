@@ -1143,13 +1143,13 @@ namespace RoboJo {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void AddprojectsRow(projectsRow row) {
+            public void AddProjectsRow(projectsRow row) {
                 this.Rows.Add(row);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public projectsRow AddprojectsRow(string name, string details, int client_id) {
+            public projectsRow AddProjectsRow(string name, string details, int client_id) {
                 projectsRow rowprojectsRow = ((projectsRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         null,

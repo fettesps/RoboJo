@@ -43,8 +43,10 @@
             this.btnOk = new System.Windows.Forms.Button();
             this.txtClientName = new System.Windows.Forms.TextBox();
             this.lblProjectName = new System.Windows.Forms.Label();
-            this.txtClient_ID = new System.Windows.Forms.TextBox();
+            this.txtClientID = new System.Windows.Forms.TextBox();
             this.lblClientID = new System.Windows.Forms.Label();
+            this.btnDelete = new System.Windows.Forms.Button();
+            this.btnEdit = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgClients)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.clientsBindingSource)).BeginInit();
@@ -53,6 +55,8 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.btnEdit);
+            this.panel1.Controls.Add(this.btnDelete);
             this.panel1.Controls.Add(this.btnNew);
             this.panel1.Controls.Add(this.btnSave);
             this.panel1.Controls.Add(this.btnNext);
@@ -62,7 +66,7 @@
             this.panel1.Controls.Add(this.btnOk);
             this.panel1.Controls.Add(this.txtClientName);
             this.panel1.Controls.Add(this.lblProjectName);
-            this.panel1.Controls.Add(this.txtClient_ID);
+            this.panel1.Controls.Add(this.txtClientID);
             this.panel1.Controls.Add(this.lblClientID);
             this.panel1.Location = new System.Drawing.Point(6, 5);
             this.panel1.Name = "panel1";
@@ -113,6 +117,7 @@
             // dgClients
             // 
             this.dgClients.AllowUserToAddRows = false;
+            this.dgClients.AllowUserToDeleteRows = false;
             this.dgClients.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
@@ -128,13 +133,12 @@
             this.dgClients.ShowEditingIcon = false;
             this.dgClients.Size = new System.Drawing.Size(470, 168);
             this.dgClients.TabIndex = 22;
-            this.dgClients.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.dgClients_DataBindingComplete);
             this.dgClients.UserDeletingRow += new System.Windows.Forms.DataGridViewRowCancelEventHandler(this.dgClients_UserDeletingRow);
             // 
             // clientidDataGridViewTextBoxColumn
             // 
             this.clientidDataGridViewTextBoxColumn.DataPropertyName = "client_id";
-            this.clientidDataGridViewTextBoxColumn.HeaderText = "Client_ID";
+            this.clientidDataGridViewTextBoxColumn.HeaderText = "Client ID";
             this.clientidDataGridViewTextBoxColumn.Name = "clientidDataGridViewTextBoxColumn";
             // 
             // nameDataGridViewTextBoxColumn
@@ -175,6 +179,7 @@
             // 
             // txtClientName
             // 
+            this.txtClientName.Enabled = false;
             this.txtClientName.Location = new System.Drawing.Point(72, 39);
             this.txtClientName.Name = "txtClientName";
             this.txtClientName.Size = new System.Drawing.Size(219, 20);
@@ -189,13 +194,13 @@
             this.lblProjectName.TabIndex = 11;
             this.lblProjectName.Text = "Name:";
             // 
-            // txtClient_ID
+            // txtClientID
             // 
-            this.txtClient_ID.Enabled = false;
-            this.txtClient_ID.Location = new System.Drawing.Point(72, 13);
-            this.txtClient_ID.Name = "txtClient_ID";
-            this.txtClient_ID.Size = new System.Drawing.Size(71, 20);
-            this.txtClient_ID.TabIndex = 1;
+            this.txtClientID.Enabled = false;
+            this.txtClientID.Location = new System.Drawing.Point(72, 13);
+            this.txtClientID.Name = "txtClientID";
+            this.txtClientID.Size = new System.Drawing.Size(71, 20);
+            this.txtClientID.TabIndex = 1;
             // 
             // lblClientID
             // 
@@ -205,6 +210,26 @@
             this.lblClientID.Size = new System.Drawing.Size(50, 13);
             this.lblClientID.TabIndex = 0;
             this.lblClientID.Text = "Client ID:";
+            // 
+            // btnDelete
+            // 
+            this.btnDelete.Location = new System.Drawing.Point(326, 32);
+            this.btnDelete.Name = "btnDelete";
+            this.btnDelete.Size = new System.Drawing.Size(75, 23);
+            this.btnDelete.TabIndex = 27;
+            this.btnDelete.Text = "Delete";
+            this.btnDelete.UseVisualStyleBackColor = true;
+            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
+            // 
+            // btnEdit
+            // 
+            this.btnEdit.Location = new System.Drawing.Point(326, 3);
+            this.btnEdit.Name = "btnEdit";
+            this.btnEdit.Size = new System.Drawing.Size(75, 23);
+            this.btnEdit.TabIndex = 28;
+            this.btnEdit.Text = "Edit";
+            this.btnEdit.UseVisualStyleBackColor = true;
+            this.btnEdit.Click += new System.EventHandler(this.btnEdit_Click);
             // 
             // frmClients
             // 
@@ -229,7 +254,7 @@
         #endregion
 
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.TextBox txtClient_ID;
+        private System.Windows.Forms.TextBox txtClientID;
         private System.Windows.Forms.Label lblClientID;
         private System.Windows.Forms.TextBox txtClientName;
         private System.Windows.Forms.Label lblProjectName;
@@ -244,5 +269,7 @@
         private System.Windows.Forms.Button btnNew;
         private System.Windows.Forms.DataGridViewTextBoxColumn clientidDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn nameDataGridViewTextBoxColumn;
+        private System.Windows.Forms.Button btnEdit;
+        private System.Windows.Forms.Button btnDelete;
     }
 }
