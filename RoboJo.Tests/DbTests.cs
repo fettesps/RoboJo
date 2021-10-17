@@ -11,6 +11,8 @@ namespace RoboJo.Tests
 {
     public class DbTests
     {
+        #region DB
+
         [Fact]
         public void Db_CanInstantiate()
         {
@@ -55,6 +57,10 @@ namespace RoboJo.Tests
             Assert.NotNull(str);
         }
 
+        #endregion
+
+        #region FakeDB
+
         [Fact]
         public void FakeDb_ReturnsRecords()
         {
@@ -81,11 +87,30 @@ namespace RoboJo.Tests
             Assert.IsType<Entry>(data.FirstOrDefault());
         }
 
+        #endregion
+
+        #region FakeDb2
+
+        [Fact]
+        public void FakeDb2_HasConnectionString()
+        {
+            // Arrange
+            IDAL _dal = new FakeDb2();
+
+            // Act
+            string str = _dal.GetConnectionString();
+
+            // Assert
+            Assert.NotEmpty(str);
+            Assert.NotNull(str);
+            Assert.True(str.Length > 0);
+        }
+
         [Fact]
         public void FakeDb2_CanAddRecord()
         {
             // Arrange
-            IDAL _dal = Factory.OpenDB();
+            IDAL _dal = new FakeDb2();
 
             // Act
             var data = _dal.WriteToDb(new DateTime(2021, 10, 9, 9, 0, 0, 0), new DateTime(2021, 10, 9, 10, 0, 0, 0), "Starting the day", new TimeSpan(1, 0, 0), true);
@@ -98,7 +123,7 @@ namespace RoboJo.Tests
         public void FakeDb2_CanDeleteRecord()
         {
             // Arrange
-            IDAL _dal = Factory.OpenDB();
+            IDAL _dal = new FakeDb2();
 
             // Act
             long lngId = _dal.WriteToDb(new DateTime(2021, 10, 9, 9, 0, 0, 0), new DateTime(2021, 10, 9, 10, 0, 0, 0), "Starting the day", new TimeSpan(1, 0, 0), true);
@@ -112,7 +137,7 @@ namespace RoboJo.Tests
         public void FakeDb2_ClearRecords()
         {
             // Arrange
-            IDAL _dal = Factory.OpenDB();
+            IDAL _dal = new FakeDb2();
 
             // Act
             var data = _dal.WriteToDb(new DateTime(2021, 10, 9, 9, 0, 0, 0), new DateTime(2021, 10, 9, 10, 0, 0, 0), "Starting the day", new TimeSpan(1, 0, 0), true);
@@ -121,9 +146,12 @@ namespace RoboJo.Tests
             var data4 = _dal.WriteToDb(new DateTime(2021, 10, 9, 12, 0, 0, 0), new DateTime(2021, 10, 9, 12, 30, 0, 0), "Lunch", new TimeSpan(0, 30, 0), false);
 
             bool booClear = _dal.ClearDb();
+            var records = _dal.ReadFromDb();
 
             // Assert
-            Assert.True(booClear);
+            Assert.True(booClear && records.Count() == 0);
         }
+
+        #endregion
     }
 }

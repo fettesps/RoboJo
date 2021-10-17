@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace RoboJo.Tests
 {
-    class FakeDb2
+    class FakeDb2 : IDAL
     {
         public IEnumerable<Entry> ReadFromDb()
         {
