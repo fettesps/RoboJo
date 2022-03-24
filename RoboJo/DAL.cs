@@ -11,7 +11,7 @@ using RoboJo.Entities;
 
 namespace RoboJo
 {
-    class DAL : IDAL
+    public class DAL : IDAL
     {
         public IEnumerable<Entry> ReadFromDb()
         {

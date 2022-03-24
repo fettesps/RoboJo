@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28307.852
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31702.278
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RoboJo", "RoboJo\RoboJo.csproj", "{4D7E43DF-1C5D-442D-8BDD-30EE387115DE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RoboJo.UnitTests", "RoboJo.UnitTests\RoboJo.UnitTests.csproj", "{1D62F5C7-70C8-4F1B-803A-BE973FBF2228}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{4D7E43DF-1C5D-442D-8BDD-30EE387115DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4D7E43DF-1C5D-442D-8BDD-30EE387115DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4D7E43DF-1C5D-442D-8BDD-30EE387115DE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1D62F5C7-70C8-4F1B-803A-BE973FBF2228}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1D62F5C7-70C8-4F1B-803A-BE973FBF2228}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1D62F5C7-70C8-4F1B-803A-BE973FBF2228}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1D62F5C7-70C8-4F1B-803A-BE973FBF2228}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

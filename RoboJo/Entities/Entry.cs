@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace RoboJo.Entities
 {
-    class Entry
+    public class Entry
     {
         public int Entry_ID { get; set; }
         public DateTime? StartTime { get; set; }
