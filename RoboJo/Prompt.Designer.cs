@@ -1,6 +1,6 @@
 ﻿namespace RoboJo
 {
-    partial class Prompt
+    partial class frmPrompt
     {
         /// <summary>
         /// Required designer variable.
@@ -30,6 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.btnSkip = new System.Windows.Forms.Button();
             this.chkRunEndTimer = new System.Windows.Forms.CheckBox();
             this.txtDuration = new System.Windows.Forms.TextBox();
             this.lblDuration = new System.Windows.Forms.Label();
@@ -43,7 +44,6 @@
             this.txtUserInput = new System.Windows.Forms.TextBox();
             this.lblUserInput = new System.Windows.Forms.Label();
             this.tmrPromptTicker = new System.Windows.Forms.Timer(this.components);
-            this.btnSkip = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -67,6 +67,16 @@
             this.panel1.Size = new System.Drawing.Size(495, 146);
             this.panel1.TabIndex = 0;
             // 
+            // btnSkip
+            // 
+            this.btnSkip.Location = new System.Drawing.Point(311, 116);
+            this.btnSkip.Name = "btnSkip";
+            this.btnSkip.Size = new System.Drawing.Size(75, 23);
+            this.btnSkip.TabIndex = 12;
+            this.btnSkip.Text = "Skip";
+            this.btnSkip.UseVisualStyleBackColor = true;
+            this.btnSkip.Click += new System.EventHandler(this.btnSkip_Click);
+            // 
             // chkRunEndTimer
             // 
             this.chkRunEndTimer.AutoSize = true;
@@ -88,6 +98,7 @@
             this.txtDuration.Size = new System.Drawing.Size(60, 20);
             this.txtDuration.TabIndex = 10;
             this.txtDuration.Text = "00:00:00";
+            this.txtDuration.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtDuration_KeyDown);
             // 
             // lblDuration
             // 
@@ -143,6 +154,8 @@
             this.dtpEndTime.Name = "dtpEndTime";
             this.dtpEndTime.Size = new System.Drawing.Size(102, 20);
             this.dtpEndTime.TabIndex = 4;
+            this.dtpEndTime.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dtpEndTime_KeyDown);
+            this.dtpEndTime.MouseDown += new System.Windows.Forms.MouseEventHandler(this.dtpEndTime_MouseDown);
             // 
             // dtpStartTime
             // 
@@ -151,6 +164,7 @@
             this.dtpStartTime.Name = "dtpStartTime";
             this.dtpStartTime.Size = new System.Drawing.Size(102, 20);
             this.dtpStartTime.TabIndex = 3;
+            this.dtpStartTime.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dtpStartTime_KeyDown);
             // 
             // chkBillable
             // 
@@ -188,17 +202,7 @@
             this.tmrPromptTicker.Interval = 500;
             this.tmrPromptTicker.Tick += new System.EventHandler(this.tmrPromptTicker_Tick);
             // 
-            // btnSkip
-            // 
-            this.btnSkip.Location = new System.Drawing.Point(311, 116);
-            this.btnSkip.Name = "btnSkip";
-            this.btnSkip.Size = new System.Drawing.Size(75, 23);
-            this.btnSkip.TabIndex = 12;
-            this.btnSkip.Text = "Skip";
-            this.btnSkip.UseVisualStyleBackColor = true;
-            this.btnSkip.Click += new System.EventHandler(this.btnSkip_Click);
-            // 
-            // Prompt
+            // frmPrompt
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -206,7 +210,8 @@
             this.ControlBox = false;
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
-            this.Name = "Prompt";
+            this.MaximizeBox = false;
+            this.Name = "frmPrompt";
             this.Text = "Time Entry";
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();

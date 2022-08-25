@@ -7,7 +7,8 @@ namespace RoboJo
     interface IDAL
     {
         bool ClearDb();
+        bool DeleteFromDb(int entry_id);
         IEnumerable<Entry> ReadFromDb();
-        bool WriteToDb(DateTime? dtStart, DateTime? dtEnd, string strDescription, TimeSpan tsHours, bool booBillable);
+        long WriteToDb(DateTime? dtStart, DateTime? dtEnd, string strDescription, TimeSpan tsHours, bool booBillable);
     }
 }

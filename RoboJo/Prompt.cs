@@ -10,9 +10,18 @@ using System.Windows.Forms;
 
 namespace RoboJo
 {
-    public partial class Prompt : Form
+    public partial class frmPrompt : Form
     {
-        public Prompt()
+        public enum eButtons
+        {
+            Cancel,
+            Skip,
+            Ok
+        }
+        bool _booSaveInput = false;
+        eButtons _ButtonPressed;
+
+        public frmPrompt()
         {
             InitializeComponent();
         }
@@ -25,6 +34,8 @@ namespace RoboJo
             {
                 txtUserInput.Text = "";
                 txtDuration.Text = "00:00:00";
+                _booSaveInput = false;
+                _ButtonPressed = eButtons.Cancel;
                 this.Close();
             }
             catch (Exception)
@@ -34,10 +45,26 @@ namespace RoboJo
             }
         }
 
+        private void btnSkip_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                _booSaveInput = false;
+                _ButtonPressed = eButtons.Skip;
+                this.Close();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
         private void btnOk_Click(object sender, EventArgs e)
         {
             try
             {
+                _booSaveInput = true;
+                _ButtonPressed = eButtons.Ok;
                 this.Close();
             }
             catch (Exception)
@@ -67,24 +94,69 @@ namespace RoboJo
         {
             try
             {
-                if (e.KeyCode == Keys.Enter)
+                if (e.KeyCode == Keys.Enter && !String.IsNullOrEmpty(txtUserInput.Text))
                 {
                     btnOk_Click(sender, e);
                 }
             }
             catch (Exception)
             {
-
                 throw;
             }
         }
 
-
-        private void btnSkip_Click(object sender, EventArgs e)
+        private void dtpEndTime_MouseDown(object sender, MouseEventArgs e)
         {
             try
             {
-                this.Close();
+                chkRunEndTimer.Checked = false;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        private void dtpEndTime_KeyDown(object sender, KeyEventArgs e)
+        {
+            try
+            {
+                chkRunEndTimer.Checked = false;
+
+                if (e.KeyCode == Keys.Enter && !String.IsNullOrEmpty(txtUserInput.Text))
+                {
+                    btnOk_Click(sender, e);
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        private void dtpStartTime_KeyDown(object sender, KeyEventArgs e)
+        {
+            try
+            {
+                if (e.KeyCode == Keys.Enter && !String.IsNullOrEmpty(txtUserInput.Text))
+                {
+                    btnOk_Click(sender, e);
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        private void txtDuration_KeyDown(object sender, KeyEventArgs e)
+        {
+            try
+            {
+                if (e.KeyCode == Keys.Enter && !String.IsNullOrEmpty(txtUserInput.Text))
+                {
+                    btnOk_Click(sender, e);
+                }
             }
             catch (Exception)
             {
@@ -105,6 +177,23 @@ namespace RoboJo
             set 
             {
                 txtUserInput.Text = value; 
+            }
+        }
+
+        public bool SaveInput
+        {
+            get
+            {
+                return _booSaveInput;
+            }
+        }
+
+
+        public eButtons ButtonPressed
+        {
+            get
+            {
+                return _ButtonPressed;
             }
         }
 
