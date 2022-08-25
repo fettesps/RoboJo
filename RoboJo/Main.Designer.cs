@@ -31,6 +31,10 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMain));
             this.notifyIcon = new System.Windows.Forms.NotifyIcon(this.components);
+            this.contextMenuNotification = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.startToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.stopToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.logNowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cboPromptEveryValue = new System.Windows.Forms.ComboBox();
             this.lblPromptEvery = new System.Windows.Forms.Label();
             this.lblNextEntryInValue = new System.Windows.Forms.Label();
@@ -41,7 +45,9 @@
             this.tmrPrompt = new System.Windows.Forms.Timer(this.components);
             this.dgTimesheet = new System.Windows.Forms.DataGridView();
             this.idDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.start_date = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.starttimeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.end_date = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.endtimeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.descriptionDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.billableDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewCheckBoxColumn();
@@ -61,6 +67,7 @@
             this.toolStripMenuItem_Start = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem_Stop = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem_LogNow = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem_Split = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem_Resave = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem_Clear = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
@@ -70,6 +77,7 @@
             this.lblDate_Label = new System.Windows.Forms.Label();
             this.lblDate_Value = new System.Windows.Forms.Label();
             this.btnMultiButton = new System.Windows.Forms.Button();
+            this.contextMenuNotification.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgTimesheet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.timesheetBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.timetrackerDataSet)).BeginInit();
@@ -82,9 +90,40 @@
             this.notifyIcon.BalloonTipIcon = System.Windows.Forms.ToolTipIcon.Info;
             this.notifyIcon.BalloonTipText = "RoboJo is still running!";
             this.notifyIcon.BalloonTipTitle = "RoboJo";
+            this.notifyIcon.ContextMenuStrip = this.contextMenuNotification;
             this.notifyIcon.Icon = ((System.Drawing.Icon)(resources.GetObject("notifyIcon.Icon")));
             this.notifyIcon.Visible = true;
             this.notifyIcon.DoubleClick += new System.EventHandler(this.notifyIcon_DoubleClick);
+            // 
+            // contextMenuNotification
+            // 
+            this.contextMenuNotification.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.startToolStripMenuItem,
+            this.stopToolStripMenuItem,
+            this.logNowToolStripMenuItem});
+            this.contextMenuNotification.Name = "contextMenuNotification";
+            this.contextMenuNotification.Size = new System.Drawing.Size(123, 70);
+            // 
+            // startToolStripMenuItem
+            // 
+            this.startToolStripMenuItem.Name = "startToolStripMenuItem";
+            this.startToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
+            this.startToolStripMenuItem.Text = "Start";
+            this.startToolStripMenuItem.Click += new System.EventHandler(this.startToolStripMenuItem_Click);
+            // 
+            // stopToolStripMenuItem
+            // 
+            this.stopToolStripMenuItem.Name = "stopToolStripMenuItem";
+            this.stopToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
+            this.stopToolStripMenuItem.Text = "Stop";
+            this.stopToolStripMenuItem.Click += new System.EventHandler(this.stopToolStripMenuItem_Click);
+            // 
+            // logNowToolStripMenuItem
+            // 
+            this.logNowToolStripMenuItem.Name = "logNowToolStripMenuItem";
+            this.logNowToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
+            this.logNowToolStripMenuItem.Text = "Log Now";
+            this.logNowToolStripMenuItem.Click += new System.EventHandler(this.logNowToolStripMenuItem_Click);
             // 
             // cboPromptEveryValue
             // 
@@ -171,7 +210,9 @@
             this.dgTimesheet.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgTimesheet.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.idDataGridViewTextBoxColumn,
+            this.start_date,
             this.starttimeDataGridViewTextBoxColumn,
+            this.end_date,
             this.endtimeDataGridViewTextBoxColumn,
             this.descriptionDataGridViewTextBoxColumn,
             this.billableDataGridViewTextBoxColumn,
@@ -181,6 +222,7 @@
             this.dgTimesheet.Name = "dgTimesheet";
             this.dgTimesheet.Size = new System.Drawing.Size(797, 419);
             this.dgTimesheet.TabIndex = 21;
+            this.dgTimesheet.UserDeletingRow += new System.Windows.Forms.DataGridViewRowCancelEventHandler(this.dgTimesheet_UserDeletingRow);
             // 
             // idDataGridViewTextBoxColumn
             // 
@@ -189,11 +231,25 @@
             this.idDataGridViewTextBoxColumn.Name = "idDataGridViewTextBoxColumn";
             this.idDataGridViewTextBoxColumn.Visible = false;
             // 
+            // start_date
+            // 
+            this.start_date.DataPropertyName = "start_date";
+            this.start_date.HeaderText = "Start Date";
+            this.start_date.Name = "start_date";
+            this.start_date.Visible = false;
+            // 
             // starttimeDataGridViewTextBoxColumn
             // 
             this.starttimeDataGridViewTextBoxColumn.DataPropertyName = "start_time";
             this.starttimeDataGridViewTextBoxColumn.HeaderText = "Start Time";
             this.starttimeDataGridViewTextBoxColumn.Name = "starttimeDataGridViewTextBoxColumn";
+            // 
+            // end_date
+            // 
+            this.end_date.DataPropertyName = "end_date";
+            this.end_date.HeaderText = "End Date";
+            this.end_date.Name = "end_date";
+            this.end_date.Visible = false;
             // 
             // endtimeDataGridViewTextBoxColumn
             // 
@@ -305,6 +361,7 @@
             this.toolStripMenuItem_Start,
             this.toolStripMenuItem_Stop,
             this.toolStripMenuItem_LogNow,
+            this.toolStripMenuItem_Split,
             this.toolStripMenuItem_Resave,
             this.toolStripMenuItem_Clear,
             this.toolStripSeparator2,
@@ -333,6 +390,13 @@
             this.toolStripMenuItem_LogNow.Size = new System.Drawing.Size(150, 22);
             this.toolStripMenuItem_LogNow.Text = "&Log Now";
             this.toolStripMenuItem_LogNow.Click += new System.EventHandler(this.toolStripMenuItem_LogNow_Click);
+            // 
+            // toolStripMenuItem_Split
+            // 
+            this.toolStripMenuItem_Split.Name = "toolStripMenuItem_Split";
+            this.toolStripMenuItem_Split.Size = new System.Drawing.Size(150, 22);
+            this.toolStripMenuItem_Split.Text = "Split Entry";
+            this.toolStripMenuItem_Split.Click += new System.EventHandler(this.toolStripMenuItem_Split_Click);
             // 
             // toolStripMenuItem_Resave
             // 
@@ -434,7 +498,9 @@
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "frmMain";
             this.Text = "RoboJo Time Tracker";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmMain_FormClosing);
             this.Resize += new System.EventHandler(this.frmMain_Resize);
+            this.contextMenuNotification.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgTimesheet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.timesheetBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.timetrackerDataSet)).EndInit();
@@ -468,12 +534,6 @@
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel;
         private System.Windows.Forms.ToolStripStatusLabel tsslCurrentEntry;
         private System.Windows.Forms.ToolStripStatusLabel tsslCurrentEntryVal;
-        private System.Windows.Forms.DataGridViewTextBoxColumn idDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn starttimeDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn endtimeDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn descriptionDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn billableDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn hoursDataGridViewTextBoxColumn;
         private System.Windows.Forms.ToolStripStatusLabel tsslTotal;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
@@ -489,6 +549,19 @@
         private System.Windows.Forms.Label lblDate_Value;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem_LogNow;
         private System.Windows.Forms.Button btnMultiButton;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem_Split;
+        private System.Windows.Forms.DataGridViewTextBoxColumn idDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn start_date;
+        private System.Windows.Forms.DataGridViewTextBoxColumn starttimeDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn end_date;
+        private System.Windows.Forms.DataGridViewTextBoxColumn endtimeDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn descriptionDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn billableDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn hoursDataGridViewTextBoxColumn;
+        private System.Windows.Forms.ContextMenuStrip contextMenuNotification;
+        private System.Windows.Forms.ToolStripMenuItem startToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem stopToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem logNowToolStripMenuItem;
     }
 }
 

@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 namespace RoboJo
 {
-    public partial class Prompt : Form
+    public partial class frmPrompt : Form
     {
         public enum eButtons
         {
@@ -21,7 +21,7 @@ namespace RoboJo
         bool _booSaveInput = false;
         eButtons _ButtonPressed;
 
-        public Prompt()
+        public frmPrompt()
         {
             InitializeComponent();
         }
@@ -94,14 +94,13 @@ namespace RoboJo
         {
             try
             {
-                if (e.KeyCode == Keys.Enter)
+                if (e.KeyCode == Keys.Enter && !String.IsNullOrEmpty(txtUserInput.Text))
                 {
                     btnOk_Click(sender, e);
                 }
             }
             catch (Exception)
             {
-
                 throw;
             }
         }
@@ -123,6 +122,41 @@ namespace RoboJo
             try
             {
                 chkRunEndTimer.Checked = false;
+
+                if (e.KeyCode == Keys.Enter && !String.IsNullOrEmpty(txtUserInput.Text))
+                {
+                    btnOk_Click(sender, e);
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        private void dtpStartTime_KeyDown(object sender, KeyEventArgs e)
+        {
+            try
+            {
+                if (e.KeyCode == Keys.Enter && !String.IsNullOrEmpty(txtUserInput.Text))
+                {
+                    btnOk_Click(sender, e);
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        private void txtDuration_KeyDown(object sender, KeyEventArgs e)
+        {
+            try
+            {
+                if (e.KeyCode == Keys.Enter && !String.IsNullOrEmpty(txtUserInput.Text))
+                {
+                    btnOk_Click(sender, e);
+                }
             }
             catch (Exception)
             {
